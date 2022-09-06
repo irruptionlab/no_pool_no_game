@@ -2,7 +2,7 @@ import React from "react";
 import { Motion, spring } from "react-motion";
 import { getMatrixPosition, getVisualPosition } from "./helpers";
 import { TILE_COUNT, GRID_SIZE, BOARD_SIZE } from "./constants";
-import backgroundImg from './img/vitalik.jpg'
+import backgroundImg from './vitalik.jpg'
 
 function Tile(props) {
     const { tile, index, width, height, handleTileClick } = props;

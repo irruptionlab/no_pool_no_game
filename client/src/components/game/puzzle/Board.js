@@ -3,9 +3,8 @@ import Tile from "./Tile";
 import { TILE_COUNT, GRID_SIZE, BOARD_SIZE } from "./constants"
 import { canSwap, shuffle, swap, isSolved } from "./helpers"
 
-function Board() {
+function Board({ isStarted, setIsStarted }) {
     const [tiles, setTiles] = useState([...Array(TILE_COUNT).keys()]);
-    const [isStarted, setIsStarted] = useState(false);
     console.log('is started:', isStarted)
 
     const shuffleTiles = () => {
@@ -24,9 +23,6 @@ function Board() {
         swapTiles(index)
     }
 
-    const handleShuffleClick = () => {
-        shuffleTiles()
-    }
 
     const handleStartClick = () => {
         shuffleTiles()
@@ -40,6 +36,8 @@ function Board() {
         height: BOARD_SIZE,
     };
     const hasWon = isSolved(tiles)
+
+    if (hasWon) setIsStarted(false)
 
     return (
         <>
@@ -57,8 +55,9 @@ function Board() {
             </ul>
             {hasWon && isStarted && <div>Puzzle solved 🧠 🎉</div>}
             {!isStarted ?
-                (<button onClick={() => handleStartClick()}>Start game</button>) :
-                (<button onClick={() => handleShuffleClick()}>Restart game</button>)}
+                (<button className="button button-primary" onClick={() => handleStartClick()}>Start game</button>) :
+                <div>en cours</div>
+            }
         </>
     );
 }
