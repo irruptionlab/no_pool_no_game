@@ -1,3 +1,5 @@
+import Counter from "../components/Counter";
+
 function Play() {
 
     return (
@@ -19,16 +21,7 @@ function Play() {
                         </div>
                     </div>
                     <div className="text-block-14">Contest #327 ends in</div>
-                    <div className="div-block-10">
-                        <div className="count-down">0</div>
-                        <div className="count-down">5</div>
-                        <div className="text-block-11">:</div>
-                        <div className="count-down">3</div>
-                        <div className="count-down">6</div>
-                        <div className="text-block-11">:</div>
-                        <div className="count-down">2</div>
-                        <div className="count-down">9</div>
-                    </div>
+                    <Counter />
                     <div className="div-block-11">
                         <div className="hr-min-sec">HR</div>
                         <div className="hr-min-sec">MIN</div>

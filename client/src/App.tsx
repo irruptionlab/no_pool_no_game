@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Deposit from './pages/Deposit';
 import Play from './pages/Play';
 import Account from './pages/Account';
+import Footer from './components/Footer';
 
 function App() {
   const [page, setPage] = useState('deposit');
@@ -13,7 +14,8 @@ function App() {
       <div className="s-parateur"></div>
       {page === 'deposit' && <Deposit />}
       {page === 'play' && <Play />}
-      {page === 'account' && < Account />}
+      {page === 'account' && <Account />}
+      <Footer />
     </div>
   );
 }

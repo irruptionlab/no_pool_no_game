@@ -59,7 +59,6 @@ a {
   -webkit-transition: opacity 200ms ease;
   transition: opacity 200ms ease;
   color: #1a1b1f;
-  text-decoration: none;
 }
 
 a:hover {
@@ -109,6 +108,11 @@ figcaption {
   font-size: 14px;
   line-height: 26px;
   text-align: center;
+}
+
+
+.selected {
+  text-decoration: underline;
 }
 
 .divider {
@@ -532,8 +536,8 @@ figcaption {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-top: 70px;
-  padding-bottom: 70px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -1306,7 +1310,7 @@ figcaption {
 .body {
   background-color: transparent;
   background-image: url('./images/Fond.png');
-  background-size: cover;
+  background-size: auto;
   background-repeat: no-repeat;
   background-attachment: fixed;
   -o-object-fit: fill;
@@ -1421,8 +1425,10 @@ figcaption {
   border-radius: 45px;
   background-color: #000;
   font-family: Khand, sans-serif;
-  font-weight: 500;
+  color: #fff;
+  font-weight: 600;
   text-align: center;
+  text-decoration: none;
 }
 
 .button-2.buton-demo {
@@ -1444,6 +1450,7 @@ figcaption {
   font-family: Khand, sans-serif;
   font-size: 24px;
   font-weight: 600;
+  margin-right: 40px;
 }
 
 .text-block-4 {
@@ -1592,8 +1599,18 @@ figcaption {
 }
 
 .text-block-9 {
-  font-size: 30px;
+  width: 70px;
+  height: 40px;
+  background: transparent;
+  border: transparent;
+  font-size: 25px;
 }
+
+.text-block-9:focus {
+  outline: none;
+}
+
+
 
 .text-block-10 {
   margin-top: 10px;
@@ -2280,6 +2297,7 @@ figcaption {
   align-items: center;
   grid-column-gap: 6px;
   grid-row-gap: 6px;
+  text-decoration: none;
 }
 
 .nav-menu-wrapper {
@@ -2319,6 +2337,20 @@ figcaption {
   letter-spacing: 0.25px;
   text-decoration: none;
 }
+
+.nav-link-selected {
+  margin-right: 5px;
+  margin-left: 5px;
+  padding: 5px 10px;
+  color: #1a1b1f;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  text-decoration: underline;
+}
+
+
 
 .nav-link:hover {
   color: rgba(26, 27, 31, 0.75);
@@ -2838,6 +2870,8 @@ figcaption {
 
 .link-12 {
   display: inline;
+  text-decoration: underline;
+
 }
 
 @media screen and (max-width: 991px) {

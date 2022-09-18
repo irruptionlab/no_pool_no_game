@@ -33,11 +33,11 @@ function Account() {
                                 </li>
                             </ul>
                             <ul className="column-content">
-                                <li className="list-item-1">86<sup>th</sup></li>
-                                <li className="list-item-1">430<sup>th</sup></li>
-                                <li className="list-item-1">86<sup>th</sup></li>
-                                <li className="list-item-1 win-typo">3rd</li>
-                                <li className="list-item-1">430<sup>th</sup></li>
+                                <li className="list-item-1">86</li>
+                                <li className="list-item-1">430</li>
+                                <li className="list-item-1">86</li>
+                                <li className="list-item-1 win-typo">3</li>
+                                <li className="list-item-1">430</li>
                                 <li className="list-item-1 no-participation">n/a</li>
                             </ul>
                         </div>
