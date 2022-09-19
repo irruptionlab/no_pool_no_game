@@ -111,6 +111,28 @@ figcaption {
 }
 
 
+
+
+.contmemory {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1em;
+}
+
+/* .card {
+  background-image: './components/game/puzzle/npng.jpeg';
+  background-color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  transform: rotateY(180deg);
+  animation: 2s hideCard linear;
+  transition: transform 0.5s;
+} */
+
+
 .selected {
   text-decoration: underline;
 }
@@ -1546,6 +1568,7 @@ figcaption {
 .text-block-5 {
   padding-left: 5px;
   line-height: 16px;
+  cursor: pointer;
 }
 
 .div-block-7 {
@@ -1599,11 +1622,12 @@ figcaption {
 }
 
 .text-block-9 {
-  width: 70px;
+  width: 100px;
   height: 40px;
   background: transparent;
   border: transparent;
-  font-size: 25px;
+  font-size: 30px;
+  text-align: right;
 }
 
 .text-block-9:focus {

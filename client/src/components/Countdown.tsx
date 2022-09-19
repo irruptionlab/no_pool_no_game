@@ -1,7 +1,7 @@
-import { coutdownInit, useCountdown } from './utils/useCountdown';
+import { useCountdown } from './utils/useCountdown';
 
-const Counter = () => {
-    const [hours, minutes, seconds] = useCountdown(coutdownInit);
+const Countdown = () => {
+    const [hours, minutes, seconds] = useCountdown();
 
     return (
         <div className="div-block-10">
@@ -17,4 +17,4 @@ const Counter = () => {
     );
 }
 
-export default Counter;
+export default Countdown;

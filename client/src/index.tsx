@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -7,7 +8,7 @@ import { chain, WagmiConfig, createClient, configureChains, defaultChains } from
 import { publicProvider } from 'wagmi/providers/public';
 import { getDefaultClient, ConnectKitProvider } from "connectkit";
 
-const chains = [chain.goerli]
+const chains = [chain.goerli, chain.optimismGoerli, chain.polygonMumbai]
 const { provider } = configureChains(defaultChains, [publicProvider()])
 
 const client = createClient(
@@ -23,13 +24,15 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <WagmiConfig client={client}>
-      <ConnectKitProvider>
-        <App />
-      </ConnectKitProvider>
-    </WagmiConfig>
-  </React.StrictMode >
+  <BrowserRouter>
+    <React.StrictMode>
+      <WagmiConfig client={client}>
+        <ConnectKitProvider>
+          <App />
+        </ConnectKitProvider>
+      </WagmiConfig>
+    </React.StrictMode >
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

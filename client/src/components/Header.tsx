@@ -1,7 +1,9 @@
 import ConnectButton from "./ConnectButton";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
-function Header({ page, setPage }: { page: string, setPage: React.Dispatch<React.SetStateAction<string>> }) {
-
+function Header() {
+    const [page, setPage] = useState('deposit');
     return (
         <div className="navbar-no-shadow wf-section">
             <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" className="navbar-no-shadow-container w-nav">
@@ -13,22 +15,19 @@ function Header({ page, setPage }: { page: string, setPage: React.Dispatch<React
                         <nav role="navigation" className="nav-menu-wrapper w-nav-menu">
                             <ul className="nav-menu-2 w-list-unstyled">
                                 <li>
-                                    <a href="/" className={page === 'deposit' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
-                                        e.preventDefault()
+                                    <Link to="/" className={page === 'deposit' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
                                         setPage('deposit')
-                                    }}>Deposit</a>
+                                    }}>Deposit</Link>
                                 </li>
                                 <li>
-                                    <a href="/" className={page === 'play' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
-                                        e.preventDefault()
+                                    <Link to="/play" className={page === 'play' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
                                         setPage('play')
-                                    }}>Play</a>
+                                    }}>Play</Link>
                                 </li>
                                 <li>
-                                    <a href="/" className={page === 'account' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
-                                        e.preventDefault()
+                                    <Link to="/account" className={page === 'account' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
                                         setPage('account')
-                                    }}>Account</a>
+                                    }}>Account</Link>
                                 </li>
                                 <li className="mobile-margin-top-10">
                                     <div className="nav-button-wrapper">

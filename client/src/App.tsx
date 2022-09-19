@@ -1,22 +1,25 @@
-import { useState } from 'react';
 import './App.css';
 import Header from './components/Header';
 import Deposit from './pages/Deposit';
 import Play from './pages/Play';
 import Account from './pages/Account';
 import Footer from './components/Footer';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
-  const [page, setPage] = useState('deposit');
+
   return (
     <div className="body">
-      <Header page={page} setPage={setPage} />
+      <Header />
       <div className="s-parateur"></div>
-      {page === 'deposit' && <Deposit />}
-      {page === 'play' && <Play />}
-      {page === 'account' && <Account />}
+      <Routes>
+        <Route path="/" element={<Deposit />} />
+        <Route path="/play" element={<Play />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/about" />
+      </Routes>
       <Footer />
-    </div>
+    </div >
   );
 }
 
