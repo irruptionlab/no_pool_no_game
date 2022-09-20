@@ -570,6 +570,10 @@ figcaption {
   align-items: center;
 }
 
+.faucet {
+  padding-left: 20px;
+}
+
 .webflow-link {
   display: -webkit-box;
   display: -webkit-flex;

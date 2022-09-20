@@ -1,5 +1,5 @@
 import { useAccount, useContractRead } from 'wagmi'
-import { npngContract } from './utils/contractAddress'
+import { ethereum } from './utils/contractAddress'
 import ABI_Npng from './utils/ABI_Npng.json'
 import { ethers } from "ethers"
 import { useEffect, useState } from 'react'
@@ -14,7 +14,7 @@ function UserDeposit() {
     );
 
     useContractRead({
-        addressOrName: npngContract,
+        addressOrName: ethereum.npngContract,
         contractInterface: ABI_Npng,
         functionName: 'getMyBalance',
         chainId: 5,

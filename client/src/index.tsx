@@ -8,7 +8,7 @@ import { chain, WagmiConfig, createClient, configureChains, defaultChains } from
 import { publicProvider } from 'wagmi/providers/public';
 import { getDefaultClient, ConnectKitProvider } from "connectkit";
 
-const chains = [chain.goerli, chain.optimismGoerli, chain.polygonMumbai]
+const chains = [chain.goerli, chain.optimismGoerli, chain.polygonMumbai, chain.hardhat]
 const { provider } = configureChains(defaultChains, [publicProvider()])
 
 const client = createClient(

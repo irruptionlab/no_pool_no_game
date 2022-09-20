@@ -29,7 +29,7 @@ const data = [
         value: 80001,
         text: 'Polygon',
         icon: <img src="images/polygon-matic-logo-1DFDA3A3A8-seeklogo.com.png" loading="lazy" width="20" height="20" alt="" />
-    }
+    },
 ];
 
 function SelectNetwork() {
@@ -37,23 +37,23 @@ function SelectNetwork() {
     const { switchNetwork } = useSwitchNetwork()
     const [selectedOption, setSelectedOption] = useState(data[0]);
 
-    // useEffect(() => {
-    //     if (chain) {
-    //         switch (chain.id) {
-    //             case 5:
-    //                 setSelectedOption(data[0]);
-    //                 break;
-    //             case 420:
-    //                 setSelectedOption(data[1]);
-    //                 break;
-    //             case 8001:
-    //                 setSelectedOption(data[2]);
-    //                 break;
-    //             default:
-    //                 setSelectedOption(data[0]);
-    //         }
-    //     }
-    // }, [chain]);
+    useEffect(() => {
+        if (chain) {
+            switch (chain.id) {
+                case 5:
+                    setSelectedOption(data[0]);
+                    break;
+                case 420:
+                    setSelectedOption(data[1]);
+                    break;
+                case 8001:
+                    setSelectedOption(data[2]);
+                    break;
+                default:
+                    setSelectedOption(data[0]);
+            }
+        }
+    }, [chain]);
 
     const handleChange = e => {
         setSelectedOption(e);

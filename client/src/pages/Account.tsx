@@ -5,7 +5,6 @@ import { ethereum, optimism, polygon } from "../components/utils/contractAddress
 
 function Account() {
     return (
-
         <div className="section cc-store-home-wrap">
             <div className="container-1 cont1pageaccount w-container">
                 <div className="div-block-9">

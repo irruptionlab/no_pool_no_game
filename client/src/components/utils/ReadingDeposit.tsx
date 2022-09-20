@@ -1,13 +1,14 @@
 import ABI_ERC20 from "./ABI_ERC20.json"
 import { useContractRead, useAccount } from 'wagmi'
 import { ethers } from "ethers"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 interface Network {
     usdcContract: string,
     aavePoolContract: string,
     npngContract: string,
-    aUsdcContract: string
+    aUsdcContract: string,
+    npngToken: string
 }
 
 const ReadingDeposit = ({ network }: { network: Network }) => {

@@ -3,6 +3,10 @@ import Countdown from '../components/Countdown';
 import Prize from '../components/Prize';
 import UserBalance from '../components/UserBalance';
 import SelectNetwork from './SelectNetwork';
+import TestDeposit from '../components/test/TestDeposit'
+import TestAllowance from '../components/test/TestAllowance';
+import TestApprove from '../components/test/TestApprove';
+import TestWithdraw from '../components/test/TestWithdraw';
 
 function Deposit() {
     const [amount, setAmount] = useState(0.00)
@@ -51,6 +55,10 @@ function Deposit() {
                         <div className="text-block-10"><span className="highlight-text">Higher</span> is your deposit, <span className="highlight-text">higher</span> is your <span className="text-span-2">reward</span> ! *</div>
                         <div className="div-block-3"></div>
                         <a href="/" className="button-2 w-button">Deposit</a><img src="images/pointillés.png" loading="lazy" height="200" alt="" className="image-5" /><img src="../images/coin-2.png" loading="lazy" width="60" alt="" className="image-4" />
+                        {/* <TestAllowance /> */}
+                        <TestApprove amount={amount} />
+                        <TestDeposit amount={amount} />
+                        <TestWithdraw amount={amount} />
                     </div>
                 </div>
                 <div className="div-block-26">
