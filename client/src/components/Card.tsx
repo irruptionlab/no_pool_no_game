@@ -15,7 +15,7 @@ function Card(params: MemoryforCards) {
     const itemClass = params.item.stat ? " active " + params.item.stat : ""
 
     return (
-        <div className={"card" + itemClass} onClick={() => params.handleClick(params.id)}>
+        <div className={"cardMemory" + itemClass} onClick={() => params.handleClick(params.id)}>
             <img src={params.item.img} alt="" />
         </div>
     )

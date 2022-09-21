@@ -5,10 +5,10 @@ async function main() {
 
     console.log("Account balance:", (await deployer.getBalance()).toString());
 
-    const Token = await ethers.getContractFactory("DAI");
-    const token = await Token.deploy();
+    const Contract = await ethers.getContractFactory("NpngPool");
+    const contract = await Contract.deploy();
 
-    console.log("Token address:", token.address);
+    console.log("Contract address:", contract.address);
 
     // const Pool = await ethers.getContractFactory("Npng");
     // const pool = await Pool.deploy();

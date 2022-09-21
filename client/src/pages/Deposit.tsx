@@ -56,9 +56,9 @@ function Deposit() {
                         <div className="div-block-3"></div>
                         <a href="/" className="button-2 w-button">Deposit</a><img src="images/pointillés.png" loading="lazy" height="200" alt="" className="image-5" /><img src="../images/coin-2.png" loading="lazy" width="60" alt="" className="image-4" />
                         {/* <TestAllowance /> */}
-                        <TestApprove amount={amount} />
+                        {/* <TestApprove amount={amount} />
                         <TestDeposit amount={amount} />
-                        <TestWithdraw amount={amount} />
+                        <TestWithdraw amount={amount} /> */}
                     </div>
                 </div>
                 <div className="div-block-26">
