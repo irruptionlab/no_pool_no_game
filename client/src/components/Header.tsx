@@ -1,9 +1,8 @@
 import ConnectButton from "./ConnectButton";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 function Header() {
-    const [page, setPage] = useState('deposit');
+    const { pathname } = useLocation();
     return (
         <div className="navbar-no-shadow wf-section">
             <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" className="navbar-no-shadow-container w-nav">
@@ -15,18 +14,15 @@ function Header() {
                         <nav role="navigation" className="nav-menu-wrapper w-nav-menu">
                             <ul className="nav-menu-2 w-list-unstyled">
                                 <li>
-                                    <Link to="/" className={page === 'deposit' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
-                                        setPage('deposit')
+                                    <Link to="/" className={pathname === '/' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
                                     }}>Deposit</Link>
                                 </li>
                                 <li>
-                                    <Link to="/play" className={page === 'play' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
-                                        setPage('play')
+                                    <Link to="/play" className={pathname === '/play' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
                                     }}>Play</Link>
                                 </li>
                                 <li>
-                                    <Link to="/account" className={page === 'account' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
-                                        setPage('account')
+                                    <Link to="/account" className={pathname === '/account' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
                                     }}>Account</Link>
                                 </li>
                                 <li className="mobile-margin-top-10">

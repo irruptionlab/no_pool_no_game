@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Faucet from "./utils/Faucet";
 
 function Footer() {
@@ -18,11 +19,11 @@ function Footer() {
                 </div>
                 <div className="footer-wrapper-three">
                     <div className="footer-block-three">
-                        <a href="about.html" className="footer-link-three">About</a>
-                        <a href="no-pool-no-game-faq.html" className="footer-link-three">FAQ</a>
-                        <a href="no-pool-no-game-getting-started.html" className="footer-link-three">Getting started</a>
-                        <a href="governance.html" className="footer-link-three">Governance</a>
-                        <a href="polygon.html" className="footer-link-three">Networks</a>
+                        <Link to="/userguide" className="footer-link-three">About</Link>
+                        <Link to="/userguide/faq" className="footer-link-three">FAQ</Link>
+                        <Link to="/userguide/gettingstarted" className="footer-link-three">Getting started</Link>
+                        <Link to="/userguide/governance" className="footer-link-three">Governance</Link>
+                        <Link to="/network" className="footer-link-three">Networks</Link>
                     </div>
                     <div className="footer-social-block-three">
                         <a href="/" className="footer-social-link-three w-inline-block"><img src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124a705912aaeb_facebook%20big%20filled.svg" loading="lazy" alt="" /></a>
