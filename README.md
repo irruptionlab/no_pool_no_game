@@ -3,9 +3,9 @@ This repository has 2 folders:
 - client for Front End
 - core for Core Contracts
 
-##Roadmap
+## Roadmap
 
-###ShortTerm
+### ShortTerm
 - [x] Add First Game
 - [x] Add Deposit
 - [ ] Add Transaction for First Game
@@ -16,6 +16,6 @@ This repository has 2 folders:
 - [ ] Improve float
 - [ ] Refactoring CSS+HTML+Responsive
   
-###LongTerm
+### LongTerm
 - [ ] Migration on Starknet
 - [ ] Use core contracts for others services (Crowfounding, Sports bet, lobbying activites)
