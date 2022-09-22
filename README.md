@@ -1,15 +1,21 @@
 # NoPoolNoGame
 This repository has 2 folders:
 - client for Front End
-- -core for Core Contracts
+- core for Core Contracts
 
-ShortTerm
-- [] Refactoring CSS+HTML
-- [] Add Pending button
-- [] Add Toast
-- [] Add First Game
-- [] Add Modal
-- [] Improve float
-LongTerm
+##Roadmap
+
+###ShortTerm
+- [x] Add First Game
+- [x] Add Deposit
+- [ ] Add Transaction for First Game
+- [ ] Add Withdraw
+- [ ] Add Claims for Rewards
+- [ ] Add Pending button
+- [ ] Add Toast
+- [ ] Improve float
+- [ ] Refactoring CSS+HTML+Responsive
+  
+###LongTerm
 - [] Migration on Starknet
 - [] Use core contracts for others services (Crowfounding, Sports bet, lobbying activites)
