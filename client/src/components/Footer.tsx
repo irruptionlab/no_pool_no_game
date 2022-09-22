@@ -23,7 +23,7 @@ function Footer() {
                         <Link to="/userguide/faq" className="footer-link-three">FAQ</Link>
                         <Link to="/userguide/gettingstarted" className="footer-link-three">Getting started</Link>
                         <Link to="/userguide/governance" className="footer-link-three">Governance</Link>
-                        <Link to="/network" className="footer-link-three">Networks</Link>
+                        <Link to="/userguide/network" className="footer-link-three">Networks</Link>
                     </div>
                     <div className="footer-social-block-three">
                         <a href="/" className="footer-social-link-three w-inline-block"><img src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124a705912aaeb_facebook%20big%20filled.svg" loading="lazy" alt="" /></a>

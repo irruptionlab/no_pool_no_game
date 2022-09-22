@@ -7,7 +7,7 @@ function ModalPlay({ isStarted, setModalPlay }: { isStarted: boolean, setModalPl
         <div className="modal-wrapper">
             <div className="modal-outside-trigger" onClick={(e) => { setModalPlay(false) }}></div>
             <div className="modal-inner-wrapper play-modal">
-                <div className="div-block-41" onClick={(e) => { setModalPlay(false) }}><img src="images/close.png" loading="lazy" width="20" height="20" data-w-id="e5e81a6c-06db-46e2-ffd4-29cf01f749bb" alt="" className="image-18" /></div>
+                <div className="div-block-41" onClick={(e) => { setModalPlay(false) }}><img src="images/close.png" loading="lazy" width="20" height="20" alt="" className="image-18" /></div>
                 <div className="div-block-40">
                     <div className="text-block-45">
                         <Timer

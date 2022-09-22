@@ -14,16 +14,13 @@ function Header() {
                         <nav role="navigation" className="nav-menu-wrapper w-nav-menu">
                             <ul className="nav-menu-2 w-list-unstyled">
                                 <li>
-                                    <Link to="/" className={pathname === '/' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
-                                    }}>Deposit</Link>
+                                    <Link to="/" className={pathname === '/' ? 'nav-link-selected' : 'nav-link'}>Deposit</Link>
                                 </li>
                                 <li>
-                                    <Link to="/play" className={pathname === '/play' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
-                                    }}>Play</Link>
+                                    <Link to="/play" className={pathname === '/play' ? 'nav-link-selected' : 'nav-link'}>Play</Link>
                                 </li>
                                 <li>
-                                    <Link to="/account" className={pathname === '/account' ? 'nav-link-selected' : 'nav-link'} onClick={(e) => {
-                                    }}>Account</Link>
+                                    <Link to="/account" className={pathname === '/account' ? 'nav-link-selected' : 'nav-link'}>Account</Link>
                                 </li>
                                 <li className="mobile-margin-top-10">
                                     <div className="nav-button-wrapper">

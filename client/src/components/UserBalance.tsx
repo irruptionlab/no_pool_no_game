@@ -22,6 +22,7 @@ function UserBalance({ setAmount }: { setAmount: React.Dispatch<React.SetStateAc
         addressOrName: ethereum.usdcContract,
         contractInterface: ABI_ERC20,
         functionName: 'balanceOf',
+        watch: true,
         chainId: 5,
         args: [address],
         onSettled(data) {

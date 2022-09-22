@@ -4,10 +4,8 @@ import ModalPlay from "../components/ModalPlay"
 import Prize from "../components/Prize";
 
 function Play() {
-    const [isStarted, setIsStarted] = useState(false);
-    const [modalPlay, setModalPlay] = useState(false);
-
-
+    const [isStarted, setIsStarted] = useState(false)
+    const [modalPlay, setModalPlay] = useState(false)
 
     return (
         <div>
@@ -55,7 +53,12 @@ function Play() {
                             }>Play</a>
                             <img src="images/pointillés.png" loading="lazy" height="200" alt="" className="image-5 image5pageplay" />
                             <img src="images/coin-2.png" loading="lazy" width="60" alt="" className="image-4" />
-                            <a href="/" className="button-2 buton-demo w-button">Demo</a>
+                            <a href="/" className="button-2 buton-demo w-button" onClick={(e) => {
+                                e.preventDefault()
+                                setModalPlay(true)
+                                setIsStarted(true)
+                            }
+                            }>Demo</a>
                         </div>
                     </div>
                 </div>

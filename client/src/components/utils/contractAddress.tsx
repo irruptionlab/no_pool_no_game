@@ -6,7 +6,7 @@
 export const ethereum = {
     usdcContract: '0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43',
     aavePoolContract: '0x368EedF3f56ad10b9bC57eed4Dac65B26Bb667f6',
-    npngContract: '0x0C497c090f1D0B22a139365d12FeAa031717ABFB',
+    npngContract: '0xAB212ef6066c38c5C25aAe164FA4e1201b07440A',
     aUsdcContract: '0x1Ee669290939f8a8864497Af3BC83728715265FF',
     npngToken: '0x8ad6d963600F5c45DaBd5fF6faA04d51A6D549f0'
 }

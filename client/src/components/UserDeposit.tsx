@@ -18,6 +18,7 @@ function UserDeposit() {
         contractInterface: ABI_Npng,
         functionName: 'getMyBalance',
         chainId: 5,
+        watch: true,
         args: [address],
         onSettled(data) {
             setUserDeposit(parseFloat(ethers.utils.formatUnits(data?._hex, 6)))

@@ -28,7 +28,7 @@ const data = [
     {
         value: 80001,
         text: 'Polygon',
-        icon: <img src="images/polygon-matic-logo-1DFDA3A3A8-seeklogo.com.png" loading="lazy" width="20" height="20" alt="" />
+        icon: <img src="images/polygon-matic-logo.png" loading="lazy" width="20" height="20" alt="" />
     },
 ];
 

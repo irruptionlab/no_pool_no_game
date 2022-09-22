@@ -111,8 +111,8 @@
       ]
     },
     "/home/perrin/Project/NoPoolNoGame/core/contracts/NpngPool.sol": {
-      "lastModificationDate": 1663706842692,
-      "contentHash": "8d3d42af7a04b499e9bf88d4979fc67d",
+      "lastModificationDate": 1663707349285,
+      "contentHash": "dbf115f0e10994252c3d8418e54db645",
       "sourceName": "contracts/NpngPool.sol",
       "solcConfig": {
         "version": "0.8.17",

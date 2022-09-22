@@ -3589,7 +3589,21 @@ figcaption {
   margin-top: 25px;
   border-radius: 20px;
   background-color: #000;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  padding: 9px 15px;
 }
+
+.inactiveLink {
+  pointer-events: none;
+  cursor: default;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+
 
 .button-4.button-4-withdraw {
   background-color: #c18ab1;

@@ -25,7 +25,7 @@ function Account() {
                         <UserDeposit />
                         <div className="text-block-32">Deposits</div>
                         <div className="div-block-30">
-                            <div className="div-block-31"><img src="images/polygon-matic-logo-1DFDA3A3A8-seeklogo.com.png" loading="lazy" height="23" width="23" alt="" />
+                            <div className="div-block-31"><img src="images/polygon-matic-logo.png" loading="lazy" height="23" width="23" alt="" />
                                 <div className="text-block-30">Polygon</div>
                             </div>
                             <ReadingDeposit network={polygon} />

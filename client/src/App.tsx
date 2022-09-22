@@ -10,12 +10,27 @@ import Faq from './pages/userguide/Faq';
 import GettingStarted from './pages/userguide/GettingStarted';
 import Governance from './pages/userguide/Governance';
 import HeaderUserGuide from './pages/userguide/HeaderUserGuide';
+import Ethereum from './pages/userguide/Ethereum';
+import Optimism from './pages/userguide/Optimism';
+import Polygon from './pages/userguide/Polygon';
+import Demo from './pages/Demo'
+import { useNetwork, useSwitchNetwork } from 'wagmi';
+import { useEffect } from 'react';
 
 function App() {
   const { pathname } = useLocation();
+  const { chain } = useNetwork()
+  const { switchNetwork } = useSwitchNetwork()
+
+  useEffect(() => {
+    if (chain && chain.id !== 5) {
+      switchNetwork?.(5)
+    }
+  }, []);
 
   return (
     <div className="body">
+      {/* <Demo /> */}
       {pathname.slice(1, 5) !== 'user' && <Header />}
       {pathname.slice(1, 5) === 'user' && <HeaderUserGuide />}
       <div className="s-parateur"></div>
@@ -24,14 +39,18 @@ function App() {
         <Route path="/play" element={<Play />} />
         <Route path="/account" element={<Account />} />
         <Route path="/userguide" >
-          <Route path="/userguide/" element={<About />} />
+          <Route path="/userguide" element={<About />} />
           <Route path="/userguide/faq" element={<Faq />} />
           <Route path="/userguide/gettingstarted" element={<GettingStarted />} />
           <Route path="/userguide/governance" element={<Governance />} />
+          <Route path="/userguide/network">
+            <Route path="/userguide/network" element={<Ethereum />} />
+            <Route path="/userguide/network/optimism" element={<Optimism />} />
+            <Route path="/userguide/network/polygon" element={<Polygon />} />
+          </Route>
         </Route>
       </Routes>
       {pathname.slice(1, 5) !== 'user' && <Footer />}
-
     </div >
   );
 }
