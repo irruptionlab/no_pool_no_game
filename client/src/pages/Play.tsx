@@ -1,11 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Countdown from "../components/Countdown";
 import ModalPlay from "../components/ModalPlay"
 import Prize from "../components/Prize";
+import { useAccount, useContractRead } from 'wagmi'
+import { ethereum } from '../components/utils/contractAddress'
+import ABI_Npng from '../components/utils/ABI_Npng.json'
+import { ethers } from "ethers"
 
 function Play() {
     const [isStarted, setIsStarted] = useState(false)
     const [modalPlay, setModalPlay] = useState(false)
+    const { address } = useAccount();
+    const [userDeposit, setUserDeposit] = useState(0)
+
+    const { status } = useContractRead({
+        addressOrName: ethereum.npngContract,
+        contractInterface: ABI_Npng,
+        functionName: 'getMyBalance',
+        chainId: 5,
+        watch: true,
+        args: [address],
+        onSettled(data) {
+            setUserDeposit(parseFloat(ethers.utils.formatUnits(data?._hex, 6)))
+
+        }
+    })
+
+    useEffect(() => {
+        setUserDeposit(0)
+    }, [status]
+    );
 
     return (
         <div>
@@ -40,12 +64,10 @@ function Play() {
                         <div className="card cardpageplay"><img src="images/coin.png" loading="lazy" width="74" height="70" alt="" className="image-3" />
                             <img src="images/Arrow.png" loading="lazy" alt="" className="image position-arrow-2" />
                             <div className="text-block-36">00 : 00 : 000</div>
-                            {/* <div className="text-block-22">Game</div> */}
                             <div className="text-block-22">
-                                {/* <Memory /> */}
                             </div>
                             <div className="div-block-3"></div>
-                            <a href="/" className="button-2 w-button" onClick={(e) => {
+                            <a href="/" className={(address && userDeposit > 0) ? "button-2 w-button" : "button-2 inactivLink"} onClick={(e) => {
                                 e.preventDefault()
                                 setModalPlay(true)
                                 setIsStarted(true)
@@ -53,12 +75,13 @@ function Play() {
                             }>Play</a>
                             <img src="images/pointillés.png" loading="lazy" height="200" alt="" className="image-5 image5pageplay" />
                             <img src="images/coin-2.png" loading="lazy" width="60" alt="" className="image-4" />
-                            <a href="/" className="button-2 buton-demo w-button" onClick={(e) => {
-                                e.preventDefault()
-                                setModalPlay(true)
-                                setIsStarted(true)
-                            }
-                            }>Demo</a>
+                            <a href="/" className="button-2 buton-demo w-button"
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    setModalPlay(true)
+                                    setIsStarted(true)
+                                }}
+                            >Demo</a>
                         </div>
                     </div>
                 </div>

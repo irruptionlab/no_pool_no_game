@@ -11,7 +11,7 @@ interface Network {
     npngToken: string
 }
 
-const ReadingDeposit = ({ network }: { network: Network }) => {
+const ReadingDeposit = ({ network, setModalWithdraw }: { network: Network, setModalWithdraw: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [deposit, setDeposit] = useState(0)
     const { address } = useAccount()
 
@@ -29,7 +29,10 @@ const ReadingDeposit = ({ network }: { network: Network }) => {
 
     return (
         <div className="div-block-32">
-            <div className="text-block-31">$ {deposit}</div><img src="images/next.png" loading="lazy" width="25" height="25" alt="" />
+            <div className="text-block-31">$ {deposit}</div>
+            <img src="images/next.png" className="pourquoi" loading="lazy" width="25" height="25" alt=""
+                onClick={(e) => { setModalWithdraw(true) }}
+            />
         </div>
     )
 }

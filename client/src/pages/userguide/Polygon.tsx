@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Polygon() {
     return (
         <div className="wf-section">
@@ -5,7 +7,7 @@ function Polygon() {
                 <div className="div-block-34">
                     <h1>No Pool No Game on Polygon </h1><img src="../../images/polygon-matic-logo.png" loading="lazy" width="62" alt="" className="image-13" />
                 </div>
-                <p className="paragraph-user-guide">To use No Pool No Game on Polygon, you need the USDC token on the Polygon network and MATIC to cover the transaction fees. Are you still missing any of that? Have a look at <a href="no-pool-no-game-getting-started.html" className="link-17">Getting Started</a>!<br />If you want all the details on <a href="getting-usdc-matic-on-polygon.html" className="link-42">how to get USDC &amp; MATIC on Polygon follow our guidelines</a>
+                <p className="paragraph-user-guide">To use No Pool No Game on Polygon, you need the USDC token on the Polygon network and MATIC to cover the transaction fees. Are you still missing any of that? Have a look at <Link to="/userguide/gettingstarted" className="link-17">Getting Started</Link>!<br />If you want all the details on <Link to="/userguide/network/polygon/getting" className="link-42">how to get USDC & MATIC on Polygon follow our guidelines</Link>
                 </p>
                 <h2>Adding Polygon to your wallet</h2>
                 <p className="paragraph-user-guide">In case you are using Metamask: The easiest way to add Polygon to your wallet is by using <a href="https://chainlist.org/chain/137" className="link-25">Chainlist</a>. Simply connect your wallet and tap on “Add to Metamask”.</p>

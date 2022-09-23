@@ -1,4 +1,8 @@
-function Ranking() {
+function Ranking({ setModalResult }: { setModalResult: React.Dispatch<React.SetStateAction<boolean>> }) {
+    const handleResult = () => {
+        setModalResult(true)
+    }
+
     return (
         <div className="div-block-27" >
             <div className="div-block-28">
@@ -8,7 +12,7 @@ function Ranking() {
                     </li>
                 </ul>
                 <ul className="column-content">
-                    <li className="list-item-1"># 326</li>
+                    <li className="list-item-1" onClick={handleResult}># 326</li>
                     <li className="list-item-1"># 325</li>
                     <li className="list-item-1"># 324</li>
                     <li className="list-item-1 win-typo"># 323</li>
