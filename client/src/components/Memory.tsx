@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Card from './Card'
 
-function Memory({ setSolved }: { setSolved: React.Dispatch<React.SetStateAction<boolean>> }) {
+function Memory({ timerRef, setSolved }: { timerRef: React.MutableRefObject<any>, setSolved: React.Dispatch<React.SetStateAction<boolean>> }) {
     const [items, setItems] = useState([
         { id: 1, dup: 1, img: '/images/memory/aave.png', stat: "" },
         { id: 1, dup: 2, img: '/images/memory/aave.png', stat: "" },
@@ -59,6 +59,9 @@ function Memory({ setSolved }: { setSolved: React.Dispatch<React.SetStateAction<
                 setSolved(true)
             }
         }
+        if (timerRef.current.timer.time === 0) {
+            timerRef.current.start()
+        }
     }
 
     return (
@@ -67,7 +70,6 @@ function Memory({ setSolved }: { setSolved: React.Dispatch<React.SetStateAction<
 
                 <Card key={index} item={item} id={index} handleClick={handleClick} />
             ))}
-            {/* <div className="div-block-42"></div> */}
         </div>
 
     )

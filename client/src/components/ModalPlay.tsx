@@ -4,7 +4,7 @@ import Memory from "./Memory"
 import Won from "./Won";
 
 
-function ModalPlay({ isStarted, setModalPlay }: { isStarted: boolean, setModalPlay: React.Dispatch<React.SetStateAction<boolean>> }) {
+function ModalPlay({ setModalPlay }: { setModalPlay: React.Dispatch<React.SetStateAction<boolean>> }) {
     const [solved, setSolved] = useState(false)
     const timerRef = useRef<any>(null)
 
@@ -15,6 +15,7 @@ function ModalPlay({ isStarted, setModalPlay }: { isStarted: boolean, setModalPl
                 formatValue={(value) => `${(value < 10 ? `0${value}` : value)}`}
                 initialTime={0}
                 timeToUpdate={10}
+                startImmediately={false}
                 ref={timerRef}
             >
                 <div className="modal-inner-wrapper play-modal">
@@ -24,7 +25,7 @@ function ModalPlay({ isStarted, setModalPlay }: { isStarted: boolean, setModalPl
                             <Timer.Minutes /> : <Timer.Seconds /> : <Timer.Milliseconds />
                         </div>
                     </div>
-                    {!solved && <Memory setSolved={setSolved} />}
+                    {!solved && <Memory timerRef={timerRef} setSolved={setSolved} />}
                     {solved && <Won timerRef={timerRef} setModalPlay={setModalPlay} />}
                 </div>
             </Timer >

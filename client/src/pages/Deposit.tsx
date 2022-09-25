@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Countdown from '../components/Countdown';
 import Prize from '../components/Prize';
 import UserBalance from '../components/UserBalance';
-import SelectNetwork from './SelectNetwork';
+import SelectNetwork from '../components/utils/SelectNetwork';
 import ModalDeposit from '../components/ModalDeposit';
 import Faucet from '../components/utils/Faucet';
 

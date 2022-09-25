@@ -67,7 +67,7 @@ function ModalDeposit({ setModalDeposit, amount }: { setModalDeposit: React.Disp
             <div className="modal-outside-trigger" onClick={(e) => { setModalDeposit(false) }}></div>
             <div className="modal-inner-wrapper deposit-modal">
                 <div className="div-block-41" onClick={(e) => { setModalDeposit(false) }}><img src="images/close.png" loading="lazy" width="20" height="20" data-w-id="173262e3-a8b5-4db7-7eb1-8224456fe284" alt="" className="image-18" /></div>
-                <div className="div-block-40"><img src="images/polygon-matic-logo.png" loading="lazy" width="135" alt="" className="image-15" /></div>
+                <div className="div-block-40"><img src="images/ethereum-eth-logo.png" loading="lazy" width="135" alt="" className="image-15" /></div>
                 <h2>Deposit confirmation</h2>
                 <p>Prizes are awarded daily! Don&#x27;t forget to come back to claim any prizes. Unclaimed prizes expire after 60 days, for more info see <a href="/userguide/faq" target="_blank" className="link-58">here</a>.</p>
                 <div className="div-block-39">

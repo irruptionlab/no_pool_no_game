@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import Countdown from "../components/Countdown";
 import ModalPlay from "../components/ModalPlay"
 import Prize from "../components/Prize";
-import { useAccount, useContractRead } from 'wagmi'
+import { useAccount, useContractRead, useContractWrite, usePrepareContractWrite } from 'wagmi'
 import { ethereum } from '../components/utils/contractAddress'
 import ABI_Npng from '../components/utils/ABI_Npng.json'
 import { ethers } from "ethers"
 
 function Play() {
-    const [isStarted, setIsStarted] = useState(false)
     const [modalPlay, setModalPlay] = useState(false)
     const { address } = useAccount();
     const [userDeposit, setUserDeposit] = useState(0)
@@ -25,6 +24,16 @@ function Play() {
 
         }
     })
+
+    // const { config } = usePrepareContractWrite({
+    //     addressOrName: ethereum.npngContract,
+    //     contractInterface: ABI_Npng,
+    //     functionName: 'updateIdContest',
+    //     onSuccess(data) {
+    //         setModalPlay(true);
+    //     }
+    // })
+    // const { write } = useContractWrite(config)
 
     useEffect(() => {
         setUserDeposit(0)
@@ -70,7 +79,6 @@ function Play() {
                             <a href="/" className={(address && userDeposit > 0) ? "button-2 w-button" : "button-2 inactivLink"} onClick={(e) => {
                                 e.preventDefault()
                                 setModalPlay(true)
-                                setIsStarted(true)
                             }
                             }>Play</a>
                             <img src="images/pointillés.png" loading="lazy" height="200" alt="" className="image-5 image5pageplay" />
@@ -79,14 +87,13 @@ function Play() {
                                 onClick={(e) => {
                                     e.preventDefault()
                                     setModalPlay(true)
-                                    setIsStarted(true)
                                 }}
                             >Demo</a>
                         </div>
                     </div>
                 </div>
             </div>
-            {modalPlay && <ModalPlay isStarted={isStarted} setModalPlay={setModalPlay} />}
+            {modalPlay && <ModalPlay setModalPlay={setModalPlay} />}
         </div>
     )
 }

@@ -17,7 +17,7 @@ const customStyles = {
 const data = [
     {
         value: 5,
-        text: 'Ethereum',
+        text: 'Goerli',
         icon: <img src="images/ethereum-eth-logo.png" loading="lazy" width="25" srcSet="images/ethereum-eth-logo-p-500.png 500w, images/ethereum-eth-logo-p-800.png 800w, images/ethereum-eth-logo-p-1080.png 1080w, images/ethereum-eth-logo-p-1600.png 1600w, images/ethereum-eth-logo-p-2000.png 2000w, images/ethereum-eth-logo-p-2600.png 2600w, images/ethereum-eth-logo-p-3200.png 3200w" sizes="(max-width: 479px) 0px, 100vw" alt="" className="image-11" />
     },
     {
@@ -27,7 +27,7 @@ const data = [
     },
     {
         value: 80001,
-        text: 'Polygon',
+        text: 'Mumbai',
         icon: <img src="images/polygon-matic-logo.png" loading="lazy" width="20" height="20" alt="" />
     },
 ];

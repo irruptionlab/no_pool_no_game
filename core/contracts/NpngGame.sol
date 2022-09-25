@@ -10,6 +10,7 @@ contract NpngGame is Ownable {
     }
 
     ContestsResult[] public contestsResult;
+    mapping(address => mapping(uint => bool)) contestPlayedPerPlayer;
     mapping(uint => uint) public numberOfPlayersPerContest;
     uint private contestInit;
     uint private gameFrequence;
@@ -26,6 +27,11 @@ contract NpngGame is Ownable {
     }
 
     /// WRITE FUNCTIONS
+
+    function getPlay() public {
+        updateIdContest();
+        contestPlayedPerPlayer[msg.sender][currentIdContest] = true;
+    }
 
     function updateIdContest() public {
         uint currentTimestamp = block.timestamp;
@@ -50,6 +56,11 @@ contract NpngGame is Ownable {
     }
 
     /// READ FUNCTIONS
+
+    function checkGamePlayed() public view returns (bool) {
+        uint idContest = getCurrentIdContest();
+        return (contestPlayedPerPlayer[msg.sender][idContest]);
+    }
 
     function getCurrentIdContest() public view returns (uint) {
         return (currentIdContest);

@@ -9,7 +9,7 @@ This repository has 2 folders:
 - [x] Add First Game
 - [x] Add Deposit
 - [ ] Add Transaction for First Game
-- [ ] Add Withdraw
+- [X] Add Withdraw
 - [ ] Add Claims for Rewards
 - [ ] Add Pending button
 - [ ] Add Toast
