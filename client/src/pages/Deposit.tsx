@@ -9,6 +9,7 @@ import Faucet from '../components/utils/Faucet';
 function Deposit() {
     const [amount, setAmount] = useState(0.00)
     const [modalDeposit, setModalDeposit] = useState(false);
+    console.log(process.env.TEST)
 
     const handleDeposit = () => {
         if (amount > 0) {
