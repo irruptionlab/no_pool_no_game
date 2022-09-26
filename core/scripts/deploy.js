@@ -5,7 +5,7 @@ async function main() {
 
     console.log("Account balance:", (await deployer.getBalance()).toString());
 
-    const Contract = await ethers.getContractFactory("NpngPool");
+    const Contract = await ethers.getContractFactory("NpngToken");
     const contract = await Contract.deploy();
 
     console.log("Contract address:", contract.address);

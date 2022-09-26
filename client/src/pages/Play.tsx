@@ -1,35 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Countdown from "../components/Countdown";
 import ModalPlay from "../components/ModalPlay"
 import Prize from "../components/Prize";
-import { useAccount, useContractRead, useContractWrite, usePrepareContractWrite } from 'wagmi'
+import { useAccount, useContractWrite, usePrepareContractWrite } from 'wagmi'
 import ABI_Npng from '../components/utils/ABI_Npng.json'
-import { ethers } from "ethers"
 import { useAddressNetwork } from "../components/utils/useAddressNetwork";
 
 function Play() {
     const [modalPlay, setModalPlay] = useState(false)
     const { address } = useAccount();
-    const [userDeposit, setUserDeposit] = useState(0)
     const addressNetwork = useAddressNetwork()
 
-    const { status } = useContractRead({
+    const { config, isSuccess } = usePrepareContractWrite({
         addressOrName: addressNetwork.npngContract,
         contractInterface: ABI_Npng,
-        functionName: 'getMyBalance',
-        chainId: 5,
-        watch: true,
-        args: [address],
-        onSettled(data) {
-            setUserDeposit(parseFloat(ethers.utils.formatUnits(data?._hex, 6)))
-
-        }
-    })
-
-    const { config } = usePrepareContractWrite({
-        addressOrName: addressNetwork.npngContract,
-        contractInterface: ABI_Npng,
-        functionName: 'updateIdContest',
+        functionName: 'getPlay',
     })
     const { write } = useContractWrite({
         ...config,
@@ -37,11 +22,6 @@ function Play() {
             setModalPlay(true)
         }
     })
-
-    useEffect(() => {
-        setUserDeposit(0)
-    }, [status]
-    );
 
     return (
         <div>
@@ -79,7 +59,7 @@ function Play() {
                             <div className="text-block-22">
                             </div>
                             <div className="div-block-3"></div>
-                            <a href="/" className={(address && userDeposit > 0) ? "button-2 w-button" : "button-2 inactivLink"} onClick={(e) => {
+                            <a href="/" className={(address && isSuccess) ? "button-2 w-button" : "button-2 w-button inactiveLink"} onClick={(e) => {
                                 e.preventDefault()
                                 write?.()
                             }

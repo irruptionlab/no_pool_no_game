@@ -32,6 +32,10 @@ module.exports = {
       url: "https://goerli.optimism.io",
       accounts: [PRIVATE_KEY]
     },
+    'mumbai': {
+      url: "https://rpc-mumbai.maticvigil.com",
+      accounts: [PRIVATE_KEY]
+    },
   },
   etherscan: {
     apiKey: ETHERSCAN_API_KEY,

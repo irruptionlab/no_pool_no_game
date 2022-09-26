@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 /// @title No Pool No Game : Pool Contract
 /// @author Perrin GRANDNE
-/// @notice
+/// @notice Contract for Deposit and Withdraw on the Pool
 /// @dev
 /// @custom:experimental This is an experimental contract.
 
@@ -34,14 +34,16 @@ interface IERC20 {
         uint amount
     ) external returns (bool);
 
+    /// @notice Mint NPNGaUSDC when user deposits on the pool
     function mint(address sender, uint amount) external;
 
+    /// @notice Burn NPNGaUSDC when user withdraws from the pool
     function burn(address sender, uint amount) external;
 }
 
-/// Only the PoolAave functions we need
+/// @notice Only the PoolAave functions we need
 interface PoolAave {
-    /// Deposit USDC to Aave Pool
+    /// @notice Deposit USDC to Aave Pool
     function supply(
         address asset,
         uint amount,
@@ -49,7 +51,7 @@ interface PoolAave {
         uint16 referralCode
     ) external;
 
-    /// Withdraw USDC from Aave Pool
+    /// @notice Withdraw USDC from Aave Pool
     function withdraw(
         address asset,
         uint amount,
@@ -59,24 +61,32 @@ interface PoolAave {
 
 contract NpngPool is NpngGame {
     mapping(address => uint) private balanceOfUser;
+
+    /// @notice Associate the Deposit of user to the current Id Contest
     mapping(address => uint) private idContestOfDeposit;
+
+    /// @notice To record if the player has already played during the current contest
+    mapping(address => mapping(uint => bool)) contestPlayedPerPlayer;
     IERC20 private usdcToken;
     IERC20 private aUsdcToken;
     IERC20 private npngToken;
     PoolAave private poolAave;
 
     constructor() {
-        usdcToken = IERC20(0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43);
-        aUsdcToken = IERC20(0x1Ee669290939f8a8864497Af3BC83728715265FF);
-        poolAave = PoolAave(0x368EedF3f56ad10b9bC57eed4Dac65B26Bb667f6);
-        npngToken = IERC20(0x8ad6d963600F5c45DaBd5fF6faA04d51A6D549f0);
+        usdcToken = IERC20(0x9aa7fEc87CA69695Dd1f879567CcF49F3ba417E2);
+        aUsdcToken = IERC20(0xCdc2854e97798AfDC74BC420BD5060e022D14607);
+        poolAave = PoolAave(0x6C9fB0D5bD9429eb9Cd96B85B81d872281771E6B);
+        npngToken = IERC20(0xc6993Fdd6a8fe92f27192b7c8ccD8015b97fac86);
     }
 
     /// WRITE FUNCTIONS
+
+    /// @notice Update the NPNG Token address if a new contract is deployed
     function changeNpngTokenAddress(address _newAddress) public onlyOwner {
         npngToken = IERC20(_newAddress);
     }
 
+    /// @notice Deposit USDC on Pool which will be deposited on Aave and get the same amount ofNPNGaUSCD
     function depositOnAave(uint _amount) public {
         require(_amount <= usdcToken.balanceOf(msg.sender));
         require(
@@ -93,6 +103,7 @@ contract NpngPool is NpngGame {
         idContestOfDeposit[msg.sender] = NpngGame.getCurrentIdContest();
     }
 
+    /// @notice Withdraw from the Pool, it will be withdraw from Aave and NPNG Token will be burnt
     function withdraw(uint _amount) public {
         require(balanceOfUser[msg.sender] >= _amount, "Insufficient balance");
         require(
@@ -109,6 +120,16 @@ contract NpngPool is NpngGame {
     // function claimRewards(uint _idContest) public {
     //     require (calculateRewards(_idContest, msg.sender) > 0,"No reward to claim");
     // }
+
+    /// @notice Record the contest played by the player to verify on played game per contest
+    function getPlay() public {
+        require(balanceOfUser[msg.sender] > 0, "No deposit, No Game!");
+        require(
+            contestPlayedPerPlayer[msg.sender][getCurrentIdContest()] != true,
+            "You already played!"
+        );
+        contestPlayedPerPlayer[msg.sender][getCurrentIdContest()] = true;
+    }
 
     /// READ FUNCTIONS
     function getMyBalance(address _account) public view returns (uint) {
@@ -147,5 +168,11 @@ contract NpngPool is NpngGame {
             139 *
             (1 - playerRank / 100)**5;
         return (playerReward);
+    }
+
+    /// @notice Check if the player already played
+    function checkGamePlayed() public view returns (bool) {
+        uint idContest = getCurrentIdContest();
+        return (contestPlayedPerPlayer[msg.sender][idContest]);
     }
 }

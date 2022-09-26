@@ -28,7 +28,7 @@ function Polygon() {
                     </div>
                     <div className="column-2 w-col w-col-9">
                         <div className="text-block-39">Contract Adress</div>
-                        <div className="text-block-40">0x6a304dFdb9f808741244b6b</div>
+                        <div className="text-block-40">0xc6993Fdd6a8fe92f27192b7c8ccD8015b97fac86</div>
                     </div>
                 </div>
                 <h2>Checking for Prizes</h2>
