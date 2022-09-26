@@ -1,8 +1,15 @@
 import ConnectButton from "./ConnectButton";
 import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Collapse } from "@mui/material";
 
 function Header() {
     const { pathname } = useLocation();
+    const [open, setOpen] = useState(false);
+    const handleClick = () => {
+        setOpen(!open);
+    };
+
     return (
         <div className="navbar-no-shadow wf-section">
             <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" className="navbar-no-shadow-container w-nav">
@@ -30,12 +37,28 @@ function Header() {
                             </ul>
                         </nav>
                         <div className="menu-button-3 w-nav-button">
-                            <div className="icon-2 w-icon-nav-menu"></div>
+                            <div className="icon-2 w-icon-nav-menu" onClick={handleClick}
+                            >
+                                <Collapse in={open}>
+                                    <ul>
+                                        <li>
+                                            <Link to="/" className={pathname === '/' ? 'nav-link-selected' : 'nav-link'}>Deposit</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/play" className={pathname === '/play' ? 'nav-link-selected' : 'nav-link'}>Play</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/account" className={pathname === '/account' ? 'nav-link-selected' : 'nav-link'}>Account</Link>
+                                        </li>
+                                    </ul>
+                                </Collapse>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
