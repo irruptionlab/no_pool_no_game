@@ -24,9 +24,8 @@ function App() {
   const { switchNetwork } = useSwitchNetwork()
 
   useEffect(() => {
-    if (chain && chain.id !== 5) {
-      switchNetwork?.(5)
-    }
+    if (chain && (chain.id === 5 || chain.id === 10 || chain.id === 80001)) console.log(`connected to ${chain.name}`)
+    else switchNetwork?.(5)
   }, []);
 
   return (

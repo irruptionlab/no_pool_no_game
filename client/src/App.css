@@ -4971,7 +4971,7 @@ figcaption {
 }
 
 .button-primary-2 {
-  padding: 12px 25px;
+  padding: 12px 12px;
   border-radius: 20px;
   background-color: #1a1b1f;
   -webkit-transition: all 200ms ease;

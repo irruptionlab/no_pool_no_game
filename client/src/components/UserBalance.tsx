@@ -1,10 +1,11 @@
 import { useAccount, useContractRead } from 'wagmi'
-import { ethereum } from './utils/contractAddress'
 import ABI_ERC20 from './utils/ABI_ERC20.json'
 import { ethers } from "ethers"
 import { useEffect, useState } from 'react'
+import { useAddressNetwork } from './utils/useAddressNetwork'
 
 function UserBalance({ setAmount }: { setAmount: React.Dispatch<React.SetStateAction<number>> }) {
+    const addressNetwork = useAddressNetwork()
     const { address, status } = useAccount();
     const [userBalance, setUserBalance] = useState(0)
 
@@ -19,7 +20,7 @@ function UserBalance({ setAmount }: { setAmount: React.Dispatch<React.SetStateAc
     }
 
     useContractRead({
-        addressOrName: ethereum.usdcContract,
+        addressOrName: addressNetwork.usdcContract,
         contractInterface: ABI_ERC20,
         functionName: 'balanceOf',
         watch: true,

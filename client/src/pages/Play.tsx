@@ -3,17 +3,18 @@ import Countdown from "../components/Countdown";
 import ModalPlay from "../components/ModalPlay"
 import Prize from "../components/Prize";
 import { useAccount, useContractRead, useContractWrite, usePrepareContractWrite } from 'wagmi'
-import { ethereum } from '../components/utils/contractAddress'
 import ABI_Npng from '../components/utils/ABI_Npng.json'
 import { ethers } from "ethers"
+import { useAddressNetwork } from "../components/utils/useAddressNetwork";
 
 function Play() {
     const [modalPlay, setModalPlay] = useState(false)
     const { address } = useAccount();
     const [userDeposit, setUserDeposit] = useState(0)
+    const addressNetwork = useAddressNetwork()
 
     const { status } = useContractRead({
-        addressOrName: ethereum.npngContract,
+        addressOrName: addressNetwork.npngContract,
         contractInterface: ABI_Npng,
         functionName: 'getMyBalance',
         chainId: 5,
@@ -25,15 +26,17 @@ function Play() {
         }
     })
 
-    // const { config } = usePrepareContractWrite({
-    //     addressOrName: ethereum.npngContract,
-    //     contractInterface: ABI_Npng,
-    //     functionName: 'updateIdContest',
-    //     onSuccess(data) {
-    //         setModalPlay(true);
-    //     }
-    // })
-    // const { write } = useContractWrite(config)
+    const { config } = usePrepareContractWrite({
+        addressOrName: addressNetwork.npngContract,
+        contractInterface: ABI_Npng,
+        functionName: 'updateIdContest',
+    })
+    const { write } = useContractWrite({
+        ...config,
+        onSuccess(data) {
+            setModalPlay(true)
+        }
+    })
 
     useEffect(() => {
         setUserDeposit(0)
@@ -78,7 +81,7 @@ function Play() {
                             <div className="div-block-3"></div>
                             <a href="/" className={(address && userDeposit > 0) ? "button-2 w-button" : "button-2 inactivLink"} onClick={(e) => {
                                 e.preventDefault()
-                                setModalPlay(true)
+                                write?.()
                             }
                             }>Play</a>
                             <img src="images/pointillés.png" loading="lazy" height="200" alt="" className="image-5 image5pageplay" />

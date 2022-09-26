@@ -15,14 +15,14 @@ function GettingStarted() {
                 <p className="paragraph-user-guide">No Pool No Game is compatible with a wide variety of crypto wallets. Some of the most common are <a href="https://metamask.zendesk.com/hc/en-us/articles/360015489531-Getting-Started-With-MetaMask" className="link-9">Metamask</a>, <a href="https://www.orangewallet.app/" className="link-10">Orange</a>, and <a href="https://learn.rainbow.me/" className="link-11">Rainbow</a> <br />Follow one of the links for more information on setting up and securing your wallet. If you want to deposit on Optimism, Ethereum or Polygon, you first have to add the network to your wallet. You can do this in the No Pool No Game dApp, by choosing the Network in the top right corner. </p>
                 <h6><strong>1) USDC</strong></h6>
                 <p className="paragraph-user-guide">No Pool No Game allows you to deposit USDC on the aforementioned networks. </p>
-                <p className="paragraph-user-guide">You can get USDC on Centralized Exchanges, Decentralized Exchanges, or a FIAT Onramp to buy it directly from your bank account or credit card. You can follow the guides for <a href="optimism.html" className="link-13">Optimism</a> or <a href="polygon.html" className="link-14">Polygon</a>.</p>
+                <p className="paragraph-user-guide">You can get USDC on Centralized Exchanges, Decentralized Exchanges, or a FIAT Onramp to buy it directly from your bank account or credit card. You can follow the guides for <a href="/userguide/network/optimism/" className="link-13">Optimism</a> or <a href="/userguide/network/polygon/" className="link-14">Polygon</a>.</p>
                 <h6><strong>3) The network&#x27;s native Gas Token</strong></h6>
                 <p className="paragraph-user-guide">Depositing, claiming prizes, and withdrawing requires a transaction and will cost a network fee.</p>
                 <p className="paragraph-user-guide">To deposit, you need a small amount of the network&#x27;s native gas token in your wallet to cover the transaction fees.</p>
                 <h2>You are all set for your first deposit now!</h2>
-                <p className="paragraph-user-guide">Follow the links below to the <a href="polygon.html" className="link-15">How to Deposit</a> Guides.</p>
+                <p className="paragraph-user-guide">Follow the links below to the <a href="/userguide/network" className="link-15">How to Deposit</a> Guides.</p>
                 <h2>Need help?</h2>
-                <p className="paragraph-user-guide">Couldn&#x27;t find the correct answer in our <a href="no-pool-no-game-faq.html" className="link-16">Frequently Asked Questions</a>?</p>
+                <p className="paragraph-user-guide">Couldn&#x27;t find the correct answer in our <a href="/userguide/faq" className="link-16">Frequently Asked Questions</a>?</p>
             </div>
         </div>
     )

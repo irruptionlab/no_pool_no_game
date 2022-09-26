@@ -21,7 +21,7 @@ function Faq() {
                 <p className="paragraph-user-guide">For example, say you have $100 deposited for a full 24 hour prize period. That would mean your average balance for the prize period is $100. Someone else might deposit $200 halfway through the prize period. Their average balance for the prize period day prize period would be $100, even though they deposited more than you, their chance to win would be the same. </p>
                 <h3>Can I lose my money? What are the risks?</h3>
                 <p className="paragraph-user-guide">Assuming the protocol operates as intended, there is no risk of losing your money.</p>
-                <p className="paragraph-user-guide">However, <strong>there are still many risks inherent in using a blockchain-based protocol like this. These risks could result in losing some or all of your money. </strong>Please read the &quot;<a href="/" className="link-7">Risks</a>&quot; page for more details on the specific risks you should be aware of.</p>
+                <p className="paragraph-user-guide">However, <strong>there are still many risks inherent in using a blockchain-based protocol like this. These risks could result in losing some or all of your money. </strong></p>
                 <h3>Are my deposits insured?</h3>
                 <p className="paragraph-user-guide">Your deposits are not insured, however, <a href="https://app.nexusmutual.io/cover/buy/get-quote?address=0xd89a09084555a7D0ABe7B111b1f78DFEdDd638Be" className="link-8">you can purchase protocol cover here. </a>
                 </p>

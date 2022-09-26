@@ -1,13 +1,13 @@
 import { useContractWrite, usePrepareContractWrite } from 'wagmi'
 import { ethers } from 'ethers'
 import ABI_ERC20 from './ABI_ERC20.json'
-import { ethereum } from './contractAddress'
-import { useState } from 'react';
+import { useAddressNetwork } from './useAddressNetwork'
 
 const Faucet = () => {
+    const addressNetwork = useAddressNetwork()
 
     const { config } = usePrepareContractWrite({
-        addressOrName: ethereum.usdcContract,
+        addressOrName: addressNetwork.usdcContract,
         contractInterface: ABI_ERC20,
         functionName: 'mint',
         args: [ethers.utils.parseUnits('1000', 6)]

@@ -22,9 +22,9 @@ function About() {
                 <h4>Fully non-custodial</h4>
                 <p className="paragraph-user-guide">No one but you has access to your deposited funds. No Pool No Game is non-custodial, meaning users can redeem their money from the pool at any time.</p>
                 <h4>Open source &amp; secure</h4>
-                <p className="paragraph-user-guide">The protocol is made up of computer software: smart contracts living on the blockchain. The <a href="https://github.com/" className="link-2">code is open-source</a> for everyone to verify and validate. On top of that No Pool No Game will undergo regular <a href="/" className="link-3">audits</a>.</p>
+                <p className="paragraph-user-guide">The protocol is made up of computer software: smart contracts living on the blockchain. The <a href="https://github.com/pgrandne/nopoolnogame" className="link-2">code is open-source</a> for everyone to verify and validate. On top of that No Pool No Game will undergo regular audits.</p>
                 <h4>Decentralized</h4>
-                <p className="paragraph-user-guide">No Pool No Game is user-owned and user-driven. Control over the protocol rests in the hands of the community holding the NPNG token (will be developped later on). Find out more about <a href="governance.html" className="link-4">governance</a>
+                <p className="paragraph-user-guide">No Pool No Game is user-owned and user-driven. Control over the protocol rests in the hands of the community holding the NPNG token (will be developped later on). Find out more about <a href="/userguide/governance" className="link-4">governance</a>
                 </p>
             </div>
         </div>
