@@ -34,7 +34,6 @@ function Deposit({ setModalDeposit, amount }: { setModalDeposit: React.Dispatch<
     const { write } = useContractWrite({
         ...config,
         onSettled(data, error) {
-            console.log('Settled', { data, error })
             setModalDeposit(false)
         },
     })

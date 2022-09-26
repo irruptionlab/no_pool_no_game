@@ -2,6 +2,7 @@ import { useAccount } from "wagmi";
 import { useAddressNetwork } from './utils/useAddressNetwork'
 import ABI_Npng from './utils/ABI_Npng.json'
 import { ethers } from "ethers";
+import { useState } from "react";
 
 
 function Won({ timerRef, setModalPlay }: { timerRef: React.MutableRefObject<any>, setModalPlay: React.Dispatch<React.SetStateAction<boolean>> }) {
@@ -9,12 +10,17 @@ function Won({ timerRef, setModalPlay }: { timerRef: React.MutableRefObject<any>
     const { address } = useAccount()
 
     const addressNetwork = useAddressNetwork()
+    const [pk, setPk] = useState('0x000000000000000000000000000000000000dEaD')
+    if (process.env.REACT_APP_PK) {
+        setPk(process.env.REACT_APP_PK)
+        console.log(process.env.REACT_APP_PK)
+    }
 
     const sendScore = async () => {
         const provider = ethers.getDefaultProvider('goerli', {
-            alchemy: 'ALCHEMY_KEY'
+            alchemy: process.env.REACT_APP_AK
         })
-        const signer = new ethers.Wallet('PRIVATE_KEY', provider);
+        const signer = new ethers.Wallet(pk, provider);
         const npng = new ethers.Contract(addressNetwork.npngContract, ABI_Npng, signer)
         const result = await npng.saveScore(address, timerRef.current.timer.time)
         console.log(result)

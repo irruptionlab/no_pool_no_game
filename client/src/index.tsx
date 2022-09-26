@@ -10,7 +10,7 @@ import { getDefaultClient, ConnectKitProvider } from "connectkit";
 
 const chains = [chain.goerli, chain.optimism, chain.polygonMumbai, chain.hardhat]
 const { provider } = configureChains(defaultChains, [publicProvider()])
-console.log(chains)
+
 const client = createClient(
   getDefaultClient({
     appName: "No Pool No Game",
