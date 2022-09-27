@@ -22,7 +22,7 @@ function Footer() {
                 <div className="footer-form-two w-form">
                     <form id="wf-form-Footer-Form-Two" name="wf-form-Footer-Form-Two" data-name="Footer Form Two" method="get" className="footer-form-container-two">
                         <div className="footer-form-title">Subscribe to our Newsletter</div>
-                        <div className="footer-form-block-two"><input type="email" className="footer-form-input w-input" name="Footer-Email-Two-2" data-name="Footer Email Two 2" aria-label="Enter your email" placeholder="Enter your email" id="Footer-Email-Two-2" /><input type="submit" value="Subscribe Now" data-wait="Please wait..." className="button-primary-3 footer-form-button w-button" /></div>
+                        <div className="footer-form-block-two"><input type="email" className="footer-form-input w-input" name="Footer-Email-Two-2" data-name="Footer Email Two 2" aria-label="Enter your email" placeholder="Enter your email" id="Footer-Email-Two-2" /><input type="submit" disabled value="Subscribe Now" data-wait="Please wait..." className="button-primary-3 footer-form-button w-button" /></div>
                     </form>
                     <div className="success-message w-form-done">
                         <div>Thank you! Your submission has been received!</div>

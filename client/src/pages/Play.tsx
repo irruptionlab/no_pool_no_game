@@ -7,6 +7,7 @@ import ABI_Npng from '../components/utils/ABI_Npng.json'
 import { useAddressNetwork } from "../components/utils/useAddressNetwork";
 
 function Play() {
+    const [realPlay, setRealPlay] = useState(false)
     const [modalPlay, setModalPlay] = useState(false)
     const { address } = useAccount();
     const addressNetwork = useAddressNetwork()
@@ -61,6 +62,7 @@ function Play() {
                             <div className="div-block-3"></div>
                             <a href="/" className={(address && isSuccess) ? "button-2 w-button" : "button-2 w-button inactiveLink"} onClick={(e) => {
                                 e.preventDefault()
+                                setRealPlay(true)
                                 write?.()
                             }
                             }>Play</a>
@@ -69,6 +71,7 @@ function Play() {
                             <a href="/" className="button-2 buton-demo w-button"
                                 onClick={(e) => {
                                     e.preventDefault()
+                                    setRealPlay(false)
                                     setModalPlay(true)
                                 }}
                             >Demo</a>
@@ -76,7 +79,7 @@ function Play() {
                     </div>
                 </div>
             </div>
-            {modalPlay && <ModalPlay setModalPlay={setModalPlay} />}
+            {modalPlay && <ModalPlay realPlay={realPlay} setModalPlay={setModalPlay} />}
         </div>
     )
 }

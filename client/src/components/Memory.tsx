@@ -22,9 +22,12 @@ function Memory({ timerRef, setSolved }: { timerRef: React.MutableRefObject<any>
     ].sort(() => Math.random() - 0.5))
 
     const [prev, setPrev] = useState(-1)
+    const [onGoing, setOnGoing] = useState(false)
 
     const check = (current: number) => {
-        if (items[current].id === items[prev].id && items[current].dup !== items[prev].dup) {
+        if (items[current].id === items[prev].id
+            && items[current].dup !== items[prev].dup
+            && items[current].stat !== "correct") {
             items[current].stat = "correct"
             items[prev].stat = "correct"
             setItems([...items])
@@ -38,29 +41,35 @@ function Memory({ timerRef, setSolved }: { timerRef: React.MutableRefObject<any>
                 items[prev].stat = ""
                 setItems([...items])
                 setPrev(-1)
-            }, 1000)
+            }, 480)
         }
     }
 
     const handleClick = (id: number) => {
-        if (prev === -1) {
-            items[id].stat = "active"
-            setItems([...items])
-            setPrev(id)
-        } else {
-            check(id)
-        }
-        let numberCorrect = 0
-        for (let i = 0; i < 16; i++) {
-            if (items[i].stat === "correct") {
-                numberCorrect++
+        if (onGoing === false) {
+            setOnGoing(true)
+            if (prev === -1) {
+                items[id].stat = "active"
+                setItems([...items])
+                setPrev(id)
+            } else {
+                check(id)
             }
-            if (numberCorrect === 16) {
-                setSolved(true)
+            setTimeout(() =>
+                setOnGoing(false), 500
+            )
+            let numberCorrect = 0
+            for (let i = 0; i < 16; i++) {
+                if (items[i].stat === "correct") {
+                    numberCorrect++
+                }
+                if (numberCorrect === 16) {
+                    setSolved(true)
+                }
             }
-        }
-        if (timerRef.current.timer.time === 0) {
-            timerRef.current.start()
+            if (timerRef.current.timer.time === 0) {
+                timerRef.current.start()
+            }
         }
     }
 

@@ -63,7 +63,7 @@ function Deposit() {
                         <div className="text-block-10"><span className="highlight-text">Higher</span> is your deposit, <span className="highlight-text">higher</span> is your <span className="text-span-2">reward</span> ! *</div>
                         <div className="div-block-3"></div>
                         <Faucet />
-                        <a href="/" className="button-2 w-button" onClick={(e) => {
+                        <a href="/" className={amount > 0 ? "button-2 w-button" : "button-2 w-button inactiveLink"} onClick={(e) => {
                             e.preventDefault()
                             handleDeposit()
                         }}
