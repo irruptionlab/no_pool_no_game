@@ -1,14 +1,14 @@
-import ConnectButton from "./ConnectButton";
-import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
-import { Collapse } from "@mui/material";
+import ConnectButton from "./ConnectButton"
+import { Link, useLocation } from "react-router-dom"
+import { useState } from "react"
+import { Collapse } from "@mui/material"
 
 function Header() {
-    const { pathname } = useLocation();
-    const [open, setOpen] = useState(false);
+    const { pathname } = useLocation()
+    const [open, setOpen] = useState(false)
     const handleClick = () => {
         setOpen(!open);
-    };
+    }
 
     return (
         <div className="navbar-no-shadow wf-section">
@@ -37,8 +37,7 @@ function Header() {
                             </ul>
                         </nav>
                         <div className="menu-button-3 w-nav-button">
-                            <div className="icon-2 w-icon-nav-menu" onClick={handleClick}
-                            >
+                            <div className="icon-2 w-icon-nav-menu" onClick={handleClick}>
                                 <Collapse in={open}>
                                     <ul>
                                         <li>

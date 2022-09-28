@@ -6,7 +6,7 @@ function Faq() {
                 <h2>General</h2>
                 <h3>Where does the prize money come from?</h3>
                 <p className="paragraph-user-guide">Prizes are generated on the interest earned on deposited funds. </p>
-                <p className="paragraph-user-guide">When a deposit is made into No Pool No Game that deposit is automatically routed to other <a href="https://aave.com/" className="link-5">decentralized finance protocols like Aave</a> to begin earning interest. Protocols like Aave are &quot;fully liquid&quot; meaning deposits can be withdrawn at any time. Additionally, interest accrues every ~15 seconds. Anyone who borrows from Aave must deposit collateral that is greater in value than what they are borrowing. This ensures that loans are never defaulted on. <br /></p>
+                <p className="paragraph-user-guide">When a deposit is made into No Pool No Game that deposit is automatically routed to other <a href="https://aave.com/" target="_blank" rel="noreferrer" className="link-5">decentralized finance protocols like Aave</a> to begin earning interest. Protocols like Aave are &quot;fully liquid&quot; meaning deposits can be withdrawn at any time. Additionally, interest accrues every ~15 seconds. Anyone who borrows from Aave must deposit collateral that is greater in value than what they are borrowing. This ensures that loans are never defaulted on. <br /></p>
                 <p className="paragraph-user-guide">No Pool No Game is a non-custodial protocol. That means no one has the ability to control the funds deposited. All deposits and withdraws are conducted automatically by the smart contracts making up the No Pool No Game protocol. </p>
                 <h3>Do I have to enter for each prize?</h3>
                 <p className="paragraph-user-guide">In order to be eligible for the prizes, you need to participate to the contest. Supposing that the contest frequency is once a week, you will have to participate whenever you want during the specific period of time. The countdown visible on the website you let you know when the contest is closing.</p>
@@ -23,7 +23,7 @@ function Faq() {
                 <p className="paragraph-user-guide">Assuming the protocol operates as intended, there is no risk of losing your money.</p>
                 <p className="paragraph-user-guide">However, <strong>there are still many risks inherent in using a blockchain-based protocol like this. These risks could result in losing some or all of your money. </strong></p>
                 <h3>Are my deposits insured?</h3>
-                <p className="paragraph-user-guide">Your deposits are not insured, however, <a href="https://app.nexusmutual.io/cover/buy/get-quote?address=0xd89a09084555a7D0ABe7B111b1f78DFEdDd638Be" className="link-8">you can purchase protocol cover here. </a>
+                <p className="paragraph-user-guide">Your deposits are not insured, however, <a href="https://app.nexusmutual.io" target="_blank" rel="noreferrer" className="link-8">you can purchase protocol cover here. </a>
                 </p>
                 <h2>Prizes &amp; Winning 🏆</h2>
                 <h3>What are my odds to win?</h3>

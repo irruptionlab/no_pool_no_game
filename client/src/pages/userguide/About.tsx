@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 function About() {
     return (
         <div className="wf-section">
             <div className="div-block-33">
                 <h1>About No Pool No Game</h1>
-                <p className="paragraph-user-guide">No Pool No Game is a <a href="https://en.wikipedia.org/wiki/Prize-linked_savings_account" className="link">prize savings</a> protocol, enabling you to win by saving. </p>
+                <p className="paragraph-user-guide">No Pool No Game is a <a href="https://en.wikipedia.org/wiki/Prize-linked_savings_account" target="_blank" rel="noreferrer" className="link">prize savings</a> protocol, enabling you to win by saving. </p>
                 <ul className="list">
                     <li>Deposit USDC for a chance to win</li>
                     <li>Participate in daily quick games in order to get a chance to win a prize if you are within the best scores</li>
@@ -22,9 +24,9 @@ function About() {
                 <h4>Fully non-custodial</h4>
                 <p className="paragraph-user-guide">No one but you has access to your deposited funds. No Pool No Game is non-custodial, meaning users can redeem their money from the pool at any time.</p>
                 <h4>Open source &amp; secure</h4>
-                <p className="paragraph-user-guide">The protocol is made up of computer software: smart contracts living on the blockchain. The <a href="https://github.com/pgrandne/nopoolnogame" className="link-2">code is open-source</a> for everyone to verify and validate. On top of that No Pool No Game will undergo regular audits.</p>
+                <p className="paragraph-user-guide">The protocol is made up of computer software: smart contracts living on the blockchain. The <a href="https://github.com/pgrandne/nopoolnogame" target="_blank" rel="noreferrer" className="link-2">code is open-source</a> for everyone to verify and validate. On top of that No Pool No Game will undergo regular audits.</p>
                 <h4>Decentralized</h4>
-                <p className="paragraph-user-guide">No Pool No Game is user-owned and user-driven. Control over the protocol rests in the hands of the community holding the NPNG token (will be developped later on). Find out more about <a href="/userguide/governance" className="link-4">governance</a>
+                <p className="paragraph-user-guide">No Pool No Game is user-owned and user-driven. Control over the protocol rests in the hands of the community holding the NPNG token (will be developped later on). Find out more about <Link to="/userguide/governance" className="link-4">governance</Link>
                 </p>
             </div>
         </div>

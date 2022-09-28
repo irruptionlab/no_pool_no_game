@@ -12,7 +12,7 @@ function Governance() {
                 <p className="paragraph-user-guide">No Pool No Game governance exists on the Ethereum blockchain and is not limited to the Nopoolnogame.xyz website. There will be many different interfaces you can use to view governance proposals and vote. </p>
                 <h2>Delegation</h2>
                 <p className="paragraph-user-guide">If you hold NPNG tokens but don’t want to actively participate in governance you can delegate your voting power to others. This action keeps the NPNG tokens in your wallet but allows someone else to vote for you.</p>
-                <p className="paragraph-user-guide">If you’d like to have more voting power, you can announce yourself as a Delegate on <a href="https://sybil.org/#/delegates/pooltogether" className="link-57">Sybil.org</a> to allow others to delegate to you. This is a great way to have a bigger voice in governance. </p>
+                <p className="paragraph-user-guide">If you’d like to have more voting power, you can announce yourself as a Delegate on <a href="https://sybil.org/#/delegates" target="_blank" rel="noreferrer" className="link-57">Sybil.org</a> to allow others to delegate to you. This is a great way to have a bigger voice in governance. </p>
             </div>
         </div>
     )

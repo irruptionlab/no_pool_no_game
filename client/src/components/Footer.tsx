@@ -33,7 +33,7 @@ function Footer() {
                 </div>
                 <div className="footer-wrapper-three">
                     <div className="footer-block-three">
-                        <Link to="/userguide/#top" className="footer-link-three">About</Link>
+                        <Link to="/userguide" className="footer-link-three">About</Link>
                         <Link to="/userguide/faq" className="footer-link-three">FAQ</Link>
                         <Link to="/userguide/gettingstarted" className="footer-link-three">Getting started</Link>
                         <Link to="/userguide/governance" className="footer-link-three">Governance</Link>

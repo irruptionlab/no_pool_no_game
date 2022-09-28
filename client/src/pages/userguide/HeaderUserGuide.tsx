@@ -1,7 +1,4 @@
 import { Link, useLocation } from "react-router-dom";
-
-
-
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -13,12 +10,10 @@ import { useState } from "react";
 
 
 function HeaderUserGuide() {
-    const [open, setOpen] = useState(false);
-
+    const [open, setOpen] = useState(false)
     const handleClick = () => {
         setOpen(!open);
-    };
-
+    }
 
 
 
@@ -85,7 +80,29 @@ function HeaderUserGuide() {
                             </ul>
                         </nav>
                         <div className="menu-button-4 w-nav-button">
-                            <div className="w-icon-nav-menu"></div>
+                            <div className="w-icon-nav-menu" onClick={handleClick}>
+                                <Collapse in={open}>
+                                    <ul>
+                                        <li>
+                                            <Link to="/userguide" className={pathname === '/userguide' ? 'nav-link-selected' : 'nav-link'}>About</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/userguide/faq" className={pathname === '/userguide/faq' ? 'nav-link-selected' : 'nav-link'}>FAQ</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/userguide/gettingstarted" className={pathname === '/userguide/gettingstarted' ? 'nav-link-selected' : 'nav-link'}>Getting Started</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/userguide/governance" className={pathname === '/userguide/governance' ? 'nav-link-selected' : 'nav-link'}>Governance</Link>
+                                        </li>
+                                    </ul>
+                                </Collapse>
+
+
+
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
