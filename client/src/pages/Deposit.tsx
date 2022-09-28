@@ -5,8 +5,10 @@ import UserBalance from '../components/UserBalance';
 import SelectNetwork from '../components/utils/SelectNetwork';
 import ModalDeposit from '../components/ModalDeposit';
 import Faucet from '../components/utils/Faucet';
+import { useAccount } from 'wagmi';
 
 function Deposit() {
+    const { isConnected } = useAccount()
     const [amount, setAmount] = useState(0.00)
     const [modalDeposit, setModalDeposit] = useState(false);
 
@@ -67,7 +69,7 @@ function Deposit() {
                             e.preventDefault()
                             handleDeposit()
                         }}
-                        >Deposit</a><img src="images/pointillés.png" loading="lazy" height="200" alt="" className="image-5" /><img src="../images/coin-2.png" loading="lazy" width="60" alt="" className="image-4" />
+                        >{isConnected && amount > 0 ? "Deposit" : (isConnected ? "An amount is required" : "Please connect")}</a><img src="images/pointillés.png" loading="lazy" height="200" alt="" className="image-5" /><img src="../images/coin-2.png" loading="lazy" width="60" alt="" className="image-4" />
                     </div>
                 </div>
                 <div className="div-block-26">

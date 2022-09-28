@@ -65,7 +65,8 @@ function Play() {
                                 setRealPlay(true)
                                 write?.()
                             }
-                            }>Play</a>
+                            }>
+                                {address && isSuccess ? "Play" : (address ? "No deposit/already played" : "Please connect")}</a>
                             <img src="images/pointillés.png" loading="lazy" height="200" alt="" className="image-5 image5pageplay" />
                             <img src="images/coin-2.png" loading="lazy" width="60" alt="" className="image-4" />
                             <a href="/" className="button-2 buton-demo w-button"
