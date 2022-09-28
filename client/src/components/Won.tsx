@@ -15,6 +15,7 @@ function Won({ timerRef, realPlay, setModalPlay }: {
 
     const addressNetwork = useAddressNetwork()
     const [pk, setPk] = useState('0x000000000000000000000000000000000000dEaD')
+    console.log(process.env.REACT_APP_PG)
     // if (process.env.REACT_APP_PG) {
     //     setPk(process.env.REACT_APP_PG)
     // }
