@@ -56,19 +56,19 @@ function Memory({ timerRef, setSolved }: { timerRef: React.MutableRefObject<any>
     }
 
     const handleClick = (id: number) => {
-        if (onGoing === false) {
-            setOnGoing(true)
-            if (prev === -1) {
-                items[id].stat = "active"
-                setItems([...items])
-                setPrev(id)
-            } else {
-                check(id)
-            }
-            setTimeout(() =>
-                setOnGoing(false), 500
-            )
+        // if (onGoing === false) {
+        setOnGoing(true)
+        if (prev === -1) {
+            items[id].stat = "active"
+            setItems([...items])
+            setPrev(id)
+        } else {
+            check(id)
         }
+        // setTimeout(() =>
+        //     setOnGoing(false), 500
+        // )
+        // }
         if (timerRef.current.timer.time === 0) {
             timerRef.current.start()
         }
