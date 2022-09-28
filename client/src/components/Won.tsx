@@ -14,10 +14,10 @@ function Won({ timerRef, realPlay, setModalPlay }: {
     const { address } = useAccount()
 
     const addressNetwork = useAddressNetwork()
-    const [pk, setPk] = useState('0x000000000000000000000000000000000000dEaD')
-    if (process.env.REACT_APP_PG) {
-        setPk(process.env.REACT_APP_PG)
-    }
+    // const [pk, setPk] = useState('0x000000000000000000000000000000000000dEaD')
+    // if (process.env.REACT_APP_PG) {
+    //     setPk(process.env.REACT_APP_PG)
+    // }
 
     // const sendScore = async () => {
     //     const provider = ethers.getDefaultProvider('goerli', {
