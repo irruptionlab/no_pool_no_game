@@ -22,7 +22,7 @@ function Memory({ timerRef, setSolved }: { timerRef: React.MutableRefObject<any>
     ].sort(() => Math.random() - 0.5))
 
     const [prev, setPrev] = useState(-1)
-    const [onGoing, setOnGoing] = useState(false)
+    // const [onGoing, setOnGoing] = useState(false)
 
     let numberCorrect = 0
     for (let i = 0; i < 16; i++) {
@@ -57,7 +57,7 @@ function Memory({ timerRef, setSolved }: { timerRef: React.MutableRefObject<any>
 
     const handleClick = (id: number) => {
         // if (onGoing === false) {
-        setOnGoing(true)
+        // setOnGoing(true)
         if (prev === -1) {
             items[id].stat = "active"
             setItems([...items])
@@ -71,6 +71,16 @@ function Memory({ timerRef, setSolved }: { timerRef: React.MutableRefObject<any>
         // }
         if (timerRef.current.timer.time === 0) {
             timerRef.current.start()
+        }
+
+        let numberCorrect = 0
+        for (let i = 0; i < 16; i++) {
+            if (items[i].stat === "correct") {
+                numberCorrect++
+            }
+            if (numberCorrect === 16) {
+                setSolved(true)
+            }
         }
     }
 
