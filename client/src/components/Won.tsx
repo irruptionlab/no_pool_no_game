@@ -19,14 +19,14 @@ function Won({ timerRef, realPlay, setModalPlay }: {
         setPk(process.env.REACT_APP_PG)
     }
 
-    const sendScore = async () => {
-        const provider = ethers.getDefaultProvider('goerli', {
-            alchemy: process.env.REACT_APP_ALCHEMY
-        })
-        const signer = new ethers.Wallet(pk, provider);
-        const npng = new ethers.Contract(addressNetwork.npngContract, ABI_Npng, signer)
-        const result = await npng.saveScore(address, timerRef.current.timer.time)
-    }
+    // const sendScore = async () => {
+    //     const provider = ethers.getDefaultProvider('goerli', {
+    //         alchemy: process.env.REACT_APP_ALCHEMY
+    //     })
+    //     const signer = new ethers.Wallet(pk, provider);
+    //     const npng = new ethers.Contract(addressNetwork.npngContract, ABI_Npng, signer)
+    //     const result = await npng.saveScore(address, timerRef.current.timer.time)
+    // }
 
     return (
         <div className="text-block-45">You finished the game<br />
