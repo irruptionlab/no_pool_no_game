@@ -29,7 +29,7 @@ function Polygon() {
                     <div className="column-2 w-col w-col-9">
                         <div className="text-block-39">Contract Adress</div>
                         <div className="text-block-40"><a href="https://mumbai.polygonscan.com/address/0xc6993Fdd6a8fe92f27192b7c8ccD8015b97fac86" target="_blank" rel="noreferrer">0xc6993Fdd6a8fe92f27192b7c8ccD8015b97fac86</a></div>
-                        <div className="text-block-40"><a href="https://mumbai.polygonscan.com/address/0xc6993Fdd6a8fe92f27192b7c8ccD8015b97fac86" target="_blank" rel="noreferrer">0xc6993Fdd6a8fe92f27192b7c8ccD8015b97fac86</a></div>
+                        <div className="text-block-40"><a href="https://mumbai.polygonscan.com/address/0x65b918e12D62b57dB00c923E785930e9D02a07Dd" target="_blank" rel="noreferrer">0x65b918e12D62b57dB00c923E785930e9D02a07Dd</a></div>
                     </div>
                 </div>
                 <h2>Checking for Prizes</h2>
