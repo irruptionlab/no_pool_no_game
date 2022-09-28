@@ -24,6 +24,16 @@ function Memory({ timerRef, setSolved }: { timerRef: React.MutableRefObject<any>
     const [prev, setPrev] = useState(-1)
     const [onGoing, setOnGoing] = useState(false)
 
+    let numberCorrect = 0
+    for (let i = 0; i < 16; i++) {
+        if (items[i].stat === "correct") {
+            numberCorrect++
+        }
+        if (numberCorrect === 16) {
+            setSolved(true)
+        }
+    }
+
     const check = (current: number) => {
         if (items[current].id === items[prev].id
             && items[current].dup !== items[prev].dup
@@ -58,18 +68,9 @@ function Memory({ timerRef, setSolved }: { timerRef: React.MutableRefObject<any>
             setTimeout(() =>
                 setOnGoing(false), 500
             )
-            let numberCorrect = 0
-            for (let i = 0; i < 16; i++) {
-                if (items[i].stat === "correct") {
-                    numberCorrect++
-                }
-                if (numberCorrect === 16) {
-                    setSolved(true)
-                }
-            }
-            if (timerRef.current.timer.time === 0) {
-                timerRef.current.start()
-            }
+        }
+        if (timerRef.current.timer.time === 0) {
+            timerRef.current.start()
         }
     }
 
