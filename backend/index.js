@@ -33,7 +33,10 @@ const npng = new ethers.Contract(process.env.NPNG_CONTRACT, ABI, wallet);
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://nopoolnogame.xyz/play',
+    credentials: true,
+}));
 
 
 
@@ -51,7 +54,7 @@ app.post('/verify', async function (req, res) {
         console.log('2');
         const score = parseInt(message.statement.substring(57));
         console.log('3');
-        const result = await npng.saveScore(message.address, score);
+        await npng.saveScore(message.address, score);
         res.send(true);
     } catch {
         res.send(false);

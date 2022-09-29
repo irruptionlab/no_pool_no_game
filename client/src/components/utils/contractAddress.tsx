@@ -1,4 +1,4 @@
-export const BACKEND_ADDR = "http://localhost:3000"
+export const BACKEND_ADDR = "https://nopoolnogame.herokuapp.com"
 
 export const ethereum = {
     usdcContract: '0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43',
