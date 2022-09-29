@@ -30,14 +30,12 @@ const provider = new ethers.providers.AlchemyProvider("goerli", process.env.ALCH
 const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider)
 const npng = new ethers.Contract(process.env.NPNG_CONTRACT, ABI, wallet);
 
-
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: 'https://nopoolnogame.xyz/play',
+    origin: 'https://nopoolnogame.xyz',
     credentials: true,
 }));
-
 
 
 app.get('/nonce', function (_, res) {
@@ -61,23 +59,4 @@ app.post('/verify', async function (req, res) {
     }
 });
 
-app.listen(3000);
-
-
-// const { address } = useAccount()
-
-// const addressNetwork = useAddressNetwork()
-// const [pk, setPk] = useState('0x000000000000000000000000000000000000dEaD')
-// console.log(process.env.REACT_APP_PG)
-// if (process.env.REACT_APP_PG) {
-//     setPk(process.env.REACT_APP_PG)
-// }
-
-// const sendScore = async () => {
-//     const provider = ethers.getDefaultProvider('goerli', {
-//         alchemy: process.env.REACT_APP_ALCHEMY
-//     })
-//     const signer = new ethers.Wallet(pk, provider);
-//     const npng = new ethers.Contract(addressNetwork.npngContract, ABI_Npng, signer)
-//     const result = await npng.saveScore(address, timerRef.current.timer.time)
-// }
+app.listen(process.env.PORT || 5000)

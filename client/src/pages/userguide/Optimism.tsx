@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
+import { optimism } from '../../components/utils/contractAddress'
 
 function Optimism() {
     return (
@@ -31,8 +32,8 @@ function Optimism() {
                     </div>
                     <div className="column-2 w-col w-col-9">
                         <div className="text-block-39">Contract Adress</div>
-                        <div className="text-block-40">0x6a304dFdb9f808741244b6b</div>
-                        <div className="text-block-40">0x6a304dFdb9f808741244b6b</div>
+                        <div className="text-block-40">A redeployment is on progress</div>
+                        <div className="text-block-40">A redeployment is on progress</div>
                     </div>
                 </div>
                 <h2>Checking for Prizes</h2>

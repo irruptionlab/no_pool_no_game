@@ -72,7 +72,7 @@ function Play() {
                             <a href="/" className="button-2 buton-demo w-button"
                                 onClick={(e) => {
                                     e.preventDefault()
-                                    setRealPlay(true)
+                                    setRealPlay(false)
                                     setModalPlay(true)
                                 }}
                             >Demo</a>

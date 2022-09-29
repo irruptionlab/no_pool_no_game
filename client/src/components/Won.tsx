@@ -20,7 +20,6 @@ function Won({ score, realPlay, setModalPlay }: {
                 }
                 }>Close</a>
             </div>}
-
         </div >
 
     )

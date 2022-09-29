@@ -1,6 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { ethereum } from '../../components/utils/contractAddress'
 
 function Ethereum() {
+    const etherscanNpngToken = `https://goerli.etherscan.io/address/${ethereum.npngToken}`
+    const etherscanNpngContract = `https://goerli.etherscan.io/address/${ethereum.npngContract}`
+
+
     return (
         <div className="wf-section">
             <div className="div-block-33">
@@ -29,8 +34,8 @@ function Ethereum() {
                     </div>
                     <div className="column-2 w-col w-col-9">
                         <div className="text-block-39">Contract Adress</div>
-                        <div className="text-block-40"><a href="https://goerli.etherscan.io/address/0x8ad6d963600f5c45dabd5ff6faa04d51a6d549f0" target="_blank" rel="noreferrer">0x8ad6d963600F5c45DaBd5fF6faA04d51A6D549f0</a></div>
-                        <div className="text-block-40"><a href="https://goerli.etherscan.io/address/0xB9273454a76B109b5F2E1F3e31176fa6c2c326f9" target="_blank" rel="noreferrer">0xB9273454a76B109b5F2E1F3e31176fa6c2c326f9</a></div>
+                        <div className="text-block-40"><a href={etherscanNpngToken} target="_blank" rel="noreferrer">{ethereum.npngToken}</a></div>
+                        <div className="text-block-40"><a href={etherscanNpngContract} target="_blank" rel="noreferrer">{ethereum.npngContract}</a></div>
                     </div>
                 </div>
                 <h2>Checking for Prizes</h2>
@@ -41,8 +46,8 @@ function Ethereum() {
                 <h2>How to Withdraw</h2>
                 <p className="paragraph-user-guide">You can withdraw your deposit from No Pool No Game in the <a href="/account" className="link-22">Account</a> tab of the No Pool No Game App at any time. </p>
                 <p className="paragraph-user-guide">To withdraw, choose a deposit and click on <strong>Withdraw</strong>. Next, enter the amount you want to withdraw and click <strong>Review withdrawal</strong>. On the next screen, hit <strong>Confirm withdrawal</strong> and <strong>confirm</strong> the transaction in your wallet.</p>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
 

@@ -54,7 +54,6 @@ function Siwe({ score, setModalPlay }: { score: number, setModalPlay: React.Disp
                 body: JSON.stringify({ message, signature }),
             })
             setModalPlay(false)
-            console.log(await verifyRes.text)
             if (!verifyRes.ok) throw new Error('Error verifying message')
         } catch (error) {
             console.log(error)
