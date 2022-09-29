@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Card from './Card'
 
-function Memory({ timerRef, setSolved }: { timerRef: React.MutableRefObject<any>, setSolved: React.Dispatch<React.SetStateAction<boolean>> }) {
+function Memory({ timerRef, setScore }: { timerRef: React.MutableRefObject<any>, setScore: React.Dispatch<React.SetStateAction<number>> }) {
     const [items, setItems] = useState([
         { id: 1, dup: 1, img: '/images/memory/aave.png', stat: "" },
         { id: 1, dup: 2, img: '/images/memory/aave.png', stat: "" },
@@ -22,7 +22,7 @@ function Memory({ timerRef, setSolved }: { timerRef: React.MutableRefObject<any>
     ].sort(() => Math.random() - 0.5))
 
     const [prev, setPrev] = useState(-1)
-    // const [onGoing, setOnGoing] = useState(false)
+    const [onGoing, setOnGoing] = useState(false)
 
     let numberCorrect = 0
     for (let i = 0; i < 16; i++) {
@@ -30,7 +30,10 @@ function Memory({ timerRef, setSolved }: { timerRef: React.MutableRefObject<any>
             numberCorrect++
         }
         if (numberCorrect === 16) {
-            setSolved(true)
+            timerRef.current.stop()
+            setScore(timerRef.current.timer.time)
+
+
         }
     }
 
@@ -56,31 +59,21 @@ function Memory({ timerRef, setSolved }: { timerRef: React.MutableRefObject<any>
     }
 
     const handleClick = (id: number) => {
-        // if (onGoing === false) {
-        // setOnGoing(true)
-        if (prev === -1) {
-            items[id].stat = "active"
-            setItems([...items])
-            setPrev(id)
-        } else {
-            check(id)
+        if (onGoing === false) {
+            setOnGoing(true)
+            if (prev === -1) {
+                items[id].stat = "active"
+                setItems([...items])
+                setPrev(id)
+            } else {
+                check(id)
+            }
+            setTimeout(() =>
+                setOnGoing(false), 500
+            )
         }
-        // setTimeout(() =>
-        //     setOnGoing(false), 500
-        // )
-        // }
         if (timerRef.current.timer.time === 0) {
             timerRef.current.start()
-        }
-
-        let numberCorrect = 0
-        for (let i = 0; i < 16; i++) {
-            if (items[i].stat === "correct") {
-                numberCorrect++
-            }
-            if (numberCorrect === 16) {
-                setSolved(true)
-            }
         }
     }
 

@@ -5,7 +5,7 @@ import Won from "./Won";
 
 
 function ModalPlay({ realPlay, setModalPlay }: { realPlay: boolean, setModalPlay: React.Dispatch<React.SetStateAction<boolean>> }) {
-    const [solved, setSolved] = useState(false)
+    const [score, setScore] = useState(0)
     const timerRef = useRef<any>(null)
 
     return (
@@ -25,8 +25,8 @@ function ModalPlay({ realPlay, setModalPlay }: { realPlay: boolean, setModalPlay
                             <Timer.Minutes /> : <Timer.Seconds /> : <Timer.Milliseconds />
                         </div>
                     </div>
-                    {!solved && <Memory timerRef={timerRef} setSolved={setSolved} />}
-                    {solved && <Won timerRef={timerRef} realPlay={realPlay} setModalPlay={setModalPlay} />}
+                    {score === 0 && <Memory timerRef={timerRef} setScore={setScore} />}
+                    {score !== 0 && <Won score={score} realPlay={realPlay} setModalPlay={setModalPlay} />}
                 </div>
             </Timer >
         </div >

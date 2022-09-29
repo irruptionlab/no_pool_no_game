@@ -60,19 +60,19 @@ function Play() {
                             <div className="text-block-22">
                             </div>
                             <div className="div-block-3"></div>
-                            <a href="/" className={(address && isSuccess) ? "button-2 w-button" : "button-2 w-button inactiveLink"} onClick={(e) => {
+                            {address && isSuccess && <a href="/" className="button-2 w-button" onClick={(e) => {
                                 e.preventDefault()
                                 setRealPlay(true)
                                 write?.()
-                            }
-                            }>
-                                {address && isSuccess ? "Play" : (address ? "No deposit/already played" : "Please connect")}</a>
+                            }}>Play</a>}
+                            {address && !isSuccess && <a href="/" className="button-2 w-button inactiveLink">No deposit/already played</a>}
+                            {!address && <a href="/" className="button-2 w-button inactiveLink">Please connect</a>}
                             <img src="images/pointillés.png" loading="lazy" height="200" alt="" className="image-5 image5pageplay" />
                             <img src="images/coin-2.png" loading="lazy" width="60" alt="" className="image-4" />
                             <a href="/" className="button-2 buton-demo w-button"
                                 onClick={(e) => {
                                     e.preventDefault()
-                                    setRealPlay(false)
+                                    setRealPlay(true)
                                     setModalPlay(true)
                                 }}
                             >Demo</a>
@@ -81,7 +81,7 @@ function Play() {
                 </div>
             </div>
             {modalPlay && <ModalPlay realPlay={realPlay} setModalPlay={setModalPlay} />}
-        </div>
+        </div >
     )
 }
 

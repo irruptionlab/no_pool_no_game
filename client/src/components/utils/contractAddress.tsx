@@ -1,7 +1,4 @@
-// export const usdcContract = '0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43'
-// export const aavePoolContract = '0x368EedF3f56ad10b9bC57eed4Dac65B26Bb667f6'
-// export const npngContract = '0xcf79815039917A4DD65d39b42331319AB4FF61c0'
-// export const aUsdcContract = '0x1Ee669290939f8a8864497Af3BC83728715265FF'
+export const BACKEND_ADDR = "http://localhost:3000"
 
 export const ethereum = {
     usdcContract: '0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43',
