@@ -1,16 +1,19 @@
-import { useAccount, usePrepareContractWrite, useContractWrite, useContractRead } from 'wagmi'
-import { ethereum } from './utils/contractAddress'
+import { useAccount, usePrepareContractWrite, useContractWrite, useContractRead, useNetwork } from 'wagmi'
+import { useAddressNetwork } from './utils/useAddressNetwork'
 import ABI_ERC20 from './utils/ABI_ERC20.json'
 import ABI_Npng from './utils/ABI_Npng.json'
 import { useState } from 'react'
 import { ethers } from 'ethers'
 
+
 function Approve({ amount, amountApproved }: { amount: number, amountApproved: number }) {
+    const addressNetwork = useAddressNetwork()
+
     const { config } = usePrepareContractWrite({
-        addressOrName: ethereum.usdcContract,
+        addressOrName: addressNetwork.usdcContract,
         contractInterface: ABI_ERC20,
         functionName: 'approve',
-        args: [ethereum.npngContract, amount * 10 ** 6]
+        args: [addressNetwork.npngContract, amount * 10 ** 6]
     })
     const { write } = useContractWrite(config)
 
@@ -25,8 +28,10 @@ function Approve({ amount, amountApproved }: { amount: number, amountApproved: n
 
 
 function Deposit({ setModalDeposit, amount }: { setModalDeposit: React.Dispatch<React.SetStateAction<boolean>>, amount: number }) {
+    const addressNetwork = useAddressNetwork()
+
     const { config } = usePrepareContractWrite({
-        addressOrName: ethereum.npngContract,
+        addressOrName: addressNetwork.npngContract,
         contractInterface: ABI_Npng,
         functionName: 'depositOnAave',
         args: [amount * 10 ** 6],
@@ -48,25 +53,33 @@ function Deposit({ setModalDeposit, amount }: { setModalDeposit: React.Dispatch<
 }
 
 function ModalDeposit({ setModalDeposit, amount }: { setModalDeposit: React.Dispatch<React.SetStateAction<boolean>>, amount: number }) {
+    const addressNetwork = useAddressNetwork()
     const [amountApproved, setAmountApproved] = useState(0)
     const { address } = useAccount();
+    const { chain } = useNetwork();
     const { data } = useContractRead({
-        addressOrName: ethereum.usdcContract,
+        addressOrName: addressNetwork.usdcContract,
         contractInterface: ABI_ERC20,
         functionName: 'allowance',
         watch: true,
-        args: [address, ethereum.npngContract],
+        args: [address, addressNetwork.npngContract],
         onSuccess(data) {
             setAmountApproved(parseFloat(ethers.utils.formatUnits(data?._hex, 6)))
         },
     })
+
+    console.log(chain?.name)
 
     return (
         <div className="modal-wrapper">
             <div className="modal-outside-trigger" onClick={(e) => { setModalDeposit(false) }}></div>
             <div className="modal-inner-wrapper deposit-modal">
                 <div className="div-block-41" onClick={(e) => { setModalDeposit(false) }}><img src="images/close.png" loading="lazy" width="20" height="20" data-w-id="173262e3-a8b5-4db7-7eb1-8224456fe284" alt="" className="image-18" /></div>
-                <div className="div-block-40"><img src="images/ethereum-eth-logo.png" loading="lazy" width="135" alt="" className="image-15" /></div>
+                <div className="div-block-40">
+                    {chain?.name === "Goerli" && <img src="images/ethereum-eth-logo.png" loading="lazy" width="135" alt="" className="image-15" />}
+                    {chain?.name === "Polygon Mumbai" && <img src="images/polygon-matic-logo.png" loading="lazy" width="135" alt="" className="image-15" />}
+                    {chain?.name === "Optimism" && <img src="images/optimism.png" loading="lazy" width="135" alt="" className="image-15" />}
+                </div>
                 <h2>Deposit confirmation</h2>
                 <p>Prizes are awarded daily! Don&#x27;t forget to come back to claim any prizes. Unclaimed prizes expire after 60 days, for more info see <a href="/userguide/faq" target="_blank" className="link-58">here</a>.</p>
                 <div className="div-block-39">

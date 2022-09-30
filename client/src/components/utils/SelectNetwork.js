@@ -23,7 +23,7 @@ const data = [
     {
         value: 10,
         text: 'Optimism',
-        icon: <img src="images/Optimism.webp" loading="lazy" width="25" alt="" className="image-11" />
+        icon: <img src="images/optimism.png" loading="lazy" width="25" alt="" className="image-11" />
     },
     {
         value: 80001,
@@ -37,23 +37,25 @@ function SelectNetwork() {
     const { switchNetwork } = useSwitchNetwork()
     const [selectedOption, setSelectedOption] = useState(data[0]);
 
-    useEffect(() => {
-        if (chain) {
-            switch (chain.id) {
-                case 5:
-                    setSelectedOption(data[0]);
-                    break;
-                case 10:
-                    setSelectedOption(data[1]);
-                    break;
-                case 8001:
-                    setSelectedOption(data[2]);
-                    break;
-                default:
-                    setSelectedOption(data[0]);
-            }
-        }
-    }, [chain]);
+    // useEffect(() => {
+    //     console.log('ok')
+    //     if (chain) {
+    //         switch (chain.id) {
+    //             case 5:
+    //                 setSelectedOption(data[0]);
+    //                 break;
+    //             case 10:
+    //                 setSelectedOption(data[1]);
+    //                 break;
+    //             case 8001:
+    //                 setSelectedOption(data[2]);
+    //                 break;
+    //             default:
+    //                 setSelectedOption(data[0]);
+    //         }
+    //     }
+    //     console.log(selectedOption)
+    // }, [se]);
 
     const handleChange = e => {
         setSelectedOption(e);

@@ -44,7 +44,7 @@ function Account() {
                             <ReadingDeposit network={polygon} setModalWithdraw={setModalWithdraw} />
                         </div>
                         <div className="div-block-30">
-                            <div className="div-block-31"><img src="images/Optimism.webp" loading="lazy" height="23" width="23" alt="" />
+                            <div className="div-block-31"><img src="images/optimism.png" loading="lazy" height="23" width="23" alt="" />
                                 <div className="text-block-30">Optimism</div>
                             </div>
                             <ReadingDeposit network={optimism} setModalWithdraw={setModalWithdraw} />

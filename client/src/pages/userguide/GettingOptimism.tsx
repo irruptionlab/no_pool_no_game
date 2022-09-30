@@ -3,7 +3,7 @@ function GettingOptimism() {
     <div className="wf-section">
       <div className="div-block-33">
         <div className="div-block-34">
-          <h1>Getting USDC &amp; ETH on Optimism</h1><img src="../../../images/Optimism.webp" loading="lazy" width="62" alt="" className="image-13" />
+          <h1>Getting USDC &amp; ETH on Optimism</h1><img src="../../../images/optimism.png" loading="lazy" width="62" alt="" className="image-13" />
         </div>
         <p className="paragraph-user-guide">Optimism makes it easy to get your assets onto the network. They are supported by various fiat on-ramps, Centralized Exchanges, and bridges. You can find a complete list <a href="https://app.optimism.io/bridge" className="link-26">here</a>.</p>
         <h6><strong>New to crypto?</strong></h6>

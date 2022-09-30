@@ -6,7 +6,7 @@ function Optimism() {
         <div className="wf-section">
             <div className="div-block-33">
                 <div className="div-block-34">
-                    <h1>No Pool No Game on Optimism </h1><img src="../../images/Optimism.webp" loading="lazy" width="62" alt="" className="image-13" />
+                    <h1>No Pool No Game on Optimism </h1><img src="../../images/optimism.png" loading="lazy" width="62" alt="" className="image-13" />
                 </div>
                 <p className="paragraph-user-guide">Optimism offers fast transactions, low fees, and leverages the security the Ethereum network provides.</p>
                 <p className="paragraph-user-guide">All you need to use No Pool No Game on Optimism is a crypto wallet, ETH for gas fees, and USDC to deposit into the protocol.<br />If you want all the details on <Link to="/userguide/network/optimism/getting" className="link-42">how to get USDC &amp; ETH on Optimism follow our guidelines</Link>
