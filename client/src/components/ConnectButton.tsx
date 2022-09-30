@@ -3,7 +3,7 @@ import { ConnectKitButton } from "connectkit";
 function ConnectButton() {
     return (
         <ConnectKitButton.Custom>
-            {({ isConnected, isConnecting, show, hide, truncatedAddress, ensName }) => {
+            {({ isConnected, show, truncatedAddress }) => {
                 return (
                     <div onClick={show} className="button-primary w-button">
                         {isConnected ? truncatedAddress : "Connect Wallet"}

@@ -23,10 +23,10 @@ function App() {
   const { chain } = useNetwork()
   const { switchNetwork } = useSwitchNetwork()
 
-  // useEffect(() => {
-  //   if (chain && (chain.id === 5 || chain.id === 10 || chain.id === 80001)) console.log(`connected to ${chain.name}`)
-  //   else switchNetwork?.(5)
-  // }, []);
+  useEffect(() => {
+    if (chain && (chain.id === 5 || chain.id === 10 || chain.id === 80001)) console.log(`connected to ${chain.name}`)
+    else switchNetwork?.(10)
+  }, [chain]);
 
   return (
     <div className="body">
@@ -35,7 +35,7 @@ function App() {
       <div className="s-parateur"></div>
       <Routes>
         <Route path="/" element={<Deposit />} />
-        <Route path="/play" element={<Play />} />
+        {/* <Route path="/play" element={<Play />} />
         <Route path="/account" element={<Account />} />
         <Route path="/userguide" >
           <Route path="/userguide" element={<About />} />
@@ -52,8 +52,8 @@ function App() {
               <Route path="/userguide/network/polygon" element={<Polygon />} />
               <Route path="/userguide/network/polygon/getting" element={<GettingPolygon />} />
             </Route>
-          </Route>
-        </Route>
+          </Route> */}
+        {/* </Route> */}
       </Routes>
       {pathname.slice(1, 5) !== 'user' && <Footer />}
     </div >

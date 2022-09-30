@@ -37,25 +37,24 @@ function SelectNetwork() {
     const { switchNetwork } = useSwitchNetwork()
     const [selectedOption, setSelectedOption] = useState(data[0]);
 
-    // useEffect(() => {
-    //     console.log('ok')
-    //     if (chain) {
-    //         switch (chain.id) {
-    //             case 5:
-    //                 setSelectedOption(data[0]);
-    //                 break;
-    //             case 10:
-    //                 setSelectedOption(data[1]);
-    //                 break;
-    //             case 8001:
-    //                 setSelectedOption(data[2]);
-    //                 break;
-    //             default:
-    //                 setSelectedOption(data[0]);
-    //         }
-    //     }
-    //     console.log(selectedOption)
-    // }, [se]);
+    useEffect(() => {
+        if (chain) {
+            console.log('ok')
+            switch (chain.id) {
+                case 5:
+                    setSelectedOption(data[0]);
+                    break;
+                case 10:
+                    setSelectedOption(data[1]);
+                    break;
+                case 80001:
+                    setSelectedOption(data[2]);
+                    break;
+                default:
+                    setSelectedOption(data[0]);
+            }
+        }
+    }, [chain]);
 
     const handleChange = e => {
         setSelectedOption(e);

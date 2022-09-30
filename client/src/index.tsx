@@ -4,21 +4,23 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { chain, WagmiConfig, createClient, configureChains, defaultChains } from "wagmi";
-import { publicProvider } from 'wagmi/providers/public';
-import { getDefaultClient, ConnectKitProvider } from "connectkit";
+import { chain, WagmiConfig, createClient, configureChains } from "wagmi";
+import { ConnectKitProvider } from "connectkit";
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+import { publicProvider } from 'wagmi/providers/public'
 
-const chains = [chain.goerli, chain.optimism, chain.polygonMumbai, chain.hardhat]
-const { provider } = configureChains(defaultChains, [publicProvider()])
+const { chains, provider, webSocketProvider } = configureChains([chain.optimism, chain.polygonMumbai, chain.goerli],
+  [publicProvider()],
+)
 
-const client = createClient(
-  getDefaultClient({
-    appName: "No Pool No Game",
-    autoConnect: true,
-    provider,
-    chains,
-  }),
-);
+const client = createClient({
+  autoConnect: true,
+  connectors: [
+    new MetaMaskConnector({ chains }),
+  ],
+  provider,
+  webSocketProvider,
+})
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

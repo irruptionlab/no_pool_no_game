@@ -68,8 +68,6 @@ function ModalDeposit({ setModalDeposit, amount }: { setModalDeposit: React.Disp
         },
     })
 
-    console.log(chain?.name)
-
     return (
         <div className="modal-wrapper">
             <div className="modal-outside-trigger" onClick={(e) => { setModalDeposit(false) }}></div>

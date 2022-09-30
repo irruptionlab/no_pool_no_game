@@ -5,10 +5,11 @@ import UserBalance from '../components/UserBalance';
 import SelectNetwork from '../components/utils/SelectNetwork';
 import ModalDeposit from '../components/ModalDeposit';
 import Faucet from '../components/utils/Faucet';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 
 function Deposit() {
     const { isConnected } = useAccount()
+    const { chain } = useNetwork()
     const [amount, setAmount] = useState(0.00)
     const [modalDeposit, setModalDeposit] = useState(false);
 
@@ -64,7 +65,9 @@ function Deposit() {
                         </div>
                         <div className="text-block-10"><span className="highlight-text">Higher</span> is your deposit, <span className="highlight-text">higher</span> is your <span className="text-span-2">reward</span> ! *</div>
                         <div className="div-block-3"></div>
-                        <Faucet />
+
+                        {chain?.name === "Goerli" && <Faucet />}
+                        {chain?.name !== "Goerli" && <a href="/" className="button-2 w-button inactiveLink">FAUCET 1000 USDC</a>}
                         <a href="/" className={amount > 0 ? "button-2 w-button" : "button-2 w-button inactiveLink"} onClick={(e) => {
                             e.preventDefault()
                             handleDeposit()
