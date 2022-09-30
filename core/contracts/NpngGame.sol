@@ -43,9 +43,9 @@ contract NpngGame is Ownable {
     function saveScore(address player, uint score) public onlyOwner {
         updateIdContest();
         contestsResult.push(ContestsResult(currentIdContest, player, score));
-        numberOfPlayersPerContest[currentIdContest] =
-            numberOfPlayersPerContest[currentIdContest] +
-            1;
+        numberOfPlayersPerContest[currentIdContest]++
+            // numberOfPlayersPerContest[currentIdContest] +
+            // 1;
     }
 
     /// READ FUNCTIONS
