@@ -52,8 +52,8 @@ function App() {
               <Route path="/userguide/network/polygon" element={<Polygon />} />
               <Route path="/userguide/network/polygon/getting" element={<GettingPolygon />} />
             </Route>
-          </Route> */}
-          {/* </Route>
+          </Route>
+        </Route>
       </Routes>
       {pathname.slice(1, 5) !== 'user' && <Footer />}
     </div >
