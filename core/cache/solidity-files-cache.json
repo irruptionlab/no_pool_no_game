@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/perrin/Project/NoPoolNoGame/core/contracts/NpngGame.sol": {
-      "lastModificationDate": 1664204103785,
-      "contentHash": "6230380f0daaa92f6551baef9088f21b",
+      "lastModificationDate": 1664652717631,
+      "contentHash": "c1688912aa45f984d06a19e15f8a01cc",
       "sourceName": "contracts/NpngGame.sol",
       "solcConfig": {
         "version": "0.8.17",
@@ -29,6 +29,7 @@
         }
       },
       "imports": [
+        "@openzeppelin/contracts/security/Pausable.sol",
         "@openzeppelin/contracts/access/Ownable.sol"
       ],
       "versionPragmas": [
@@ -111,8 +112,8 @@
       ]
     },
     "/home/perrin/Project/NoPoolNoGame/core/contracts/NpngPool.sol": {
-      "lastModificationDate": 1664206935863,
-      "contentHash": "8e1e6f08562cb8a6c28954f36eca286c",
+      "lastModificationDate": 1664653646254,
+      "contentHash": "bceb2b2f2ce27f6ce76913f1b781ea02",
       "sourceName": "contracts/NpngPool.sol",
       "solcConfig": {
         "version": "0.8.17",
@@ -517,6 +518,43 @@
       ],
       "artifacts": [
         "IERC165"
+      ]
+    },
+    "/home/perrin/Project/NoPoolNoGame/core/node_modules/@openzeppelin/contracts/security/Pausable.sol": {
+      "lastModificationDate": 1663665345418,
+      "contentHash": "25c8108f36fdd472bc78d4c4af240c11",
+      "sourceName": "@openzeppelin/contracts/security/Pausable.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Pausable"
       ]
     }
   }

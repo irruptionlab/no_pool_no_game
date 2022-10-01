@@ -1,10 +1,10 @@
 export const BACKEND_ADDR = "https://nopoolnogame.herokuapp.com"
 
-export const ethereum = {
+export const goerli = {
     usdcContract: '0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43',
     aavePoolContract: '0x368EedF3f56ad10b9bC57eed4Dac65B26Bb667f6',
-    npngContract: '0xB9273454a76B109b5F2E1F3e31176fa6c2c326f9',
     aUsdcContract: '0x1Ee669290939f8a8864497Af3BC83728715265FF',
+    npngContract: '0xc6471c1f1516365629300D95b5c7b148f166FE14',
     npngToken: '0x8ad6d963600F5c45DaBd5fF6faA04d51A6D549f0'
 }
 

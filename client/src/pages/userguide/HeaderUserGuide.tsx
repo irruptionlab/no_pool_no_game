@@ -59,7 +59,7 @@ function HeaderUserGuide() {
                                             <Collapse in={open} timeout="auto" unmountOnExit>
                                                 <List disablePadding>
                                                     <ListItemButton sx={{ pl: 4 }}>
-                                                        <Link to="/userguide/network" className="nav-link-2" onClick={handleClick}>Ethereum</Link>
+                                                        <Link to="/userguide/network" className="nav-link-2" onClick={handleClick}>Goerli</Link>
                                                     </ListItemButton>
                                                     <ListItemButton sx={{ pl: 4 }}>
                                                         <Link to="/userguide/network/optimism" className="nav-link-2" onClick={handleClick}>Optimism</Link>

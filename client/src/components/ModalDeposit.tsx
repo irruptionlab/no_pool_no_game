@@ -36,6 +36,7 @@ function Deposit({ setModalDeposit, amount }: { setModalDeposit: React.Dispatch<
         functionName: 'depositOnAave',
         args: [amount * 10 ** 6],
     })
+
     const { write } = useContractWrite({
         ...config,
         onSettled(data, error) {

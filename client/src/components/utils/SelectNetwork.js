@@ -39,7 +39,6 @@ function SelectNetwork() {
 
     useEffect(() => {
         if (chain) {
-            console.log('ok')
             switch (chain.id) {
                 case 5:
                     setSelectedOption(data[0]);

@@ -10,7 +10,7 @@ import Faq from './pages/userguide/Faq';
 import GettingStarted from './pages/userguide/GettingStarted';
 import Governance from './pages/userguide/Governance';
 import HeaderUserGuide from './pages/userguide/HeaderUserGuide';
-import Ethereum from './pages/userguide/Ethereum';
+import Goerli from './pages/userguide/Goerli';
 import Optimism from './pages/userguide/Optimism';
 import Polygon from './pages/userguide/Polygon';
 import { useNetwork, useSwitchNetwork } from 'wagmi';
@@ -43,7 +43,7 @@ function App() {
           <Route path="/userguide/gettingstarted" element={<GettingStarted />} />
           <Route path="/userguide/governance" element={<Governance />} />
           <Route path="/userguide/network">
-            <Route path="/userguide/network" element={<Ethereum />} />
+            <Route path="/userguide/network" element={<Goerli />} />
             <Route path="/userguide/network/optimism/">
               <Route path="/userguide/network/optimism/" element={<Optimism />} />
               <Route path="/userguide/network/optimism/getting" element={<GettingOptimism />} />

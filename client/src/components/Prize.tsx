@@ -1,20 +1,18 @@
 import { useContractRead } from 'wagmi'
-import { ethereum } from './utils/contractAddress'
-import ABI_ERC20 from './utils/ABI_ERC20.json'
+import { goerli } from './utils/contractAddress'
+import ABI_NPNG from './utils/ABI_Npng.json'
 import { ethers } from "ethers"
 import { useState } from 'react'
 
 function Prize() {
     const [dailyPrize, setDailyPrize] = useState(0)
     useContractRead({
-        addressOrName: ethereum.aUsdcContract,
-        contractInterface: ABI_ERC20,
-        functionName: 'balanceOf',
+        addressOrName: goerli.npngContract,
+        contractInterface: ABI_NPNG,
+        functionName: 'interestEarned',
         chainId: 5,
-        args: ['0xcf79815039917A4DD65d39b42331319AB4FF61c0'],
-        overrides: { from: ethereum.npngContract },
         onSettled(data) {
-            setDailyPrize(parseFloat(ethers.utils.formatUnits(data?._hex, 6)) * 100 * 0.05 / 365)
+            setDailyPrize(parseFloat(ethers.utils.formatUnits(data?._hex, 6)))
         }
     })
 

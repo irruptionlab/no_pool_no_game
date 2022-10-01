@@ -24,28 +24,30 @@
         "type": "event"
     },
     {
+        "anonymous": false,
         "inputs": [
             {
-                "internalType": "uint256",
-                "name": "_idContest",
-                "type": "uint256"
-            },
-            {
+                "indexed": false,
                 "internalType": "address",
-                "name": "_player",
+                "name": "account",
                 "type": "address"
             }
         ],
-        "name": "calculateRewards",
-        "outputs": [
+        "name": "Paused",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
             {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
+                "indexed": false,
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
             }
         ],
-        "stateMutability": "view",
-        "type": "function"
+        "name": "Unpaused",
+        "type": "event"
     },
     {
         "inputs": [
@@ -74,16 +76,16 @@
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "checkGamePlayed",
-        "outputs": [
+        "inputs": [
             {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
+                "internalType": "address",
+                "name": "_newRecorderAddress",
+                "type": "address"
             }
         ],
-        "stateMutability": "view",
+        "name": "changeRecorder",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -92,22 +94,11 @@
                 "internalType": "uint256",
                 "name": "_idContest",
                 "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "_player",
-                "type": "address"
             }
         ],
-        "name": "checkPlayerRank",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
+        "name": "claimRewards",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -153,8 +144,19 @@
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "getCurrentIdContest",
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_idContest",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_player",
+                "type": "address"
+            }
+        ],
+        "name": "getContestRank",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -167,12 +169,55 @@
     },
     {
         "inputs": [],
-        "name": "getGameFrequence",
+        "name": "getEndOfContest",
         "outputs": [
             {
                 "internalType": "uint256",
                 "name": "",
                 "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getIdContest",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getListScores",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "idContest",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "player",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "score",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct NpngGame.ContestsResult[]",
+                "name": "",
+                "type": "tuple[]"
             }
         ],
         "stateMutability": "view",
@@ -205,80 +250,19 @@
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "getScore",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "uint256",
-                        "name": "idContest",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "player",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "score",
-                        "type": "uint256"
-                    }
-                ],
-                "internalType": "struct NpngGame.ContestsResult[]",
-                "name": "",
-                "type": "tuple[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
         "inputs": [
             {
                 "internalType": "uint256",
                 "name": "_idContest",
                 "type": "uint256"
-            }
-        ],
-        "name": "getTopPlayers",
-        "outputs": [
+            },
             {
-                "components": [
-                    {
-                        "internalType": "uint256",
-                        "name": "idContest",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "player",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "score",
-                        "type": "uint256"
-                    }
-                ],
-                "internalType": "struct NpngGame.ContestsResult[10]",
-                "name": "",
-                "type": "tuple[10]"
+                "internalType": "address",
+                "name": "_player",
+                "type": "address"
             }
         ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_idContest",
-                "type": "uint256"
-            }
-        ],
-        "name": "getTotalAmountTopPlayers",
+        "name": "getRewardsPerPlayer",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -336,6 +320,26 @@
     },
     {
         "inputs": [],
+        "name": "pause",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "paused",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "renounceOwnership",
         "outputs": [],
         "stateMutability": "nonpayable",
@@ -345,12 +349,12 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "player",
+                "name": "_player",
                 "type": "address"
             },
             {
                 "internalType": "uint256",
-                "name": "score",
+                "name": "_score",
                 "type": "uint256"
             }
         ],
@@ -374,7 +378,7 @@
     },
     {
         "inputs": [],
-        "name": "updateIdContest",
+        "name": "unpause",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"

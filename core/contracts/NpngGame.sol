@@ -1,116 +1,163 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-contract NpngGame is Ownable {
+/// @title No Pool No Game : Game Contract
+/// @author Perrin GRANDNE
+/// @notice Contract for Playing Memory Game
+/// @custom:experimental This is an experimental contract.
+
+import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract NpngGame is Pausable, Ownable {
+    /// @notice struct for saving results of Player on each contest
     struct ContestsResult {
         uint idContest;
         address player;
         uint score;
     }
 
+    /// @notice struct for recording status of the player
+    /// @notice Did he request to play, did he play, did he claimed ?
+    struct RequestPlaying {
+        bool requested;
+        bool played;
+        bool claimed;
+    }
+
+    /// @notice Array of scores per player and per contest
     ContestsResult[] public contestsResult;
+
     mapping(uint => uint) public numberOfPlayersPerContest;
-    uint private contestInit;
+
+    /// @notice mapping for status of the player for each contest
+    mapping(address => mapping(uint => RequestPlaying))
+        internal contestPlayerStatus;
+
+    /// @notice Frequence of contests
     uint private gameFrequence;
-    uint private currentIdContest;
-    uint private startContestTimestamp;
+
+    uint internal currentIdContest;
     uint private lastContestTimestamp;
 
+    /// @notice Address with rights for recording score (backend)
+    address private recorderAddress;
+
     constructor() {
-        startContestTimestamp = block.timestamp;
-        lastContestTimestamp = startContestTimestamp;
+        /// @notice initiate the start date for the first contest and the id of the contest
+        lastContestTimestamp = block.timestamp;
         currentIdContest = 1;
-        //1 semaine 604800s ; 1 jour = 86400s ; 5 minutes = 300s
-        gameFrequence = 86400;
+        //1 week = 604800s ; 1 day = 86400s ; 5 minutes = 300s
+        gameFrequence = 300;
+        recorderAddress = address(this);
     }
 
     /// WRITE FUNCTIONS
-    function updateIdContest() public {
+
+    ///Pausable functions
+    function pause() public onlyOwner {
+        _pause();
+    }
+
+    function unpause() public onlyOwner {
+        _unpause();
+    }
+
+    /// @notice update the Id of the contest based on the block.timestamp and the game frequence
+    function updateIdContest() internal {
         uint currentTimestamp = block.timestamp;
-        uint numberNewContest = (currentTimestamp - lastContestTimestamp) /
+        uint numberNewContests = (currentTimestamp - lastContestTimestamp) /
             gameFrequence;
-        if (numberNewContest > 0) {
-            currentIdContest += numberNewContest;
+        if (numberNewContests > 0) {
+            currentIdContest += numberNewContests;
             lastContestTimestamp = currentTimestamp;
         }
+    }
+
+    /// @notice Record a request of a player for playing (when you click on Play)
+    function requestPlaying() internal {
+        require(
+            contestPlayerStatus[msg.sender][currentIdContest].requested ==
+                false,
+            "You already requested"
+        );
+        require(
+            contestPlayerStatus[msg.sender][currentIdContest].played == false,
+            "Player already played"
+        );
+        contestPlayerStatus[msg.sender][currentIdContest].requested = true;
+    }
+
+    /// @notice Save the score after the play
+    function saveScore(address _player, uint _score) public {
+        require(
+            msg.sender == recorderAddress,
+            "You are not allowed to save a score!"
+        );
+        require(
+            contestPlayerStatus[_player][currentIdContest].requested == true,
+            "No request from player"
+        );
+        require(
+            contestPlayerStatus[_player][currentIdContest].played == false,
+            "Player already played"
+        );
+        contestsResult.push(ContestsResult(currentIdContest, _player, _score));
+        contestPlayerStatus[_player][currentIdContest].played = true;
+        numberOfPlayersPerContest[currentIdContest]++;
     }
 
     function changeGameFrequence(uint _newFrequence) public onlyOwner {
         gameFrequence = _newFrequence;
     }
 
-    function saveScore(address player, uint score) public onlyOwner {
-        updateIdContest();
-        contestsResult.push(ContestsResult(currentIdContest, player, score));
-        numberOfPlayersPerContest[currentIdContest]++
-            // numberOfPlayersPerContest[currentIdContest] +
-            // 1;
+    function changeRecorder(address _newRecorderAddress) public onlyOwner {
+        recorderAddress = _newRecorderAddress;
     }
 
     /// READ FUNCTIONS
-    function getCurrentIdContest() public view returns (uint) {
+    function getIdContest() public view returns (uint) {
         return (currentIdContest);
     }
 
-    function getGameFrequence() public view returns (uint) {
-        return (gameFrequence);
-    }
-
-    function getScore() public view returns (ContestsResult[] memory) {
+    /// @notice Get all scores from all contests
+    function getListScores() public view returns (ContestsResult[] memory) {
         return (contestsResult);
     }
 
-    function getTopPlayers(uint _idContest)
-        public
-        view
-        returns (ContestsResult[10] memory)
-    {
-        ContestsResult[10] memory topContest;
-        for (uint i = 0; i < 10; i++) {
-            topContest[i] = ContestsResult(
-                _idContest,
-                0x000000000000000000000000000000000000dEaD,
-                0
-            );
-        }
-        for (uint i = 0; i < 10; i++) {
-            ContestsResult memory tempResult = topContest[9];
-            for (uint j = 0; j < contestsResult.length; j++) {
-                if (
-                    contestsResult[j].idContest == _idContest &&
-                    contestsResult[j].player != topContest[0].player &&
-                    contestsResult[j].player != topContest[1].player &&
-                    contestsResult[j].player != topContest[2].player &&
-                    contestsResult[j].player != topContest[3].player &&
-                    contestsResult[j].player != topContest[4].player &&
-                    contestsResult[j].player != topContest[5].player &&
-                    contestsResult[j].player != topContest[6].player &&
-                    contestsResult[j].player != topContest[7].player &&
-                    contestsResult[j].player != topContest[8].player &&
-                    contestsResult[j].score > tempResult.score
-                ) {
-                    tempResult = contestsResult[j];
-                }
-            }
-            topContest[i] = tempResult;
-        }
-        return (topContest);
+    /// @notice Get the end of the current contest in Timestamp
+    function getEndOfContest() public view returns (uint) {
+        uint endOfContest = lastContestTimestamp + gameFrequence;
+        return (endOfContest);
     }
 
-    function checkPlayerRank(uint _idContest, address _player)
+    /// @notice Get the rank of a player for a specific contest
+    function getContestRank(uint _idContest, address _player)
         public
         view
         returns (uint)
     {
-        ContestsResult[10] memory listTopPlayers = getTopPlayers(_idContest);
-        uint playerRank = 0;
-        for (uint i = 0; i < 10; i++) {
-            if (_player == listTopPlayers[i].player) {
-                playerRank = i + 1;
+        uint playerIndex;
+        uint playerScore;
+        uint rank = 1;
+        for (uint i = 0; i < contestsResult.length; i++) {
+            if (
+                _idContest == contestsResult[i].idContest &&
+                _player == contestsResult[i].player
+            ) {
+                playerIndex = i;
+                playerScore = contestsResult[i].score;
                 break;
             }
         }
-        return (playerRank);
+        for (uint i = 0; i < contestsResult.length; i++) {
+            if (
+                _idContest == contestsResult[i].idContest &&
+                playerScore > contestsResult[i].score
+            ) {
+                rank++;
+            }
+        }
+        return (rank);
     }
 }

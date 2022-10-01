@@ -9,9 +9,6 @@ async function main() {
     const contract = await Contract.deploy();
 
     console.log("Contract address:", contract.address);
-
-    // const Pool = await ethers.getContractFactory("Npng");
-    // const pool = await Pool.deploy();
 }
 
 main()

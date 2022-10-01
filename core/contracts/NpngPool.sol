@@ -4,7 +4,6 @@ pragma solidity ^0.8.17;
 /// @title No Pool No Game : Pool Contract
 /// @author Perrin GRANDNE
 /// @notice Contract for Deposit and Withdraw on the Pool
-/// @dev
 /// @custom:experimental This is an experimental contract.
 
 import {NpngGame} from "./NpngGame.sol";
@@ -59,24 +58,31 @@ interface PoolAave {
     ) external;
 }
 
+/// BEGINNING OF THE CONTRACT
 contract NpngPool is NpngGame {
+    /// @notice balance of Users in the Pool
     mapping(address => uint) private balanceOfUser;
 
-    /// @notice Associate the Deposit of user to the current Id Contest
-    mapping(address => uint) private idContestOfDeposit;
+    /// @notice Global Balance of the Pool
+    uint private balanceOfPool;
 
-    /// @notice To record if the player has already played during the current contest
-    mapping(address => mapping(uint => bool)) contestPlayedPerPlayer;
+    /// @notice Record the last Contest of Deposit
+    mapping(address => uint) private lastIdContestOfDeposit;
+
+    /// @notice Associate the Deposit of user to the Id Contest User
+    /// @notice User address => Id Contest => Deposit
+    mapping(address => mapping(uint => uint)) private playerDepositPerContest;
+
     IERC20 private usdcToken;
     IERC20 private aUsdcToken;
     IERC20 private npngToken;
     PoolAave private poolAave;
 
     constructor() {
-        usdcToken = IERC20(0x9aa7fEc87CA69695Dd1f879567CcF49F3ba417E2);
-        aUsdcToken = IERC20(0xCdc2854e97798AfDC74BC420BD5060e022D14607);
-        poolAave = PoolAave(0x6C9fB0D5bD9429eb9Cd96B85B81d872281771E6B);
-        npngToken = IERC20(0xc6993Fdd6a8fe92f27192b7c8ccD8015b97fac86);
+        usdcToken = IERC20(0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43);
+        poolAave = PoolAave(0x368EedF3f56ad10b9bC57eed4Dac65B26Bb667f6);
+        aUsdcToken = IERC20(0x1Ee669290939f8a8864497Af3BC83728715265FF);
+        npngToken = IERC20(0x8ad6d963600F5c45DaBd5fF6faA04d51A6D549f0);
     }
 
     /// WRITE FUNCTIONS
@@ -88,7 +94,10 @@ contract NpngPool is NpngGame {
 
     /// @notice Deposit USDC on Pool which will be deposited on Aave and get the same amount ofNPNGaUSCD
     function depositOnAave(uint _amount) public {
-        require(_amount <= usdcToken.balanceOf(msg.sender));
+        require(
+            _amount <= usdcToken.balanceOf(msg.sender),
+            "Insufficent amount of USDC"
+        );
         require(
             _amount <= usdcToken.allowance(msg.sender, address(this)),
             "Insufficient allowed USDC"
@@ -96,39 +105,51 @@ contract NpngPool is NpngGame {
         usdcToken.transferFrom(msg.sender, address(this), _amount);
         usdcToken.approve(address(poolAave), _amount);
         poolAave.supply(address(usdcToken), _amount, address(this), 0);
-        balanceOfUser[msg.sender] = balanceOfUser[msg.sender] + _amount;
-        balanceOfUser[address(this)] = balanceOfUser[address(this)] + _amount;
+        balanceOfUser[msg.sender] += _amount;
+        balanceOfPool += _amount;
         npngToken.mint(msg.sender, _amount);
         NpngGame.updateIdContest();
-        idContestOfDeposit[msg.sender] = NpngGame.getCurrentIdContest();
+        lastIdContestOfDeposit[msg.sender] = NpngGame.currentIdContest;
+        playerDepositPerContest[msg.sender][
+            NpngGame.currentIdContest
+        ] = _amount;
     }
 
     /// @notice Withdraw from the Pool, it will be withdraw from Aave and NPNG Token will be burnt
     function withdraw(uint _amount) public {
         require(balanceOfUser[msg.sender] >= _amount, "Insufficient balance");
         require(
-            idContestOfDeposit[msg.sender] <= getCurrentIdContest() + 2,
+            lastIdContestOfDeposit[msg.sender] + 2 <= NpngGame.currentIdContest,
             "Please wait 2 contests after your deposit to witdraw"
         );
         poolAave.withdraw(address(usdcToken), _amount, address(this));
         usdcToken.transfer(msg.sender, _amount);
-        balanceOfUser[msg.sender] = balanceOfUser[msg.sender] - _amount;
-        balanceOfUser[address(this)] = balanceOfUser[address(this)] - _amount;
+        balanceOfUser[msg.sender] -= _amount;
+        balanceOfPool -= _amount;
         npngToken.burn(msg.sender, _amount);
     }
 
-    // function claimRewards(uint _idContest) public {
-    //     require (calculateRewards(_idContest, msg.sender) > 0,"No reward to claim");
-    // }
-
-    /// @notice Record the contest played by the player to verify on played game per contest
+    /// @notice Record the contest played by the player to verify if he can and save his request
     function getPlay() public {
         require(balanceOfUser[msg.sender] > 0, "No deposit, No Game!");
+        NpngGame.updateIdContest();
+        NpngGame.requestPlaying();
+    }
+
+    /// @notice Claim rewards of a contest and record the claim
+    function claimRewards(uint _idContest) public {
         require(
-            contestPlayedPerPlayer[msg.sender][getCurrentIdContest()] != true,
-            "You already played!"
+            _idContest < NpngGame.currentIdContest,
+            "The contest is not closed"
         );
-        contestPlayedPerPlayer[msg.sender][getCurrentIdContest()] = true;
+        require(
+            contestPlayerStatus[msg.sender][_idContest].claimed == false,
+            "You already claimed"
+        );
+        uint reward = getRewardsPerPlayer(_idContest, msg.sender);
+        balanceOfUser[msg.sender] += reward;
+        balanceOfPool += reward;
+        contestPlayerStatus[msg.sender][_idContest].claimed = true;
     }
 
     /// READ FUNCTIONS
@@ -136,43 +157,33 @@ contract NpngPool is NpngGame {
         return (balanceOfUser[_account]);
     }
 
+    /// @notice Calculate the interest by substracting the Pool balance to the current balance on Aave
     function interestEarned() public view returns (uint) {
-        return (aUsdcToken.balanceOf(address(this)) -
-            balanceOfUser[address(this)]);
+        return (aUsdcToken.balanceOf(address(this)) - balanceOfPool);
     }
 
-    function getTotalAmountTopPlayers(uint _idContest)
+    /// @notice Calculate the reward per player and contest based on his score
+    function getRewardsPerPlayer(uint _idContest, address _player)
         public
         view
         returns (uint)
     {
-        uint totalAmountTopPlayers = 0;
-        ContestsResult[10] memory topPlayers = NpngGame.getTopPlayers(
-            _idContest
-        );
-        for (uint i = 0; i < 10; i++) {
-            totalAmountTopPlayers = totalAmountTopPlayers + topPlayers[i].score;
+        uint reward;
+        if (
+            NpngGame.contestPlayerStatus[msg.sender][_idContest].claimed == true
+        ) {
+            uint rank = NpngGame.getContestRank(_idContest, _player);
+            if (rank <= 10) {
+                uint totalReward = interestEarned();
+                reward = (totalReward *
+                    (balanceOfUser[_player] / balanceOfPool) *
+                    (1 - ((rank - 1) / 100))**5);
+            } else {
+                reward = 0;
+            }
+        } else {
+            reward = 0;
         }
-        return (totalAmountTopPlayers);
-    }
-
-    function calculateRewards(uint _idContest, address _player)
-        public
-        view
-        returns (uint)
-    {
-        uint playerRank = NpngGame.checkPlayerRank(_idContest, _player);
-        uint playerDeposit = balanceOfUser[_player];
-        uint totalAmountTopPlayers = getTotalAmountTopPlayers(_idContest);
-        uint playerReward = (playerDeposit / totalAmountTopPlayers) *
-            139 *
-            (1 - playerRank / 100)**5;
-        return (playerReward);
-    }
-
-    /// @notice Check if the player already played
-    function checkGamePlayed() public view returns (bool) {
-        uint idContest = getCurrentIdContest();
-        return (contestPlayedPerPlayer[msg.sender][idContest]);
+        return (reward);
     }
 }

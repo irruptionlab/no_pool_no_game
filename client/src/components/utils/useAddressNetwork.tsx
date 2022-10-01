@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNetwork } from 'wagmi';
-import { ethereum, optimism, polygon } from './contractAddress'
+import { goerli, optimism, polygon } from './contractAddress'
 
 
 const useAddressNetwork = () => {
@@ -17,7 +17,7 @@ const useAddressNetwork = () => {
         if (chain) {
             switch (chain.name) {
                 case ('Goerli'):
-                    setAddressNetwork(ethereum);
+                    setAddressNetwork(goerli);
                     break;
                 case ('Optimism'):
                     setAddressNetwork(optimism);
