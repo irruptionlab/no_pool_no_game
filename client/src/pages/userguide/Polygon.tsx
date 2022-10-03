@@ -27,7 +27,8 @@ function Polygon() {
                 <div className="w-row">
                     <div className="column w-col w-col-3">
                         <div className="text-block-39">Ticker</div>
-                        <div className="text-block-40">npngUSDC</div>
+                        <div className="text-block-40">NPNGaUSDC</div>
+                        <div className="text-block-40">npngPool</div>
                     </div>
                     <div className="column-2 w-col w-col-9">
                         <div className="text-block-39">Contract Adress</div>

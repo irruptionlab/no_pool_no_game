@@ -12,7 +12,7 @@ This repository has 2 folders:
 ### ShortTerm
 - [x] Add First Game
 - [x] Add Deposit
-- [ ] Add Transaction for First Game
+- [X] Add Transaction for First Game
 - [X] Add Withdraw
 - [ ] Add Claims for Rewards
 - [ ] Add Pending button
