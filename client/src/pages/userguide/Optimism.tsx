@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom'
 import { optimism } from '../../components/utils/contractAddress'
 
 function Optimism() {
+    const etherscanNpngToken = `https://optimistic.etherscan.io/address/${optimism.npngToken}`
+    const etherscanNpngContract = `https://optimistic.etherscan.io/address/${optimism.npngContract}`
+
     return (
         <div className="wf-section">
             <div className="div-block-33">
@@ -32,7 +35,7 @@ function Optimism() {
                     </div>
                     <div className="column-2 w-col w-col-9">
                         <div className="text-block-39">Contract Adress</div>
-                        <div className="text-block-40">A redeployment is on progress</div>
+                        <div className="text-block-40"><a href={etherscanNpngToken} target="_blank" rel="noreferrer">{optimism.npngToken}</a></div>
                         <div className="text-block-40">A redeployment is on progress</div>
                     </div>
                 </div>

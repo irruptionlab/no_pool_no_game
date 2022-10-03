@@ -2,27 +2,37 @@ import cors from 'cors';
 import express from 'express';
 import { generateNonce, SiweMessage } from 'siwe';
 import fs from 'fs';
+import cron from 'node-cron';
 import { ethers } from 'ethers';
 import * as dotenv from 'dotenv'
 
-const ABI = [{
-    "inputs": [
-        {
-            "internalType": "address",
-            "name": "player",
-            "type": "address"
-        },
-        {
-            "internalType": "uint256",
-            "name": "score",
-            "type": "uint256"
-        }
-    ],
-    "name": "saveScore",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-}];
+const ABI = [
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "player",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "score",
+                "type": "uint256"
+            }
+        ],
+        "name": "saveScore",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "closeContest",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+];
 
 dotenv.config();
 
@@ -47,11 +57,8 @@ app.post('/verify', async function (req, res) {
     const { message, signature } = req.body;
     const siweMessage = new SiweMessage(message);
     try {
-        console.log('1');
         await siweMessage.verify({ signature: signature });
-        console.log('2');
         const score = parseInt(message.statement.substring(57));
-        console.log('3');
         await npng.saveScore(message.address, score);
         res.send(true);
     } catch {
@@ -60,3 +67,14 @@ app.post('/verify', async function (req, res) {
 });
 
 app.listen(process.env.PORT || 5000)
+
+cron.schedule('0 0 0 * * *', async () => {
+    console.log('Update Contest');
+    try {
+        await npng.closeContest();
+        console.log('Contest Updated');
+    }
+    catch {
+        console.log('Contest Not Updated');
+    }
+});

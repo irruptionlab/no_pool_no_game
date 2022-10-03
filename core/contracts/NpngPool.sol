@@ -110,7 +110,6 @@ contract NpngPool is NpngGame {
         balanceOfUser[msg.sender] += _amount;
         balanceOfPool += _amount;
         npngToken.mint(msg.sender, _amount);
-        NpngGame.updateIdContest();
         lastIdContestOfDeposit[msg.sender] = NpngGame.currentIdContest;
         playerDepositPerContest[msg.sender][
             NpngGame.currentIdContest
@@ -134,7 +133,6 @@ contract NpngPool is NpngGame {
     /// @notice Record the contest played by the player to verify if he can and save his request
     function getPlay() public {
         require(balanceOfUser[msg.sender] > 0, "No deposit, No Game!");
-        NpngGame.updateIdContest();
         NpngGame.requestPlaying();
     }
 

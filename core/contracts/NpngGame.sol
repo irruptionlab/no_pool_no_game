@@ -58,8 +58,8 @@ contract NpngGame is Pausable, Ownable {
         lastContestTimestamp = block.timestamp;
         currentIdContest = 1;
         //1 week = 604800s ; 1 day = 86400s ; 5 minutes = 300s
-        gameFrequence = 300;
-        recorderAddress = 0x000000000000000000000000000000000000dEaD;
+        gameFrequence = 86400;
+        recorderAddress = 0xD9464d0F4Bd1Da4DdA0Dd998Bc73aE2EC42418de;
     }
 
     /// WRITE FUNCTIONS
@@ -196,7 +196,7 @@ contract NpngGame is Pausable, Ownable {
     }
 
     /// @notice Get the rank of a player for the last 10 contests
-    function getContestsRank(address _player)
+    function getLastContestsRank(address _player)
         public
         view
         returns (RankPerContest[10] memory)
