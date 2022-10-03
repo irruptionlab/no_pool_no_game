@@ -21,15 +21,17 @@ const Countdown = () => {
     })
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setCountDown(countDownDate - new Date().getTime());
-        }, 1000);
-        setHours(Math.floor((countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))
-        setMinutes(Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60)))
-        setSeconds(Math.floor((countDown % (1000 * 60)) / 1000))
+        if (countDownDate !== 0) {
+            const interval = setInterval(() => {
+                setCountDown(countDownDate - new Date().getTime());
+            }, 1000);
 
-        return () => clearInterval(interval);
-    }, [countDown]);
+            setHours(Math.floor((countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))
+            setMinutes(Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60)))
+            setSeconds(Math.floor((countDown % (1000 * 60)) / 1000))
+            return () => clearInterval(interval);
+        }
+    }, [countDownDate, countDown]);
 
     return (
         <div className="div-block-10">
