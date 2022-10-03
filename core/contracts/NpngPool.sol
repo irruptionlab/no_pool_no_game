@@ -73,6 +73,8 @@ contract NpngPool is NpngGame {
     /// @notice User address => Id Contest => Deposit
     mapping(address => mapping(uint => uint)) private playerDepositPerContest;
 
+    mapping(uint => uint) private rewardsPerContest;
+
     IERC20 private usdcToken;
     IERC20 private aUsdcToken;
     IERC20 private npngToken;
@@ -152,6 +154,19 @@ contract NpngPool is NpngGame {
         contestPlayerStatus[msg.sender][_idContest].claimed = true;
     }
 
+    /// @notice
+    function closeContest() public {
+        require(
+            msg.sender == NpngGame.recorderAddress,
+            "You cannot update the Contest"
+        );
+        uint tempIdContest = currentIdContest;
+        NpngGame.updateIdContest();
+        if (tempIdContest != currentIdContest) {
+            rewardsPerContest[tempIdContest] = interestEarned();
+        }
+    }
+
     /// READ FUNCTIONS
     function getMyBalance(address _account) public view returns (uint) {
         return (balanceOfUser[_account]);
@@ -174,7 +189,7 @@ contract NpngPool is NpngGame {
         ) {
             uint rank = NpngGame.getContestRank(_idContest, _player);
             if (rank <= 10) {
-                uint totalReward = interestEarned();
+                uint totalReward = rewardsPerContest[_idContest];
                 reward = (totalReward *
                     (balanceOfUser[_player] / balanceOfPool) *
                     (1 - ((rank - 1) / 100))**5);

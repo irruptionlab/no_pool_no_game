@@ -25,6 +25,16 @@ contract NpngGame is Pausable, Ownable {
         bool claimed;
     }
 
+    struct ListNbPlayersPerContest {
+        uint idContest;
+        uint nbPlayers;
+    }
+
+    struct RankPerContest {
+        uint idContest;
+        uint rank;
+    }
+
     /// @notice Array of scores per player and per contest
     ContestsResult[] public contestsResult;
 
@@ -41,7 +51,7 @@ contract NpngGame is Pausable, Ownable {
     uint private lastContestTimestamp;
 
     /// @notice Address with rights for recording score (backend)
-    address private recorderAddress;
+    address internal recorderAddress;
 
     constructor() {
         /// @notice initiate the start date for the first contest and the id of the contest
@@ -49,7 +59,7 @@ contract NpngGame is Pausable, Ownable {
         currentIdContest = 1;
         //1 week = 604800s ; 1 day = 86400s ; 5 minutes = 300s
         gameFrequence = 300;
-        recorderAddress = address(this);
+        recorderAddress = 0x000000000000000000000000000000000000dEaD;
     }
 
     /// WRITE FUNCTIONS
@@ -64,7 +74,7 @@ contract NpngGame is Pausable, Ownable {
     }
 
     /// @notice update the Id of the contest based on the block.timestamp and the game frequence
-    function updateIdContest() internal {
+    function updateIdContest() public {
         uint currentTimestamp = block.timestamp;
         uint numberNewContests = (currentTimestamp - lastContestTimestamp) /
             gameFrequence;
@@ -131,6 +141,24 @@ contract NpngGame is Pausable, Ownable {
         return (endOfContest);
     }
 
+    ///@notice Get a array with number of participants for the last 10 contests
+    function getListNbPlayersPerContest()
+        public
+        view
+        returns (ListNbPlayersPerContest[10] memory)
+    {
+        ListNbPlayersPerContest[10] memory listNbPlayersPerContest;
+        uint j = 0;
+        for (uint i = currentIdContest; i > currentIdContest - 10; i--) {
+            listNbPlayersPerContest[j] = ListNbPlayersPerContest({
+                idContest: currentIdContest,
+                nbPlayers: numberOfPlayersPerContest[i]
+            });
+            j++;
+        }
+        return (listNbPlayersPerContest);
+    }
+
     /// @notice Get the rank of a player for a specific contest
     function getContestRank(uint _idContest, address _player)
         public
@@ -140,6 +168,8 @@ contract NpngGame is Pausable, Ownable {
         uint playerIndex;
         uint playerScore;
         uint rank = 1;
+        /// @notice Find the index of the player in the contest
+        /// @notice if no index found, rank=0
         for (uint i = 0; i < contestsResult.length; i++) {
             if (
                 _idContest == contestsResult[i].idContest &&
@@ -149,7 +179,11 @@ contract NpngGame is Pausable, Ownable {
                 playerScore = contestsResult[i].score;
                 break;
             }
+            return (0);
         }
+
+        /// @notice rank the player from his score,
+        /// @notice start with rank 1, increment if a better score is found
         for (uint i = 0; i < contestsResult.length; i++) {
             if (
                 _idContest == contestsResult[i].idContest &&
@@ -159,5 +193,22 @@ contract NpngGame is Pausable, Ownable {
             }
         }
         return (rank);
+    }
+
+    /// @notice Get the rank of a player for the last 10 contests
+    function getContestsRank(address _player)
+        public
+        view
+        returns (RankPerContest[10] memory)
+    {
+        RankPerContest[10] memory last10contestsRank;
+        uint j = 0;
+        for (uint i = currentIdContest; i > currentIdContest - 10; i--) {
+            last10contestsRank[j] = RankPerContest({
+                idContest: i,
+                rank: getContestRank(i, _player)
+            });
+        }
+        return (last10contestsRank);
     }
 }

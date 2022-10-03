@@ -5591,9 +5591,7 @@ figcaption {
 
 .modal-wrapper.modal-wrapper-ethereum {}
 
-.modal-wrapper.modal-wrapper-claim-winnings {
-  display: none;
-}
+.modal-wrapper.modal-wrapper-claim-winnings {}
 
 .pourquoi {
   cursor: pointer;

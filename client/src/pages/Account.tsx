@@ -1,14 +1,20 @@
-import Ranking from "../components/Ranking";
-import UserDeposit from "../components/UserDeposit";
+import RankingHistory from "../components/account/RankingHistory";
+import UserDeposit from "../components/deposit/UserDeposit";
 import ReadingDeposit from "../components/utils/ReadingDeposit"
 import { goerli, optimism, polygon } from "../components/utils/contractAddress"
 import { useState } from "react";
-import ModalResult from "../components/ModalResult";
-import ModalWithdraw from "../components/ModalWithdraw";
+import ModalResult from "../components/account/ModalResult";
+import ModalWithdraw from "../components/account/ModalWithdraw";
+import ModalClaim from "../components/account/ModalClaim";
+import ModalTotalClaimed from "../components/account/ModalTotalClaimed";
 
 function Account() {
+    const [networkName, setNetworkName] = useState('');
+    const [contest, setContest] = useState(0);
     const [modalResult, setModalResult] = useState(false);
     const [modalWithdraw, setModalWithdraw] = useState(false);
+    const [modalClaim, setModalClaim] = useState(false);
+    const [modalTotalClaimed, setModalTotalClaimed] = useState(false);
 
     return (
         <div className="section cc-store-home-wrap">
@@ -20,7 +26,7 @@ function Account() {
                             <div className="text-block-27">ranking history</div><img src="images/traits.png" loading="lazy" width="79" alt="" className="image-6 position-3" />
                         </div>
                     </div>
-                    <Ranking setModalResult={setModalResult} />
+                    <RankingHistory setModalResult={setModalResult} setContest={setContest} />
                     <div className="div-block-29"><img src="images/next.png" loading="lazy" width="33" alt="" className="image-12" /></div>
                 </div>
             </div>
@@ -31,23 +37,47 @@ function Account() {
                         <UserDeposit />
 
                         <div className="text-block-32">Deposits</div>
-                        <div className="div-block-30" onClick={(e) => { setModalWithdraw(true) }}>
+                        <div className="div-block-30">
                             <div className="div-block-31"><img src="images/ethereum-eth-logo.png" loading="lazy" height="23" width="23" sizes="22.990549087524414px" srcSet="images/ethereum-eth-logo-p-500.png 500w, images/ethereum-eth-logo-p-800.png 800w, images/ethereum-eth-logo-p-1080.png 1080w, images/ethereum-eth-logo-p-1600.png 1600w, images/ethereum-eth-logo-p-2000.png 2000w, images/ethereum-eth-logo-p-2600.png 2600w, images/ethereum-eth-logo-p-3200.png 3200w" alt="" />
                                 <div className="text-block-30">Goerli</div>
                             </div>
-                            <ReadingDeposit network={goerli} setModalWithdraw={setModalWithdraw} />
+                            <div className="div-block-32">
+                                <ReadingDeposit network={goerli} setModalWithdraw={setModalWithdraw} />
+                                <img src="images/next.png" className="pourquoi" loading="lazy" width="25" height="25" alt=""
+                                    onClick={(e) => {
+                                        setNetworkName('Goerli')
+                                        setModalWithdraw(true)
+                                    }}
+                                />
+                            </div>
                         </div>
                         <div className="div-block-30">
                             <div className="div-block-31"><img src="images/polygon-matic-logo.png" loading="lazy" height="23" width="23" alt="" />
                                 <div className="text-block-30">Mumbai</div>
                             </div>
-                            <ReadingDeposit network={polygon} setModalWithdraw={setModalWithdraw} />
+                            <div className="div-block-32">
+                                <ReadingDeposit network={polygon} setModalWithdraw={setModalWithdraw} />
+                                <img src="images/next.png" className="pourquoi" loading="lazy" width="25" height="25" alt=""
+                                    onClick={(e) => {
+                                        setNetworkName('Mumbai')
+                                        setModalWithdraw(true)
+                                    }}
+                                />
+                            </div>
                         </div>
                         <div className="div-block-30">
                             <div className="div-block-31"><img src="images/optimism.png" loading="lazy" height="23" width="23" alt="" />
                                 <div className="text-block-30">Optimism</div>
                             </div>
-                            <ReadingDeposit network={optimism} setModalWithdraw={setModalWithdraw} />
+                            <div className="div-block-32">
+                                <ReadingDeposit network={optimism} setModalWithdraw={setModalWithdraw} />
+                                <img src="images/next.png" className="pourquoi" loading="lazy" width="25" height="25" alt=""
+                                    onClick={(e) => {
+                                        setNetworkName('Optimism')
+                                        setModalWithdraw(true)
+                                    }}
+                                />
+                            </div>
                         </div>
 
                         <div className="div-block-3"></div>
@@ -56,7 +86,9 @@ function Account() {
                                 <div className="text-block-34">Total claimed winnings</div>
                             </div>
                             <div className="div-block-32">
-                                <div className="text-block-31">$ 0.00</div><img src="images/next.png" loading="lazy" width="25" height="25" alt="" />
+                                <div className="text-block-31">$ 0.00</div>
+                                <img src="images/next.png" className="pourquoi" loading="lazy" width="25" height="25" alt=""
+                                    onClick={(e) => { setModalTotalClaimed(true) }} />
                             </div>
                         </div>
                         <div className="div-block-30">
@@ -64,14 +96,21 @@ function Account() {
                                 <div className="text-block-30">Pending winnings</div>
                             </div>
                             <div className="div-block-32">
-                                <div className="text-block-31">$ 0.00</div><img src="images/next.png" loading="lazy" width="25" height="25" alt="" />
+                                <div className="text-block-31">$ 0.00</div>
+                                <img src="images/next.png" className="pourquoi" loading="lazy" width="25" height="25" alt=""
+                                    onClick={(e) => { setModalClaim(true) }}
+                                />
                             </div>
                         </div><img src="images/pointillés.png" loading="lazy" height="200" alt="" className="image-5 position-2" /><img src="images/coin-2.png" loading="lazy" width="60" alt="" className="image-4" />
                     </div>
                 </div>
             </div>
-            {modalWithdraw && <ModalWithdraw setModalWithdraw={setModalWithdraw} />}
-            {modalResult && <ModalResult setModalResult={setModalResult} />}
+            {modalWithdraw && networkName === 'Goerli' && <ModalWithdraw network={goerli} setModalWithdraw={setModalWithdraw} />}
+            {modalWithdraw && networkName === 'Mumbai' && <ModalWithdraw network={polygon} setModalWithdraw={setModalWithdraw} />}
+            {modalWithdraw && networkName === 'Optimism' && <ModalWithdraw network={optimism} setModalWithdraw={setModalWithdraw} />}
+            {modalResult && <ModalResult contest={contest} setModalResult={setModalResult} />}
+            {modalClaim && <ModalClaim setModalClaim={setModalClaim} />}
+            {modalTotalClaimed && <ModalTotalClaimed setModalTotalClaimed={setModalTotalClaimed} />}
         </div>
     )
 }

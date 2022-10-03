@@ -1,4 +1,4 @@
-import Siwe from './utils/Siwe'
+import Siwe from '../utils/Siwe'
 
 function Won({ score, realPlay, setModalPlay }: {
     score: number,

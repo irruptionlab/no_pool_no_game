@@ -3,6 +3,7 @@ import { useContractRead, useAccount } from 'wagmi'
 import { ethers } from "ethers"
 import { useState } from "react"
 interface Network {
+    name: string,
     usdcContract: string,
     aavePoolContract: string,
     npngContract: string,
@@ -25,14 +26,8 @@ const ReadingDeposit = ({ network, setModalWithdraw }: { network: Network, setMo
         },
     })
 
-
     return (
-        <div className="div-block-32">
-            <div className="text-block-31">$ {deposit}</div>
-            <img src="images/next.png" className="pourquoi" loading="lazy" width="25" height="25" alt=""
-                onClick={(e) => { setModalWithdraw(true) }}
-            />
-        </div>
+        <div className="text-block-31">$ {deposit}</div>
     )
 }
 

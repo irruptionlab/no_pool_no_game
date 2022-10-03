@@ -1,6 +1,6 @@
 import { useAccount, useContractRead } from 'wagmi'
-import { useAddressNetwork } from './utils/useAddressNetwork'
-import ABI_Npng from './utils/ABI_Npng.json'
+import { useAddressNetwork } from '../utils/useAddressNetwork'
+import ABI_Npng from '../utils/ABI_Npng.json'
 import { ethers } from "ethers"
 import { useEffect, useState } from 'react'
 

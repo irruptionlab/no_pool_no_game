@@ -3,7 +3,7 @@ import Countdown from '../components/Countdown';
 import Prize from '../components/Prize';
 import UserBalance from '../components/UserBalance';
 import SelectNetwork from '../components/utils/SelectNetwork';
-import ModalDeposit from '../components/ModalDeposit';
+import ModalDeposit from '../components/deposit/ModalDeposit';
 import Faucet from '../components/utils/Faucet';
 import { useAccount, useNetwork } from 'wagmi';
 

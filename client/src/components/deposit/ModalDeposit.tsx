@@ -1,7 +1,7 @@
 import { useAccount, usePrepareContractWrite, useContractWrite, useContractRead, useNetwork } from 'wagmi'
-import { useAddressNetwork } from './utils/useAddressNetwork'
-import ABI_ERC20 from './utils/ABI_ERC20.json'
-import ABI_Npng from './utils/ABI_Npng.json'
+import { useAddressNetwork } from '../utils/useAddressNetwork'
+import ABI_ERC20 from '../utils/ABI_ERC20.json'
+import ABI_Npng from '../utils/ABI_Npng.json'
 import { useState } from 'react'
 import { ethers } from 'ethers'
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Countdown from "../components/Countdown";
-import ModalPlay from "../components/ModalPlay"
+import ModalPlay from "../components/game/ModalPlay"
 import Prize from "../components/Prize";
 import { useAccount, useContractWrite, usePrepareContractWrite } from 'wagmi'
 import ABI_Npng from '../components/utils/ABI_Npng.json'
