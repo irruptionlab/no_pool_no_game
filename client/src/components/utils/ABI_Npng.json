@@ -102,32 +102,10 @@
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "contestsResult",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "idContest",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "player",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "score",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
+        "inputs": [],
+        "name": "closeContest",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -188,6 +166,62 @@
                 "internalType": "uint256",
                 "name": "",
                 "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_player",
+                "type": "address"
+            }
+        ],
+        "name": "getLast10ContestsRank",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "idContest",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "rank",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct NpngGame.RankPerContest[10]",
+                "name": "",
+                "type": "tuple[10]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getListNbPlayers10LastContests",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "idContest",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "nbPlayers",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct NpngGame.ListNbPlayersPerContest[10]",
+                "name": "",
+                "type": "tuple[10]"
             }
         ],
         "stateMutability": "view",

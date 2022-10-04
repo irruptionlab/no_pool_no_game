@@ -36,7 +36,7 @@ contract NpngGame is Pausable, Ownable {
     }
 
     /// @notice Array of scores per player and per contest
-    ContestsResult[] public contestsResult;
+    ContestsResult[] private contestsResult;
 
     mapping(uint => uint) public numberOfPlayersPerContest;
 
@@ -58,8 +58,8 @@ contract NpngGame is Pausable, Ownable {
         lastContestTimestamp = block.timestamp;
         currentIdContest = 1;
         //1 week = 604800s ; 1 day = 86400s ; 5 minutes = 300s
-        gameFrequence = 86400;
-        recorderAddress = 0xD9464d0F4Bd1Da4DdA0Dd998Bc73aE2EC42418de;
+        gameFrequence = 3600;
+        recorderAddress = 0x000000000000000000000000000000000000dEaD;
     }
 
     /// WRITE FUNCTIONS
@@ -74,14 +74,16 @@ contract NpngGame is Pausable, Ownable {
     }
 
     /// @notice update the Id of the contest based on the block.timestamp and the game frequence
-    function updateIdContest() public {
+    function updateIdContest() internal {
+        require(
+            block.timestamp >= lastContestTimestamp + gameFrequence,
+            "No contest update!"
+        );
         uint currentTimestamp = block.timestamp;
         uint numberNewContests = (currentTimestamp - lastContestTimestamp) /
             gameFrequence;
-        if (numberNewContests > 0) {
-            currentIdContest += numberNewContests;
-            lastContestTimestamp = currentTimestamp;
-        }
+        currentIdContest += numberNewContests;
+        lastContestTimestamp = currentTimestamp;
     }
 
     /// @notice Record a request of a player for playing (when you click on Play)
@@ -142,16 +144,26 @@ contract NpngGame is Pausable, Ownable {
     }
 
     ///@notice Get a array with number of participants for the last 10 contests
-    function getListNbPlayersPerContest()
+    function getListNbPlayers10LastContests()
         public
         view
         returns (ListNbPlayersPerContest[10] memory)
     {
         ListNbPlayersPerContest[10] memory listNbPlayersPerContest;
         uint j = 0;
-        for (uint i = currentIdContest; i > currentIdContest - 10; i--) {
+        uint indexDecrement;
+        if (currentIdContest < 10) {
+            indexDecrement = currentIdContest;
+        } else {
+            indexDecrement = 10;
+        }
+        for (
+            uint i = currentIdContest;
+            i > currentIdContest - indexDecrement;
+            i--
+        ) {
             listNbPlayersPerContest[j] = ListNbPlayersPerContest({
-                idContest: currentIdContest,
+                idContest: i,
                 nbPlayers: numberOfPlayersPerContest[i]
             });
             j++;
@@ -179,7 +191,9 @@ contract NpngGame is Pausable, Ownable {
                 playerScore = contestsResult[i].score;
                 break;
             }
-            return (0);
+            if (i + 1 == contestsResult.length) {
+                return (0);
+            }
         }
 
         /// @notice rank the player from his score,
@@ -196,18 +210,29 @@ contract NpngGame is Pausable, Ownable {
     }
 
     /// @notice Get the rank of a player for the last 10 contests
-    function getLastContestsRank(address _player)
+    function getLast10ContestsRank(address _player)
         public
         view
         returns (RankPerContest[10] memory)
     {
         RankPerContest[10] memory last10contestsRank;
         uint j = 0;
-        for (uint i = currentIdContest; i > currentIdContest - 10; i--) {
+        uint indexDecrement;
+        if (currentIdContest < 10) {
+            indexDecrement = currentIdContest;
+        } else {
+            indexDecrement = 10;
+        }
+        for (
+            uint i = currentIdContest;
+            i > currentIdContest - indexDecrement;
+            i--
+        ) {
             last10contestsRank[j] = RankPerContest({
                 idContest: i,
                 rank: getContestRank(i, _player)
             });
+            j++;
         }
         return (last10contestsRank);
     }

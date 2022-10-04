@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import { chain, WagmiConfig, createClient, configureChains } from "wagmi";
 import { ConnectKitProvider } from "connectkit";
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+import { InjectedConnector } from 'wagmi/connectors/injected'
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, provider, webSocketProvider } = configureChains([chain.optimism, chain.polygonMumbai, chain.goerli],
@@ -17,6 +19,14 @@ const client = createClient({
   autoConnect: true,
   connectors: [
     new MetaMaskConnector({ chains }),
+    new InjectedConnector({ chains }),
+    new WalletConnectConnector({
+      chains,
+      options: {
+        qrcode: true,
+      },
+    }),
+
   ],
   provider,
   webSocketProvider,

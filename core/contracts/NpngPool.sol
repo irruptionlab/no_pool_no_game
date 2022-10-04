@@ -119,10 +119,10 @@ contract NpngPool is NpngGame {
     /// @notice Withdraw from the Pool, it will be withdraw from Aave and NPNG Token will be burnt
     function withdraw(uint _amount) public {
         require(balanceOfUser[msg.sender] >= _amount, "Insufficient balance");
-        require(
-            lastIdContestOfDeposit[msg.sender] + 2 <= NpngGame.currentIdContest,
-            "Please wait 2 contests after your deposit to witdraw"
-        );
+        // require(
+        //     lastIdContestOfDeposit[msg.sender] + 2 <= NpngGame.currentIdContest,
+        //     "Please wait 2 contests after your deposit to witdraw"
+        // );
         poolAave.withdraw(address(usdcToken), _amount, address(this));
         usdcToken.transfer(msg.sender, _amount);
         balanceOfUser[msg.sender] -= _amount;

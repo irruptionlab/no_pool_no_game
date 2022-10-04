@@ -67,6 +67,7 @@ app.post('/verify', async function (req, res) {
 });
 
 app.listen(process.env.PORT || 5000)
+console.log(process.env.PORT);
 
 cron.schedule('0 0 0 * * *', async () => {
     console.log('Update Contest');

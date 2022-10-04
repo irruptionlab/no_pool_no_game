@@ -1,11 +1,12 @@
 export const BACKEND_ADDR = "https://nopoolnogame.herokuapp.com"
+// export const BACKEND_ADDR = "http://localhost:5000"
 
 export const goerli = {
     name: 'Goerli',
     usdcContract: '0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43',
     aavePoolContract: '0x368EedF3f56ad10b9bC57eed4Dac65B26Bb667f6',
     aUsdcContract: '0x1Ee669290939f8a8864497Af3BC83728715265FF',
-    npngContract: '0xE5E175767497a64e6b826502E33d4cb44f140A59',
+    npngContract: '0x5502E6aC6f681A61271272c9a68f7815c3250dD1',
     npngToken: '0x8ad6d963600F5c45DaBd5fF6faA04d51A6D549f0'
 }
 
@@ -27,10 +28,3 @@ export const polygon = {
     npngToken: '0xc6993Fdd6a8fe92f27192b7c8ccD8015b97fac86'
 }
 
-export const hardhat = {
-    usdcContract: '',
-    aavePoolContract: '',
-    npngContract: '',
-    aUsdcContract: '',
-    npngToken: ''
-}
