@@ -4,6 +4,7 @@ import Prize from '../components/Prize';
 import UserBalance from '../components/UserBalance';
 import SelectNetwork from '../components/utils/SelectNetwork';
 import ModalDeposit from '../components/deposit/ModalDeposit';
+import ModalWarning from '../components/ModalWarning';
 import Faucet from '../components/utils/Faucet';
 import { useAccount, useNetwork } from 'wagmi';
 
@@ -11,7 +12,8 @@ function Deposit() {
     const { isConnected } = useAccount()
     const { chain } = useNetwork()
     const [amount, setAmount] = useState(0.00)
-    const [modalDeposit, setModalDeposit] = useState(false);
+    const [modalDeposit, setModalDeposit] = useState(false)
+    const [modalWarning, setModalWarning] = useState(true)
 
     const handleDeposit = () => {
         if (amount > 0) {
@@ -81,6 +83,8 @@ function Deposit() {
                 </div>
             </div>
             {modalDeposit && <ModalDeposit setModalDeposit={setModalDeposit} amount={amount} />}
+            {modalWarning && <ModalWarning setModalWarning={setModalWarning} />}
+
         </div >
     )
 }

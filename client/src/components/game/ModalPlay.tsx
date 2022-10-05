@@ -12,7 +12,6 @@ function ModalPlay({ realPlay, setModalPlay }: { realPlay: boolean, setModalPlay
         <div className="modal-wrapper">
             <div className="modal-outside-trigger" onClick={(e) => { setModalPlay(false) }}></div>
             <Timer
-                formatValue={(value) => `${(value < 10 ? `0${value}` : value)}`}
                 initialTime={0}
                 timeToUpdate={10}
                 startImmediately={false}
@@ -22,7 +21,7 @@ function ModalPlay({ realPlay, setModalPlay }: { realPlay: boolean, setModalPlay
                     <div className="div-block-41" onClick={(e) => { setModalPlay(false) }}><img src="images/close.png" loading="lazy" width="20" height="20" alt="" className="image-18" /></div>
                     <div className="div-block-40">
                         <div className="text-block-45">
-                            <Timer.Minutes /> : <Timer.Seconds /> : <Timer.Milliseconds />
+                            <Timer.Minutes formatValue={(value) => `${(value < 10 ? `0${value}` : value)}`} /> : <Timer.Seconds formatValue={(value) => `${(value < 10 ? `0${value}` : value)}`} /> : <Timer.Milliseconds formatValue={(value) => `${(value < 10 ? `0${value / 10}` : value / 10)}`} />
                         </div>
                     </div>
                     {score === 0 && <Memory timerRef={timerRef} setScore={setScore} />}

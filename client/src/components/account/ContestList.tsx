@@ -1,17 +1,23 @@
 import { useAccount, useContractRead } from 'wagmi'
-import { goerli } from '../utils/contractAddress'
 import ABI_Npng from '../utils/ABI_Npng.json'
 import { ethers } from 'ethers'
+import { useAddressNetwork } from '../utils/useAddressNetwork'
 
-function Ranking({ setModalResult, setContest }:
+function ContestList({ setModalResult, setContest }:
     {
         setModalResult: React.Dispatch<React.SetStateAction<boolean>>,
         setContest: React.Dispatch<React.SetStateAction<number>>
     }) {
 
     const { address } = useAccount()
+    const addressNetwork = useAddressNetwork()
+    const npngContract = {
+        addressOrName: addressNetwork.npngContract,
+        contractInterface: ABI_Npng,
+    }
+
     const { data } = useContractRead({
-        addressOrName: goerli.npngContract,
+        addressOrName: addressNetwork.npngContract,
         contractInterface: ABI_Npng,
         functionName: 'getListScores',
     })
@@ -26,11 +32,12 @@ function Ranking({ setModalResult, setContest }:
                     }}
                 ># {ethers.utils.formatUnits(filteredElement[0]._hex, 0)}
                 </li>
-            )}
-            <li className="list-item-1 win-typo"># 3</li>
-            <li className="list-item-1 no-participation"># 4</li>
-        </div>
+            )
+            }
+            {/* <li className="list-item-1 win-typo"># 3</li>
+            <li className="list-item-1 no-participation"># 4</li> */}
+        </div >
     )
 }
 
-export default Ranking;
+export default ContestList;

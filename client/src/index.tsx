@@ -11,7 +11,7 @@ import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { publicProvider } from 'wagmi/providers/public'
 
-const { chains, provider, webSocketProvider } = configureChains([chain.optimism, chain.polygonMumbai, chain.goerli],
+const { chains, provider, webSocketProvider } = configureChains([chain.goerli, chain.optimism, chain.polygonMumbai],
   [publicProvider()],
 )
 
