@@ -162,6 +162,10 @@ html[data-w-dynpage] [data-w-cloak] {
   word-wrap: normal;
 }
 
+/* .testperrin {
+  clear: both;
+} */
+
 .w-webflow-badge {
   position: fixed !important;
   display: inline-block !important;
@@ -3475,6 +3479,7 @@ figcaption {
   background-attachment: fixed;
   -o-object-fit: fill;
   object-fit: fill;
+  overflow: hidden;
 
 }
 

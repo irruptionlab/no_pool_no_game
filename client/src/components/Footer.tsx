@@ -5,12 +5,6 @@ import { Link } from "react-router-dom"
 
 function Footer() {
     const [open, setOpen] = useState(false)
-    const [title, setTitle] = useState('')
-
-    const handleClickOpen = (title: string) => {
-        setTitle(title)
-        setOpen(true);
-    }
 
     const handleClose = () => {
         setOpen(false);
@@ -40,24 +34,20 @@ function Footer() {
                         <Link to="/userguide/network" className="footer-link-three">Networks</Link>
                     </div>
                     <div className="footer-social-block-three">
-                        <a href="/" className="footer-social-link-three w-inline-block"><img src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124a705912aaeb_facebook%20big%20filled.svg" loading="lazy" alt=""
+                        {/* <a href="/" className="footer-social-link-three w-inline-block"><img src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124a705912aaeb_facebook%20big%20filled.svg" loading="lazy" alt=""
                             onClick={(e) => {
                                 e.preventDefault()
                                 handleClickOpen('Facebook')
-                            }} /></a>
-                        <a href="/" className="footer-social-link-three w-inline-block"><img src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124ab37a12aaf0_twitter%20big.svg" loading="lazy" alt=""
-                            onClick={(e) => {
-                                e.preventDefault()
-                                handleClickOpen('Twitter')
-                            }} /></a>
-                        <a href="/" className="footer-social-link-three w-inline-block"><img src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124a61f512aaed_instagram%20big.svg" loading="lazy" alt=""
+                            }} /></a> */}
+                        <a href="https://twitter.com/IrruptionLab" target="_blank" rel="noreferrer" className="footer-social-link-three w-inline-block"><img src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124ab37a12aaf0_twitter%20big.svg" loading="lazy" alt="" /></a>
+                        {/* <a href="/" className="footer-social-link-three w-inline-block"><img src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124a61f512aaed_instagram%20big.svg" loading="lazy" alt=""
                             onClick={(e) => {
                                 e.preventDefault()
                                 handleClickOpen('Instagram')
-                            }} /></a>
-                        <a href="https://github.com/pgrandne/NoPoolNoGame" className="footer-social-link-three w-inline-block"><img src="./images/github.svg" loading="lazy" alt="" /></a>
+                            }} /></a> */}
+                        <a href="https://github.com/pgrandne/NoPoolNoGame" target="_blank" rel="noreferrer" className="footer-social-link-three w-inline-block"><img src="./images/github.svg" loading="lazy" alt="" /></a>
                     </div>
-                    <Dialog
+                    {/* <Dialog
                         open={open}
                         onClose={handleClose}
                         aria-labelledby="alert-dialog-title"
@@ -75,14 +65,14 @@ function Footer() {
                             <Button onClick={handleClose}>Close</Button>
 
                         </DialogActions>
-                    </Dialog>
+                    </Dialog> */}
                 </div>
                 <div className="footer-divider-two"></div>
                 <div className="footer-bottom">
                     <div className="footer-copyright">© 2022 Powered by Irruption Lab</div>
                 </div>
             </div>
-        </section >
+        </section>
 
     )
 }

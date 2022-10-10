@@ -27,11 +27,11 @@ const ABI = [
     },
     {
         "inputs": [],
-        "name": "closeContest",
+        "name": "updateContest",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
-    },
+    }
 ];
 
 dotenv.config();
@@ -54,6 +54,7 @@ app.get('/nonce', function (_, res) {
 });
 
 app.post('/verify', async function (req, res) {
+    console.log('Save Score');
     const { message, signature } = req.body;
     const siweMessage = new SiweMessage(message);
     try {
@@ -61,13 +62,15 @@ app.post('/verify', async function (req, res) {
         const score = parseInt(message.statement.substring(57));
         await npng.saveScore(message.address, score);
         res.send(true);
-    } catch {
+        console.log('Score saved');
+    } catch (error) {
         res.send(false);
+        console.log(error);
+
     }
 });
 
 app.listen(process.env.PORT || 5000)
-console.log(process.env.PORT);
 
 cron.schedule('0 0 0 * * *', async () => {
     console.log('Update Contest');

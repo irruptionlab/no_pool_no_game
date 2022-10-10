@@ -18,11 +18,11 @@ function UserDeposit() {
     useContractRead({
         addressOrName: addressNetwork.npngContract,
         contractInterface: ABI_Npng,
-        functionName: 'getMyBalance',
+        functionName: 'getUserBalance',
         chainId: 5,
         watch: true,
         args: [address],
-        onSettled(data) {
+        onSuccess(data) {
             setUserDeposit(parseFloat(ethers.utils.formatUnits(data?._hex, 6)))
         }
     })

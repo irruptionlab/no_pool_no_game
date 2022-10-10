@@ -21,7 +21,8 @@ This repository has 2 folders:
 - [ ] Refactoring CSS+HTML+Responsive
   
 ### LongTerm
-- [ ] Migration on Starknet
+- [ ] 
+- [ ] Migration on Starknet (optional)
 - [ ] Use core contracts for others services (Crowfounding, Sports bet, lobbying activites)
 
 ## Building NoPoolNoGame

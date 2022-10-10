@@ -18,7 +18,7 @@ const ReadingDeposit = ({ network, setModalWithdraw }: { network: Network, setMo
     useContractRead({
         addressOrName: network.npngContract,
         contractInterface: ABI_ERC20,
-        functionName: 'getMyBalance',
+        functionName: 'getUserBalance',
         args: [address],
         enabled: false,
         onSettled(data) {

@@ -11,10 +11,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract NpngGame is Pausable, Ownable {
     /// @notice struct for saving results of Player on each contest
+    /// @notice we record the balance of the Player for the Contest to avoid big deposit after winning
     struct ContestsResult {
         uint idContest;
         address player;
         uint score;
+        uint balancePlayer;
     }
 
     /// @notice struct for recording status of the player
@@ -35,8 +37,14 @@ contract NpngGame is Pausable, Ownable {
         uint rank;
     }
 
+    struct AccountTable {
+        uint idContest;
+        uint rank;
+        uint participant;
+    }
+
     /// @notice Array of scores per player and per contest
-    ContestsResult[] private contestsResult;
+    ContestsResult[] internal contestsResult;
 
     mapping(uint => uint) public numberOfPlayersPerContest;
 
@@ -45,10 +53,13 @@ contract NpngGame is Pausable, Ownable {
         internal contestPlayerStatus;
 
     /// @notice Frequence of contests
-    uint private gameFrequence;
+    uint internal gameFrequence;
+
+    /// @notice balance of total claimed rewards per player
+    mapping(address => uint) internal balanceOfClaimedRewards;
 
     uint internal currentIdContest;
-    uint private lastContestTimestamp;
+    uint internal lastContestTimestamp;
 
     /// @notice Address with rights for recording score (backend)
     address internal recorderAddress;
@@ -73,19 +84,6 @@ contract NpngGame is Pausable, Ownable {
         _unpause();
     }
 
-    /// @notice update the Id of the contest based on the block.timestamp and the game frequence
-    function updateIdContest() internal {
-        require(
-            block.timestamp >= lastContestTimestamp + gameFrequence,
-            "No contest update!"
-        );
-        uint currentTimestamp = block.timestamp;
-        uint numberNewContests = (currentTimestamp - lastContestTimestamp) /
-            gameFrequence;
-        currentIdContest += numberNewContests;
-        lastContestTimestamp = currentTimestamp;
-    }
-
     /// @notice Record a request of a player for playing (when you click on Play)
     function requestPlaying() internal {
         require(
@@ -98,25 +96,6 @@ contract NpngGame is Pausable, Ownable {
             "Player already played"
         );
         contestPlayerStatus[msg.sender][currentIdContest].requested = true;
-    }
-
-    /// @notice Save the score after the play
-    function saveScore(address _player, uint _score) public {
-        require(
-            msg.sender == recorderAddress,
-            "You are not allowed to save a score!"
-        );
-        require(
-            contestPlayerStatus[_player][currentIdContest].requested == true,
-            "No request from player"
-        );
-        require(
-            contestPlayerStatus[_player][currentIdContest].played == false,
-            "Player already played"
-        );
-        contestsResult.push(ContestsResult(currentIdContest, _player, _score));
-        contestPlayerStatus[_player][currentIdContest].played = true;
-        numberOfPlayersPerContest[currentIdContest]++;
     }
 
     function changeGameFrequence(uint _newFrequence) public onlyOwner {
@@ -195,7 +174,6 @@ contract NpngGame is Pausable, Ownable {
                 return (0);
             }
         }
-
         /// @notice rank the player from his score,
         /// @notice start with rank 1, increment if a better score is found
         for (uint i = 0; i < contestsResult.length; i++) {
@@ -235,5 +213,50 @@ contract NpngGame is Pausable, Ownable {
             j++;
         }
         return (last10contestsRank);
+    }
+
+    function getWinnersDeposit() public view returns (uint) {
+        uint winnersDeposit = 0;
+        for (uint i = 0; i < contestsResult.length; i++) {
+            if (
+                currentIdContest == contestsResult[i].idContest &&
+                getContestRank(currentIdContest, contestsResult[i].player) <= 10
+            ) {
+                winnersDeposit += contestsResult[i].balancePlayer;
+            }
+        }
+        return (winnersDeposit);
+    }
+
+    function getContestsResult() public view returns (ContestsResult[] memory) {
+        return (contestsResult);
+    }
+
+    function getAccountTable(address _player)
+        public
+        view
+        returns (AccountTable[10] memory)
+    {
+        AccountTable[10] memory accountTable;
+        uint indexDecrement;
+        uint j = 0;
+        if (currentIdContest < 10) {
+            indexDecrement = currentIdContest;
+        } else {
+            indexDecrement = 10;
+        }
+        for (
+            uint i = currentIdContest;
+            i > currentIdContest - indexDecrement;
+            i--
+        ) {
+            accountTable[j] = AccountTable({
+                idContest: i,
+                rank: getContestRank(i, _player),
+                participant: numberOfPlayersPerContest[i]
+            });
+            j++;
+        }
+        return (accountTable);
     }
 }

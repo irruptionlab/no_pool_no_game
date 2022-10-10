@@ -6,7 +6,7 @@ export const goerli = {
     usdcContract: '0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43',
     aavePoolContract: '0x368EedF3f56ad10b9bC57eed4Dac65B26Bb667f6',
     aUsdcContract: '0x1Ee669290939f8a8864497Af3BC83728715265FF',
-    npngContract: '0x5502E6aC6f681A61271272c9a68f7815c3250dD1',
+    npngContract: '0x15d9221859E13dB2A64380D7Ff1A0030aC9d62ec',
     npngToken: '0x8ad6d963600F5c45DaBd5fF6faA04d51A6D549f0'
 }
 

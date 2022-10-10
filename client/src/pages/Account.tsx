@@ -7,14 +7,45 @@ import ModalResult from "../components/account/ModalResult";
 import ModalWithdraw from "../components/account/ModalWithdraw";
 import ModalClaim from "../components/account/ModalClaim";
 import ModalTotalClaimed from "../components/account/ModalTotalClaimed";
+import { useAccount, useContractReads } from 'wagmi'
+import ABI_Npng from '../components/utils/ABI_Npng.json'
+import { useAddressNetwork } from "../components/utils/useAddressNetwork";
+import { ethers } from 'ethers';
 
 function Account() {
     const [networkName, setNetworkName] = useState('');
     const [contest, setContest] = useState(0);
+    const [totalClaimed, setTotalClaimed] = useState(0);
+    const [pendingRewards, setPendingRewards] = useState(0);
     const [modalResult, setModalResult] = useState(false);
     const [modalWithdraw, setModalWithdraw] = useState(false);
     const [modalClaim, setModalClaim] = useState(false);
     const [modalTotalClaimed, setModalTotalClaimed] = useState(false);
+    const addressNetwork = useAddressNetwork()
+    const { address } = useAccount()
+
+    useContractReads({
+        contracts: [
+            {
+                addressOrName: addressNetwork.npngContract,
+                contractInterface: ABI_Npng,
+                functionName: 'getTotalClaimedRewards',
+                args: [address]
+            },
+            {
+                addressOrName: addressNetwork.npngContract,
+                contractInterface: ABI_Npng,
+                functionName: 'getPendingRewards',
+            },
+        ],
+        overrides: { from: address },
+        onSuccess(data) {
+            setTotalClaimed(parseInt(ethers.utils.formatUnits(data[0]._hex, 6)))
+            setPendingRewards(parseInt(ethers.utils.formatUnits(data[1]._hex, 6)))
+        },
+    })
+
+
 
     return (
         <div className="section cc-store-home-wrap">
@@ -86,7 +117,7 @@ function Account() {
                                 <div className="text-block-34">Total claimed winnings</div>
                             </div>
                             <div className="div-block-32">
-                                <div className="text-block-31">$ 0.00</div>
+                                <div className="text-block-31">$ {totalClaimed}</div>
                                 <img src="images/next.png" className="pourquoi" loading="lazy" width="25" height="25" alt=""
                                     onClick={(e) => { setModalTotalClaimed(true) }} />
                             </div>
@@ -96,7 +127,7 @@ function Account() {
                                 <div className="text-block-30">Pending winnings</div>
                             </div>
                             <div className="div-block-32">
-                                <div className="text-block-31">$ 0.00</div>
+                                <div className="text-block-31">$ {pendingRewards}</div>
                                 <img src="images/next.png" className="pourquoi" loading="lazy" width="25" height="25" alt=""
                                     onClick={(e) => { setModalClaim(true) }}
                                 />

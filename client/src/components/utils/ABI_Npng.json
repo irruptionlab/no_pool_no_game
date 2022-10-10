@@ -89,21 +89,8 @@
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_idContest",
-                "type": "uint256"
-            }
-        ],
-        "name": "claimRewards",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
         "inputs": [],
-        "name": "closeContest",
+        "name": "claim",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -124,6 +111,42 @@
     {
         "inputs": [
             {
+                "internalType": "address",
+                "name": "_player",
+                "type": "address"
+            }
+        ],
+        "name": "getAccountTable",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "idContest",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "rank",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "participant",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct NpngGame.AccountTable[10]",
+                "name": "",
+                "type": "tuple[10]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "uint256",
                 "name": "_idContest",
                 "type": "uint256"
@@ -135,6 +158,54 @@
             }
         ],
         "name": "getContestRank",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getContestsResult",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "idContest",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "player",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "score",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "balancePlayer",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct NpngGame.ContestsResult[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getCurrentContestClaimedRewards",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -247,6 +318,11 @@
                         "internalType": "uint256",
                         "name": "score",
                         "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "balancePlayer",
+                        "type": "uint256"
                     }
                 ],
                 "internalType": "struct NpngGame.ContestsResult[]",
@@ -258,14 +334,8 @@
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_account",
-                "type": "address"
-            }
-        ],
-        "name": "getMyBalance",
+        "inputs": [],
+        "name": "getPendingRewards",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -284,6 +354,56 @@
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "getPoolStatus",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "idContest",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "endContestPoolValue",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "endContestAavePoolValue",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "prizePool",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "cumulatedPoolPrizes",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "claimedRewards",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "winnersDeposit",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct NpngPool.PoolStatus[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "uint256",
@@ -297,6 +417,57 @@
             }
         ],
         "name": "getRewardsPerPlayer",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_account",
+                "type": "address"
+            }
+        ],
+        "name": "getTotalClaimedRewards",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_account",
+                "type": "address"
+            }
+        ],
+        "name": "getUserBalance",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getWinnersDeposit",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -413,6 +584,13 @@
     {
         "inputs": [],
         "name": "unpause",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "updateContest",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"

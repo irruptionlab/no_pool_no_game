@@ -6,14 +6,19 @@ import SelectNetwork from '../components/utils/SelectNetwork';
 import ModalDeposit from '../components/deposit/ModalDeposit';
 import ModalWarning from '../components/ModalWarning';
 import Faucet from '../components/utils/Faucet';
-import { useAccount, useNetwork } from 'wagmi';
+import { useAccount, useNetwork, useContractRead } from 'wagmi';
+import ABI_Npng from '../components/utils/ABI_Npng.json'
+import { useAddressNetwork } from "../components/utils/useAddressNetwork";
+import { ethers } from 'ethers';
 
 function Deposit() {
     const { isConnected } = useAccount()
     const { chain } = useNetwork()
     const [amount, setAmount] = useState(0.00)
+    const [idContest, setIdContest] = useState('0')
     const [modalDeposit, setModalDeposit] = useState(false)
     const [modalWarning, setModalWarning] = useState(true)
+    const addressNetwork = useAddressNetwork()
 
     const handleDeposit = () => {
         if (amount > 0) {
@@ -24,6 +29,16 @@ function Deposit() {
             }
         }
     }
+
+    useContractRead({
+        addressOrName: addressNetwork.npngContract,
+        contractInterface: ABI_Npng,
+        functionName: 'getIdContest',
+        onSuccess(data) {
+            setIdContest(ethers.utils.formatUnits(data?._hex, 0))
+        }
+    })
+
     return (
         <div className="section cc-store-home-wrap">
             <div className="container-1 cont1pagedeposit w-container">
@@ -36,7 +51,7 @@ function Deposit() {
                     </div>
                     <div className="text-block-17"><span className="text-span">10</span> prizes. Every single day !</div>
                     <Prize />
-                    <div className="text-block-14">Join contest #327</div>
+                    <div className="text-block-14">Join contest #{idContest}</div>
                     <Countdown />
                     <div className="div-block-11">
                         <div className="hr-min-sec">HR</div>
