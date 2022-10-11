@@ -3480,6 +3480,11 @@ figcaption {
   -o-object-fit: fill;
   object-fit: fill;
   overflow: hidden;
+  font-family: Khand, sans-serif;
+  color: #1a1b1f;
+  font-size: 16px;
+  line-height: 28px;
+  font-weight: 400;
 
 }
 
@@ -7479,6 +7484,7 @@ figcaption {
   }
 
   .div-block-46 {
+    margin-top: 10px;
     line-height: 24px;
   }
 
