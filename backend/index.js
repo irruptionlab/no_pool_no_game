@@ -43,8 +43,8 @@ const npng = new ethers.Contract(process.env.NPNG_CONTRACT, ABI, wallet);
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: 'https://nopoolnogame.xyz',
-    credentials: true,
+    // origin: 'https://nopoolnogame.xyz',
+    // credentials: true,
 }));
 
 

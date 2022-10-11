@@ -27,20 +27,11 @@ contract NpngGame is Pausable, Ownable {
         bool claimed;
     }
 
-    struct ListNbPlayersPerContest {
-        uint idContest;
-        uint nbPlayers;
-    }
-
-    struct RankPerContest {
-        uint idContest;
-        uint rank;
-    }
-
     struct AccountTable {
         uint idContest;
         uint rank;
         uint participant;
+        uint prize;
     }
 
     /// @notice Array of scores per player and per contest
@@ -111,43 +102,10 @@ contract NpngGame is Pausable, Ownable {
         return (currentIdContest);
     }
 
-    /// @notice Get all scores from all contests
-    function getListScores() public view returns (ContestsResult[] memory) {
-        return (contestsResult);
-    }
-
     /// @notice Get the end of the current contest in Timestamp
     function getEndOfContest() public view returns (uint) {
         uint endOfContest = lastContestTimestamp + gameFrequence;
         return (endOfContest);
-    }
-
-    ///@notice Get a array with number of participants for the last 10 contests
-    function getListNbPlayers10LastContests()
-        public
-        view
-        returns (ListNbPlayersPerContest[10] memory)
-    {
-        ListNbPlayersPerContest[10] memory listNbPlayersPerContest;
-        uint j = 0;
-        uint indexDecrement;
-        if (currentIdContest < 10) {
-            indexDecrement = currentIdContest;
-        } else {
-            indexDecrement = 10;
-        }
-        for (
-            uint i = currentIdContest;
-            i > currentIdContest - indexDecrement;
-            i--
-        ) {
-            listNbPlayersPerContest[j] = ListNbPlayersPerContest({
-                idContest: i,
-                nbPlayers: numberOfPlayersPerContest[i]
-            });
-            j++;
-        }
-        return (listNbPlayersPerContest);
     }
 
     /// @notice Get the rank of a player for a specific contest
@@ -187,34 +145,7 @@ contract NpngGame is Pausable, Ownable {
         return (rank);
     }
 
-    /// @notice Get the rank of a player for the last 10 contests
-    function getLast10ContestsRank(address _player)
-        public
-        view
-        returns (RankPerContest[10] memory)
-    {
-        RankPerContest[10] memory last10contestsRank;
-        uint j = 0;
-        uint indexDecrement;
-        if (currentIdContest < 10) {
-            indexDecrement = currentIdContest;
-        } else {
-            indexDecrement = 10;
-        }
-        for (
-            uint i = currentIdContest;
-            i > currentIdContest - indexDecrement;
-            i--
-        ) {
-            last10contestsRank[j] = RankPerContest({
-                idContest: i,
-                rank: getContestRank(i, _player)
-            });
-            j++;
-        }
-        return (last10contestsRank);
-    }
-
+    /// @notice Get the sum of deposit of 10 winners for calculation of rewards distribution
     function getWinnersDeposit() public view returns (uint) {
         uint winnersDeposit = 0;
         for (uint i = 0; i < contestsResult.length; i++) {
@@ -228,35 +159,11 @@ contract NpngGame is Pausable, Ownable {
         return (winnersDeposit);
     }
 
-    function getContestsResult() public view returns (ContestsResult[] memory) {
-        return (contestsResult);
-    }
-
-    function getAccountTable(address _player)
+    function getPlayerStatus(address _account, uint _idContest)
         public
         view
-        returns (AccountTable[10] memory)
+        returns (RequestPlaying memory)
     {
-        AccountTable[10] memory accountTable;
-        uint indexDecrement;
-        uint j = 0;
-        if (currentIdContest < 10) {
-            indexDecrement = currentIdContest;
-        } else {
-            indexDecrement = 10;
-        }
-        for (
-            uint i = currentIdContest;
-            i > currentIdContest - indexDecrement;
-            i--
-        ) {
-            accountTable[j] = AccountTable({
-                idContest: i,
-                rank: getContestRank(i, _player),
-                participant: numberOfPlayersPerContest[i]
-            });
-            j++;
-        }
-        return (accountTable);
+        return (contestPlayerStatus[_account][_idContest]);
     }
 }

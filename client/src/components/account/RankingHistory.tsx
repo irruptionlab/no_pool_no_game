@@ -20,14 +20,14 @@ function RankingHistory({ setModalResult, setContest }:
         args: [address]
     })
 
-    const displayResult = (rank: number, nbParticpants: number) => {
+    const displayResult = (rank: number, nbParticpants: number, prize: string) => {
         if (rank === 0) {
             return (<div className="grid-content-typo no-particpation-grey-color" > No participation</div>)
 
         }
         else {
             if (rank < 11) {
-                return (<div className="grid-content-typo win-typo">You won</div>)
+                return (<div className="grid-content-typo win-typo">{prize}</div>)
             }
             else {
                 const result = parseInt(ethers.utils.formatUnits(rank, 0)) / parseInt(ethers.utils.formatUnits(nbParticpants, 0));
@@ -84,7 +84,7 @@ function RankingHistory({ setModalResult, setContest }:
                     </div>
 
                     <div className={colorText(filteredElement[1]._hex, filteredElement[2]._hex)}>{ethers.utils.formatUnits(filteredElement[2]._hex, 0)}</div>
-                    {displayResult(parseInt(ethers.utils.formatUnits(filteredElement[1]._hex, 0)), parseInt(ethers.utils.formatUnits(filteredElement[2]._hex, 0)))}
+                    {displayResult(parseInt(ethers.utils.formatUnits(filteredElement[1]._hex, 0)), parseInt(ethers.utils.formatUnits(filteredElement[2]._hex, 0)), ethers.utils.formatUnits(filteredElement[2]._hex, 6))}
                 </Fragment>)}
         </div>
     )

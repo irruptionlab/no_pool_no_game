@@ -71,6 +71,13 @@ contract NpngPool is NpngGame {
         uint winnersDeposit;
     }
 
+    struct ContestTable {
+        uint rank;
+        uint score;
+        address player;
+        uint prize;
+    }
+
     /// @notice Array of info per contest
     PoolStatus[] private poolStatus;
 
@@ -83,14 +90,8 @@ contract NpngPool is NpngGame {
     /// @notice Record the last Contest of Deposit
     mapping(address => uint) private lastIdContestOfDeposit;
 
-    /// @notice Associate the Deposit of user to the Id Contest User
-    /// @notice User address => Id Contest => Deposit
-    mapping(address => mapping(uint => uint)) private playerDepositPerContest;
-
     /// @notice store the rewards claimed during the current contest
     uint private currentContestClaimedRewards;
-
-    mapping(uint => uint) private rewardsPerContest;
 
     IERC20 private usdcToken;
     IERC20 private aUsdcToken;
@@ -140,9 +141,6 @@ contract NpngPool is NpngGame {
         balanceOfPool += _amount;
         npngToken.mint(msg.sender, _amount);
         lastIdContestOfDeposit[msg.sender] = NpngGame.currentIdContest;
-        playerDepositPerContest[msg.sender][
-            NpngGame.currentIdContest
-        ] = _amount;
     }
 
     /// @notice Withdraw from the Pool, it will be withdraw from Aave and NPNG Token will be burnt
@@ -297,15 +295,73 @@ contract NpngPool is NpngGame {
         return (poolStatus);
     }
 
-    function getPendingRewards() public view returns (uint) {
+    function getPendingRewards(address _account) public view returns (uint) {
         uint onClaiming = 0;
         for (uint i = currentIdContest - 1; i > 0; i--) {
-            if (contestPlayerStatus[msg.sender][i].claimed == true) {
+            if (contestPlayerStatus[_account][i].claimed == true) {
                 break;
             } else {
-                onClaiming += getRewardsPerPlayer(i, msg.sender);
+                onClaiming += getRewardsPerPlayer(i, _account);
             }
         }
         return (onClaiming);
+    }
+
+    /// @notice table of last 10 contests for a player, used for ranking history in the Page Account
+    function getAccountTable(address _player)
+        public
+        view
+        returns (AccountTable[10] memory)
+    {
+        AccountTable[10] memory accountTable;
+        uint indexDecrement;
+        uint j = 0;
+        uint previousIdContest = currentIdContest - 1;
+        if (previousIdContest < 10) {
+            indexDecrement = previousIdContest;
+        } else {
+            indexDecrement = 10;
+        }
+        for (
+            uint i = previousIdContest;
+            i > previousIdContest - indexDecrement;
+            i--
+        ) {
+            accountTable[j] = AccountTable({
+                idContest: i,
+                rank: getContestRank(i, _player),
+                participant: numberOfPlayersPerContest[i],
+                prize: getRewardsPerPlayer(i, _player)
+            });
+            j++;
+        }
+        return (accountTable);
+    }
+
+    /// @notice table of top 10 players for a contest, used for modal contest in the Page Account
+    function getContestTable(uint _idContest)
+        public
+        view
+        returns (ContestTable[10] memory)
+    {
+        ContestTable[10] memory contestTable;
+        uint rank;
+        for (uint i = 0; i < contestsResult.length; i++) {
+            if (_idContest == contestsResult[i].idContest) {
+                rank = getContestRank(_idContest, contestsResult[i].player);
+                if (rank != 0 && rank < 10) {
+                    contestTable[rank - 1] = ContestTable({
+                        rank: rank,
+                        score: contestsResult[i].score,
+                        player: contestsResult[i].player,
+                        prize: getRewardsPerPlayer(
+                            _idContest,
+                            contestsResult[i].player
+                        )
+                    });
+                }
+            }
+        }
+        return (contestTable);
     }
 }

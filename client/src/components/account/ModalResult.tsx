@@ -13,7 +13,11 @@ function ModalResult({ contest, setModalResult }:
     const { data } = useContractRead({
         addressOrName: goerli.npngContract,
         contractInterface: ABI_Npng,
-        functionName: 'getListScores',
+        functionName: 'getContestTable',
+        args: [1],
+        onSuccess(data) {
+            console.log(data)
+        }
     })
 
     return (
@@ -30,10 +34,10 @@ function ModalResult({ contest, setModalResult }:
                     <div>Prizes *</div>
                     {data && data.filter(element => parseInt(ethers.utils.formatUnits(element[0]._hex, 0)) === contest).map(filteredElement =>
                         <Fragment key={filteredElement}>
-                            <div>Rank</div>
-                            <div> {ethers.utils.formatUnits(filteredElement[2]._hex, 0)}</div>
-                            <div> {filteredElement[1].substring(0, 15)}</div>
-                            <div> ... NPaUSDC</div>
+                            <div>{ethers.utils.formatUnits(filteredElement[0]._hex, 0)}</div>
+                            <div>{ethers.utils.formatUnits(filteredElement[1]._hex, 0)}</div>
+                            <div> {filteredElement[2].substring(0, 15)}</div>
+                            <div> {ethers.utils.formatUnits(filteredElement[3]._hex, 6)} NPaUSDC</div>
                         </Fragment>
                     )}
                 </div>

@@ -15,8 +15,8 @@ import { ethers } from 'ethers';
 function Account() {
     const [networkName, setNetworkName] = useState('');
     const [contest, setContest] = useState(0);
-    const [totalClaimed, setTotalClaimed] = useState(0);
-    const [pendingRewards, setPendingRewards] = useState(0);
+    const [totalClaimed, setTotalClaimed] = useState('0');
+    const [pendingRewards, setPendingRewards] = useState('0');
     const [modalResult, setModalResult] = useState(false);
     const [modalWithdraw, setModalWithdraw] = useState(false);
     const [modalClaim, setModalClaim] = useState(false);
@@ -36,16 +36,14 @@ function Account() {
                 addressOrName: addressNetwork.npngContract,
                 contractInterface: ABI_Npng,
                 functionName: 'getPendingRewards',
+                args: [address]
             },
         ],
-        overrides: { from: address },
         onSuccess(data) {
-            setTotalClaimed(parseInt(ethers.utils.formatUnits(data[0]._hex, 6)))
-            setPendingRewards(parseInt(ethers.utils.formatUnits(data[1]._hex, 6)))
+            setTotalClaimed(ethers.utils.formatUnits(data[0]._hex, 6))
+            setPendingRewards(ethers.utils.formatUnits(data[1]._hex, 6))
         },
     })
-
-
 
     return (
         <div className="section cc-store-home-wrap">
