@@ -1,14 +1,7 @@
-import { useState } from "react";
 import { Link } from "react-router-dom"
 
 
 function Footer() {
-    const [open, setOpen] = useState(false)
-
-    const handleClose = () => {
-        setOpen(false);
-    }
-
     return (
         <section className="footer-subscribe wf-section">
             <div className="container-4">
@@ -40,10 +33,10 @@ function Footer() {
                 </div>
                 <div className="footer-divider-two"></div>
                 <div className="footer-bottom">
-                    <div className="footer-copyright">© 2022 Powered by <a href="https://irruption-lab.webflow.io" target="_blank" rel="noreferrer">Irruption Lab</a></div>
+                    <div className="footer-copyright">© 2022 Powered by <a href="https://irruption-lab.webflow.io/" target="_blank" rel="noreferrer" className="link-60">Irruption Lab</a></div>
                 </div>
             </div>
-        </section>
+        </section >
 
     )
 }

@@ -22,7 +22,7 @@ function RankingHistory({ setModalResult, setContest }:
 
     const displayResult = (rank: number, nbParticpants: number) => {
         if (rank === 0) {
-            return (<div className="text-block-49" > No participation</div>)
+            return (<div className="grid-content-typo no-particpation-grey-color" > No participation</div>)
 
         }
         else {
@@ -73,7 +73,7 @@ function RankingHistory({ setModalResult, setContest }:
             {data && data.filter(element => parseInt(ethers.utils.formatUnits(element[0]._hex, 0)) > 0).map(filteredElement =>
                 <Fragment key={filteredElement}>
 
-                    <div className={colorText(filteredElement[1]._hex, filteredElement[2]._hex)}
+                    <div className={colorText(filteredElement[1]._hex, filteredElement[2]._hex) + " pourquoi"}
                         onClick={() => {
                             setContest(parseInt(ethers.utils.formatUnits(filteredElement[0]._hex, 0)))
                             setModalResult(true)
