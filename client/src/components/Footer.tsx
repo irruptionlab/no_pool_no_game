@@ -1,4 +1,3 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom"
 
@@ -34,42 +33,14 @@ function Footer() {
                         <Link to="/userguide/network" className="footer-link-three">Networks</Link>
                     </div>
                     <div className="footer-social-block-three">
-                        {/* <a href="/" className="footer-social-link-three w-inline-block"><img src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124a705912aaeb_facebook%20big%20filled.svg" loading="lazy" alt=""
-                            onClick={(e) => {
-                                e.preventDefault()
-                                handleClickOpen('Facebook')
-                            }} /></a> */}
-                        <a href="https://twitter.com/IrruptionLab" target="_blank" rel="noreferrer" className="footer-social-link-three w-inline-block"><img src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124ab37a12aaf0_twitter%20big.svg" loading="lazy" alt="" /></a>
-                        {/* <a href="/" className="footer-social-link-three w-inline-block"><img src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124a61f512aaed_instagram%20big.svg" loading="lazy" alt=""
-                            onClick={(e) => {
-                                e.preventDefault()
-                                handleClickOpen('Instagram')
-                            }} /></a> */}
+                        <a href="https://www.linkedin.com/company/irruption-lab" target="_blank" rel="noreferrer" className="footer-social-link-three w-inline-block"><img src="images/linkedin.png" loading="lazy" width="22" alt="" /></a>
                         <a href="https://github.com/pgrandne/NoPoolNoGame" target="_blank" rel="noreferrer" className="footer-social-link-three w-inline-block"><img src="./images/github.svg" loading="lazy" alt="" /></a>
+                        <a href="https://twitter.com/IrruptionLab" target="_blank" rel="noreferrer" className="footer-social-link-three w-inline-block"><img src="https://uploads-ssl.webflow.com/62434fa732124a0fb112aab4/62434fa732124ab37a12aaf0_twitter%20big.svg" loading="lazy" alt="" /></a>
                     </div>
-                    {/* <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                    >
-                        <DialogTitle id="alert-dialog-title">
-                            {title}
-                        </DialogTitle>
-                        <DialogContent>
-                            <DialogContentText id="alert-dialog-description">
-                                On Construction
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleClose}>Close</Button>
-
-                        </DialogActions>
-                    </Dialog> */}
                 </div>
                 <div className="footer-divider-two"></div>
                 <div className="footer-bottom">
-                    <div className="footer-copyright">© 2022 Powered by Irruption Lab</div>
+                    <div className="footer-copyright">© 2022 Powered by <a href="https://irruption-lab.webflow.io" target="_blank" rel="noreferrer">Irruption Lab</a></div>
                 </div>
             </div>
         </section>

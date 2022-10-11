@@ -3635,6 +3635,10 @@ figcaption {
   font-family: Khand, sans-serif;
 }
 
+.text-block-49 {
+  color: rgba(26, 27, 31, 0.3);
+}
+
 .dropdown-toggle {
   position: static;
   display: -webkit-box;
@@ -3788,6 +3792,38 @@ figcaption {
   outline: none;
 }
 
+.column-names {
+  color: rgba(26, 27, 31, 0.5);
+  font-size: 12px;
+  line-height: 30px;
+  font-weight: 600;
+}
+
+.grid-content-typo {
+  font-size: 22px;
+  line-height: 27px;
+  cursor: pointer;
+}
+
+.grid-content-typo.top10-typo {
+  background-image: -webkit-gradient(linear, left top, right top, from(#1edca3), color-stop(35%, #933ffe));
+  background-image: linear-gradient(90deg, #1edca3, #933ffe 35%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grid-content-typo.win-typo {
+  background-image: -webkit-gradient(linear, left top, right top, from(#ffda36), color-stop(50%, #933ffe));
+  background-image: linear-gradient(90deg, #ffda36, #933ffe 50%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grid-content-typo.no-particpation-grey-color {
+  color: rgba(26, 27, 31, 0.3);
+}
 
 
 .text-block-10 {
@@ -5991,6 +6027,7 @@ figcaption {
 .div-block-46 {
   display: -ms-grid;
   display: grid;
+  margin-top: 40px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -5998,8 +6035,8 @@ figcaption {
   grid-auto-columns: 1fr;
   grid-column-gap: 10px;
   grid-row-gap: 0px;
-  -ms-grid-columns: 0.5fr 1fr 1fr;
-  grid-template-columns: 0.5fr 1fr 1fr;
+  -ms-grid-columns: 0.3fr 0.3fr 0.3fr 1fr;
+  grid-template-columns: 0.3fr 0.3fr 0.3fr 1fr;
   -ms-grid-rows: auto auto auto auto auto auto;
   grid-template-rows: auto auto auto auto auto auto;
   line-height: 26px;
