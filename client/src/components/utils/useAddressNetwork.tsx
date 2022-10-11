@@ -5,13 +5,7 @@ import { goerli, optimism, polygon } from './contractAddress'
 
 const useAddressNetwork = () => {
     const { chain } = useNetwork()
-    const [addressNetwork, setAddressNetwork] = useState({
-        usdcContract: '',
-        aavePoolContract: '',
-        npngContract: '',
-        aUsdcContract: '',
-        npngToken: ''
-    })
+    const [addressNetwork, setAddressNetwork] = useState(goerli)
 
     useEffect(() => {
         if (chain) {
@@ -26,6 +20,7 @@ const useAddressNetwork = () => {
                     setAddressNetwork(polygon);
                     break;
                 default:
+                    setAddressNetwork(goerli);
                     console.log(`Network ${chain.name} not found`)
             }
         }

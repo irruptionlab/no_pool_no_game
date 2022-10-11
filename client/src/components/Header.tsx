@@ -15,7 +15,7 @@ function Header() {
             <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" className="navbar-no-shadow-container w-nav">
                 <div className="container-regular">
                     <div className="navbar-wrapper">
-                        <a href="/" className="navbar-brand w-nav-brand"><img src="images/logo.png" loading="lazy" width="51" srcSet="images/logo-p-500.png 500w, images/logo.png 664w" sizes="50.99433135986328px" alt="" />
+                        <a href="/" className="navbar-brand w-nav-brand"><img src="images/logo.svg" loading="lazy" width="51" sizes="50.99433135986328px" alt="" />
                             <div className="text-block">No Pool No Game</div>
                         </a>
                         <nav role="navigation" className="nav-menu-wrapper w-nav-menu">

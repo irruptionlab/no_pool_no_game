@@ -2,9 +2,11 @@ import { useState } from "react";
 import Countdown from "../components/Countdown";
 import ModalPlay from "../components/game/ModalPlay"
 import Prize from "../components/Prize";
+import IdContest from '../components/IdContest'
 import { useAccount, useContractWrite, usePrepareContractWrite } from 'wagmi'
 import ABI_Npng from '../components/utils/ABI_Npng.json'
 import { useAddressNetwork } from "../components/utils/useAddressNetwork";
+
 
 function Play() {
     const [realPlay, setRealPlay] = useState(false)
@@ -43,7 +45,7 @@ function Play() {
                                 <div className="text-block-20">You can train as much as you want on the demo mode</div>
                             </div>
                         </div>
-                        <div className="text-block-14">Contest #327 ends in</div>
+                        <div className="text-block-14">Contest #<IdContest /> ends in</div>
                         <Countdown />
                         <div className="div-block-11">
                             <div className="hr-min-sec">HR</div>

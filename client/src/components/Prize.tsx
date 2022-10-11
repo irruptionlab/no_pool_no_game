@@ -3,15 +3,16 @@ import { goerli } from './utils/contractAddress'
 import ABI_NPNG from './utils/ABI_Npng.json'
 import { ethers } from "ethers"
 import { useState } from 'react'
+import { useAddressNetwork } from "../components/utils/useAddressNetwork";
 
 function Prize() {
     const [dailyPrize, setDailyPrize] = useState(0)
+    const addressNetwork = useAddressNetwork()
     useContractRead({
-        addressOrName: goerli.npngContract,
+        addressOrName: addressNetwork.npngContract,
         contractInterface: ABI_NPNG,
         functionName: 'interestEarned',
-        chainId: 5,
-        onSettled(data) {
+        onSuccess(data) {
             setDailyPrize(parseFloat(ethers.utils.formatUnits(data?._hex, 6)))
         }
     })
