@@ -255,7 +255,9 @@ contract NpngPool is NpngGame {
 
     /// @notice Calculate the interest by substracting the Pool balance to the current balance on Aave
     function interestEarned() public view returns (uint) {
-        return (aUsdcToken.balanceOf(address(this)) - balanceOfPool);
+        return (aUsdcToken.balanceOf(address(this)) -
+            balanceOfPool -
+            poolStatus[currentIdContest - 1].cumulatedPoolPrizes);
     }
 
     /// @notice Calculate the reward per player and contest based on his score
@@ -349,7 +351,7 @@ contract NpngPool is NpngGame {
         for (uint i = 0; i < contestsResult.length; i++) {
             if (_idContest == contestsResult[i].idContest) {
                 rank = getContestRank(_idContest, contestsResult[i].player);
-                if (rank != 0 && rank < 10) {
+                if (rank != 0 && rank <= 10) {
                     contestTable[rank - 1] = ContestTable({
                         rank: rank,
                         score: contestsResult[i].score,

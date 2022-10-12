@@ -39,6 +39,7 @@ function Account() {
                 args: [address]
             },
         ],
+        watch: true,
         onSuccess(data) {
             setTotalClaimed(ethers.utils.formatUnits(data[0]._hex, 6))
             setPendingRewards(ethers.utils.formatUnits(data[1]._hex, 6))
@@ -138,7 +139,7 @@ function Account() {
             {modalWithdraw && networkName === 'Mumbai' && <ModalWithdraw network={polygon} setModalWithdraw={setModalWithdraw} />}
             {modalWithdraw && networkName === 'Optimism' && <ModalWithdraw network={optimism} setModalWithdraw={setModalWithdraw} />}
             {modalResult && <ModalResult contest={contest} setModalResult={setModalResult} />}
-            {modalClaim && <ModalClaim setModalClaim={setModalClaim} />}
+            {modalClaim && <ModalClaim setModalClaim={setModalClaim} pendingRewards={pendingRewards} />}
             {modalTotalClaimed && <ModalTotalClaimed setModalTotalClaimed={setModalTotalClaimed} />}
         </div>
     )

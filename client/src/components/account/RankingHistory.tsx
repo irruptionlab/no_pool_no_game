@@ -35,7 +35,7 @@ function RankingHistory({ setModalResult, setContest }:
                     return (<div className="grid-content-typo top10-typo">Top 10%</div>)
                 }
                 else {
-                    return (<div>You can do better...</div>)
+                    return (<div className="grid-content-typo">You can do better...</div>)
                 }
             }
         }
@@ -58,7 +58,7 @@ function RankingHistory({ setModalResult, setContest }:
                     return ("grid-content-typo top10-typo")
                 }
                 else {
-                    return ("")
+                    return ("grid-content-typo")
                 }
             }
         }

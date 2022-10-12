@@ -15,9 +15,6 @@ function ModalResult({ contest, setModalResult }:
         contractInterface: ABI_Npng,
         functionName: 'getContestTable',
         args: [contest],
-        onSuccess(data) {
-            console.log(data)
-        }
     })
 
     return (
