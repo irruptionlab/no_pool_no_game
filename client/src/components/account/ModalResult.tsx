@@ -14,7 +14,7 @@ function ModalResult({ contest, setModalResult }:
         addressOrName: goerli.npngContract,
         contractInterface: ABI_Npng,
         functionName: 'getContestTable',
-        args: [1],
+        args: [contest],
         onSuccess(data) {
             console.log(data)
         }
