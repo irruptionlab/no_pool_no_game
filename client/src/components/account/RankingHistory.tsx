@@ -84,7 +84,7 @@ function RankingHistory({ setModalResult, setContest }:
                     </div>
 
                     <div className={colorText(filteredElement[1]._hex, filteredElement[2]._hex)}>{ethers.utils.formatUnits(filteredElement[2]._hex, 0)}</div>
-                    {displayResult(parseInt(ethers.utils.formatUnits(filteredElement[1]._hex, 0)), parseInt(ethers.utils.formatUnits(filteredElement[2]._hex, 0)), ethers.utils.formatUnits(filteredElement[2]._hex, 6))}
+                    {displayResult(parseInt(ethers.utils.formatUnits(filteredElement[1]._hex, 0)), parseInt(ethers.utils.formatUnits(filteredElement[2]._hex, 0)), ethers.utils.formatUnits(filteredElement[3]._hex, 6))}
                 </Fragment>)}
         </div>
     )
