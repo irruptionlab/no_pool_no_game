@@ -32,12 +32,12 @@ function ModalResult({ contest, setModalResult }:
                     <div>Score</div>
                     <div>Adress</div>
                     <div>Prizes *</div>
-                    {data && data.filter(element => parseInt(ethers.utils.formatUnits(element[0]._hex, 0)) === contest).map(filteredElement =>
+                    {data && data.map(filteredElement =>
                         <Fragment key={filteredElement}>
                             <div>{ethers.utils.formatUnits(filteredElement[0]._hex, 0)}</div>
-                            <div>{ethers.utils.formatUnits(filteredElement[1]._hex, 0)}</div>
+                            <div>{ethers.utils.formatUnits(filteredElement[1]._hex, 0).substring(0, ethers.utils.formatUnits(filteredElement[1]._hex, 0).length - 3)}.{ethers.utils.formatUnits(filteredElement[1]._hex, 0).substring(ethers.utils.formatUnits(filteredElement[1]._hex, 0).length - 3, ethers.utils.formatUnits(filteredElement[1]._hex, 0).length - 1)}s</div>
                             <div> {filteredElement[2].substring(0, 15)}</div>
-                            <div> {ethers.utils.formatUnits(filteredElement[3]._hex, 6)} NPaUSDC</div>
+                            <div>$ {ethers.utils.formatUnits(filteredElement[3]._hex, 6)}</div>
                         </Fragment>
                     )}
                 </div>

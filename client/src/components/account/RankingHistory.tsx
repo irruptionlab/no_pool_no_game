@@ -27,7 +27,7 @@ function RankingHistory({ setModalResult, setContest }:
         }
         else {
             if (rank < 11) {
-                return (<div className="grid-content-typo win-typo">{prize}</div>)
+                return (<div className="grid-content-typo win-typo">$ {prize}</div>)
             }
             else {
                 const result = parseInt(ethers.utils.formatUnits(rank, 0)) / parseInt(ethers.utils.formatUnits(nbParticpants, 0));
