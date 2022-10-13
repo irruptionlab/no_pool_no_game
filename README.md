@@ -14,7 +14,7 @@ This repository has 2 folders:
 - [x] Add Deposit
 - [X] Add Transaction for First Game
 - [X] Add Withdraw
-- [ ] Add Claims for Rewards
+- [X] Add Claims for Rewards
 - [ ] Add Pending button
 - [ ] Add Toast
 - [ ] Improve float

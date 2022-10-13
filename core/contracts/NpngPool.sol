@@ -64,10 +64,8 @@ contract NpngPool is NpngGame {
     struct PoolStatus {
         uint idContest;
         uint endContestPoolValue;
-        uint endContestAavePoolValue;
-        uint prizePool;
-        uint cumulatedPoolPrizes;
-        uint claimedRewards;
+        uint globalPrizePool;
+        uint contestRewards;
         uint winnersDeposit;
     }
 
@@ -84,14 +82,16 @@ contract NpngPool is NpngGame {
     /// @notice balance of Users in the Pool
     mapping(address => uint) private balanceOfUser;
 
-    /// @notice Global Balance of the Pool
-    uint private balanceOfPool;
+    /// @notice Sum of all deposits during the current contest
+    uint private currentContestDeposits;
+
+    /// @notice Sum of all witdhraws during the current contest
+    uint private currentContestWithdraws;
 
     /// @notice Record the last Contest of Deposit
     mapping(address => uint) private lastIdContestOfDeposit;
 
-    /// @notice store the rewards claimed during the current contest
-    uint private currentContestClaimedRewards;
+    mapping(uint => uint) private remainedUnclaimedRewardsPerContest;
 
     IERC20 private usdcToken;
     IERC20 private aUsdcToken;
@@ -108,10 +108,8 @@ contract NpngPool is NpngGame {
             PoolStatus({
                 idContest: 0,
                 endContestPoolValue: 0,
-                endContestAavePoolValue: 0,
-                prizePool: 0,
-                cumulatedPoolPrizes: 0,
-                claimedRewards: 0,
+                globalPrizePool: 0,
+                contestRewards: 0,
                 winnersDeposit: 0
             })
         );
@@ -138,7 +136,7 @@ contract NpngPool is NpngGame {
         usdcToken.approve(address(poolAave), _amount);
         poolAave.supply(address(usdcToken), _amount, address(this), 0);
         balanceOfUser[msg.sender] += _amount;
-        balanceOfPool += _amount;
+        currentContestDeposits += _amount;
         npngToken.mint(msg.sender, _amount);
         lastIdContestOfDeposit[msg.sender] = NpngGame.currentIdContest;
     }
@@ -153,7 +151,7 @@ contract NpngPool is NpngGame {
         poolAave.withdraw(address(usdcToken), _amount, address(this));
         usdcToken.transfer(msg.sender, _amount);
         balanceOfUser[msg.sender] -= _amount;
-        balanceOfPool -= _amount;
+        currentContestWithdraws += _amount;
         npngToken.burn(msg.sender, _amount);
     }
 
@@ -166,26 +164,33 @@ contract NpngPool is NpngGame {
             "No contest update!"
         );
         lastContestTimestamp = block.timestamp;
-        uint previousCumulatedPoolPrizes = poolStatus[currentIdContest - 1]
-            .cumulatedPoolPrizes;
-        uint totalClaimedRewards = currentContestClaimedRewards +
-            poolStatus[currentIdContest - 1].claimedRewards;
-        currentContestClaimedRewards = 0;
         uint currentAavePoolValue = aUsdcToken.balanceOf(address(this));
+
+        /// @notice TD : Add fees in the table for the contest
         poolStatus.push(
             PoolStatus({
                 idContest: currentIdContest,
-                endContestPoolValue: balanceOfPool,
-                endContestAavePoolValue: currentAavePoolValue,
-                prizePool: currentAavePoolValue -
-                    balanceOfPool -
-                    previousCumulatedPoolPrizes,
-                cumulatedPoolPrizes: currentAavePoolValue - balanceOfPool,
-                claimedRewards: totalClaimedRewards,
+                endContestPoolValue: poolStatus[currentIdContest - 1]
+                    .endContestPoolValue +
+                    currentContestDeposits -
+                    currentContestWithdraws +
+                    poolStatus[currentIdContest - 1].contestRewards,
+                globalPrizePool: currentAavePoolValue -
+                    (poolStatus[currentIdContest - 1].endContestPoolValue +
+                        currentContestDeposits -
+                        currentContestWithdraws +
+                        poolStatus[currentIdContest - 1].contestRewards),
+                contestRewards: getContestRewards(currentIdContest),
                 winnersDeposit: getWinnersDeposit()
             })
         );
+        currentContestDeposits = 0;
+        currentContestWithdraws = 0;
+        remainedUnclaimedRewardsPerContest[currentIdContest] = poolStatus[
+            currentIdContest
+        ].contestRewards;
         currentIdContest++;
+        getRemainedUnclaimedRewards();
     }
 
     /// @notice Record the contest played by the player to verify if he can and save his request
@@ -222,18 +227,40 @@ contract NpngPool is NpngGame {
 
     function claim() public {
         uint onClaiming = 0;
-        for (uint i = currentIdContest - 1; i > 0; i--) {
+        uint reward;
+        uint limitContest;
+        if (currentIdContest - 60 > 0) {
+            limitContest = currentIdContest - 60;
+        } else {
+            limitContest = 0;
+        }
+        for (uint i = currentIdContest - 1; i > limitContest; i--) {
             if (contestPlayerStatus[msg.sender][i].claimed == true) {
                 break;
             } else {
-                onClaiming += getRewardsPerPlayer(i, msg.sender);
+                reward = getRewardsPerPlayer(i, msg.sender);
+                onClaiming += reward;
+                remainedUnclaimedRewardsPerContest[i] -= reward;
                 contestPlayerStatus[msg.sender][i].claimed = true;
             }
         }
-        balanceOfUser[msg.sender] += onClaiming;
-        balanceOfPool += onClaiming;
-        currentContestClaimedRewards += onClaiming;
-        balanceOfClaimedRewards[msg.sender] += onClaiming;
+        if (onClaiming > 1) {
+            balanceOfUser[msg.sender] += onClaiming;
+            balanceOfClaimedRewards[msg.sender] += onClaiming;
+            npngToken.mint(msg.sender, onClaiming);
+        }
+    }
+
+    function getRemainedUnclaimedRewards() internal {
+        require(msg.sender == recorderAddress, "You are not allowed to claim!");
+        if (currentIdContest - 60 > 0) {
+            uint unclaimed = remainedUnclaimedRewardsPerContest[
+                currentIdContest - 60
+            ];
+            balanceOfUser[recorderAddress] += unclaimed;
+            npngToken.mint(recorderAddress, unclaimed);
+            remainedUnclaimedRewardsPerContest[currentIdContest - 60] = 0;
+        }
     }
 
     /// READ FUNCTIONS
@@ -241,6 +268,7 @@ contract NpngPool is NpngGame {
         return (balanceOfUser[_account]);
     }
 
+    ///@notice Get all the rewards claimed from a player
     function getTotalClaimedRewards(address _account)
         public
         view
@@ -249,15 +277,14 @@ contract NpngPool is NpngGame {
         return (balanceOfClaimedRewards[_account]);
     }
 
-    function getCurrentContestClaimedRewards() public view returns (uint) {
-        return (currentContestClaimedRewards);
-    }
-
     /// @notice Calculate the interest by substracting the Pool balance to the current balance on Aave
-    function interestEarned() public view returns (uint) {
-        return (aUsdcToken.balanceOf(address(this)) -
-            balanceOfPool -
-            poolStatus[currentIdContest - 1].cumulatedPoolPrizes);
+    function getGlobalPrizePool() public view returns (uint) {
+        uint currentAavePoolValue = aUsdcToken.balanceOf(address(this));
+        return (currentAavePoolValue -
+            (poolStatus[currentIdContest - 1].endContestPoolValue +
+                currentContestDeposits -
+                currentContestWithdraws +
+                poolStatus[currentIdContest - 1].contestRewards));
     }
 
     /// @notice Calculate the reward per player and contest based on his score
@@ -283,7 +310,7 @@ contract NpngPool is NpngGame {
             }
         }
         if (rank <= 10) {
-            reward = ((poolStatus[_idContest].prizePool *
+            reward = ((poolStatus[_idContest].globalPrizePool *
                 ((balancePlayer * 10**6) /
                     poolStatus[_idContest].winnersDeposit) *
                 (101 - rank)**5) / 10**16);
@@ -297,9 +324,16 @@ contract NpngPool is NpngGame {
         return (poolStatus);
     }
 
+    /// @notice Get the pending rewards of a player. These rewards can be claimed
     function getPendingRewards(address _account) public view returns (uint) {
         uint onClaiming = 0;
-        for (uint i = currentIdContest - 1; i > 0; i--) {
+        uint limitContest;
+        if (currentIdContest - 60 > 0) {
+            limitContest = currentIdContest - 60;
+        } else {
+            limitContest = 0;
+        }
+        for (uint i = currentIdContest - 1; i > limitContest; i--) {
             if (contestPlayerStatus[_account][i].claimed == true) {
                 break;
             } else {
@@ -365,5 +399,16 @@ contract NpngPool is NpngGame {
             }
         }
         return (contestTable);
+    }
+
+    /// @notice Get the sum of rewards of 10 best playesr for a contest
+    function getContestRewards(uint _idContest) public view returns (uint) {
+        uint contestRewards;
+        ContestTable[10] memory contestTable;
+        contestTable = getContestTable(_idContest);
+        for (uint i = 0; i < 10; i++) {
+            contestRewards += contestTable[i].prize;
+        }
+        return (contestRewards);
     }
 }
