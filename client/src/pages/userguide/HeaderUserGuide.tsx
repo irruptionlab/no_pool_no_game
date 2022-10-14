@@ -23,7 +23,7 @@ function HeaderUserGuide() {
             <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" className="navbar-no-shadow-container-2 w-nav">
                 <div className="container-regular">
                     <div className="navbar-wrapper">
-                        <a href="/userguide" className="navbar-brand-2 w-nav-brand"><img src="../images/logo-npng.ico" loading="lazy" width="61" alt="" />
+                        <a href="/userguide" className="navbar-brand-2 w-nav-brand"><img src="../images/logo.png" loading="lazy" width="61" alt="" />
                             <div className="text-block-37">No Pool No Game <span className="text-span-3">User Guide</span></div>
                         </a>
                         <nav role="navigation" className="nav-menu-wrapper-2 w-nav-menu">

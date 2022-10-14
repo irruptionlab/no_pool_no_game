@@ -17,8 +17,8 @@ function ModalWithdraw({ network, setModalWithdraw }: { network: Network, setMod
     const [amount, setAmount] = useState(0.00)
 
     const { config } = usePrepareContractWrite({
-        addressOrName: network.npngContract,
-        contractInterface: ABI_Npng,
+        address: network.npngContract,
+        abi: ABI_Npng,
         functionName: 'withdraw',
         args: [amount * 10 ** 6]
     })

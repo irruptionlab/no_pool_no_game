@@ -152,6 +152,42 @@
     {
         "inputs": [
             {
+                "internalType": "address",
+                "name": "_player",
+                "type": "address"
+            }
+        ],
+        "name": "getContestPlayerStatus",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "bool",
+                        "name": "requested",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "played",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "claimed",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct NpngGame.RequestPlaying",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "uint256",
                 "name": "_idContest",
                 "type": "uint256"
@@ -163,6 +199,25 @@
             }
         ],
         "name": "getContestRank",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_idContest",
+                "type": "uint256"
+            }
+        ],
+        "name": "getContestRewards",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -216,7 +271,7 @@
     },
     {
         "inputs": [],
-        "name": "getCurrentContestClaimedRewards",
+        "name": "getEndOfContest",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -229,7 +284,7 @@
     },
     {
         "inputs": [],
-        "name": "getEndOfContest",
+        "name": "getGlobalPrizePool",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -338,27 +393,7 @@
                     },
                     {
                         "internalType": "uint256",
-                        "name": "endContestAavePoolValue",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "prizePool",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "cumulatedPoolPrizes",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "claimedRewards",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "winnersDeposit",
+                        "name": "contestRewards",
                         "type": "uint256"
                     }
                 ],
@@ -433,21 +468,14 @@
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "getWinnersDeposit",
-        "outputs": [
+        "inputs": [
             {
                 "internalType": "uint256",
-                "name": "",
+                "name": "_idContest",
                 "type": "uint256"
             }
         ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "interestEarned",
+        "name": "getWinnersDeposit",
         "outputs": [
             {
                 "internalType": "uint256",

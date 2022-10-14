@@ -3,7 +3,8 @@ import Countdown from "../components/Countdown";
 import ModalPlay from "../components/game/ModalPlay"
 import Prize from "../components/Prize";
 import IdContest from '../components/IdContest'
-import { useAccount, useContractWrite, usePrepareContractWrite } from 'wagmi'
+import PlayButton from "../components/game/PlayButton";
+import { useAccount, useContractRead } from 'wagmi'
 import ABI_Npng from '../components/utils/ABI_Npng.json'
 import { useAddressNetwork } from "../components/utils/useAddressNetwork";
 
@@ -11,20 +12,24 @@ import { useAddressNetwork } from "../components/utils/useAddressNetwork";
 function Play() {
     const [realPlay, setRealPlay] = useState(false)
     const [modalPlay, setModalPlay] = useState(false)
+    const [required, setRequired] = useState(false)
+    const [played, setPlayed] = useState(false)
     const { address } = useAccount();
     const addressNetwork = useAddressNetwork()
 
-    const { config, isSuccess } = usePrepareContractWrite({
-        addressOrName: addressNetwork.npngContract,
-        contractInterface: ABI_Npng,
-        functionName: 'getPlay',
-    })
-    const { write } = useContractWrite({
-        ...config,
+    const { data } = useContractRead({
+        address: addressNetwork.npngContract,
+        abi: ABI_Npng,
+        functionName: 'getContestPlayerStatus',
+        watch: true,
+        args: [address],
         onSuccess(data) {
-            setModalPlay(true)
+            setRequired(data[0])
+            setPlayed(data[1])
         }
     })
+
+    console.log(data)
 
     return (
         <div>
@@ -62,12 +67,9 @@ function Play() {
                             <div className="text-block-22">
                             </div>
                             <div className="div-block-3"></div>
-                            {address && isSuccess && <a href="/" className="button-2 w-button" onClick={(e) => {
-                                e.preventDefault()
-                                setRealPlay(true)
-                                write?.()
-                            }}>Play</a>}
-                            {address && !isSuccess && <a href="/" className="button-2 w-button inactiveLink">No deposit/already played</a>}
+                            {address && required && played && <a href="/" className="button-2 w-button inactiveLink">Already played</a>}
+                            {address && required && !played && <a href="/" className="button-2 w-button inactiveLink">You missed the contest</a>}
+                            {address && !required && !played && <PlayButton setModalPlay={setModalPlay} setRealPlay={setRealPlay} />}
                             {!address && <a href="/" className="button-2 w-button inactiveLink">Please connect</a>}
                             <img src="images/pointillés.png" loading="lazy" height="200" alt="" className="image-5 image5pageplay" />
                             <img src="images/coin-2.png" loading="lazy" width="60" alt="" className="image-4" />

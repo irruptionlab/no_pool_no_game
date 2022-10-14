@@ -10,7 +10,7 @@ function ModalPlay({ realPlay, setModalPlay }: { realPlay: boolean, setModalPlay
 
     return (
         <div className="modal-wrapper">
-            <div className="modal-outside-trigger" onClick={(e) => { setModalPlay(false) }}></div>
+            <div className="modal-outside-trigger"></div>
             <Timer
                 initialTime={0}
                 timeToUpdate={10}

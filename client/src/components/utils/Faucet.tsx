@@ -7,8 +7,8 @@ const Faucet = () => {
     const addressNetwork = useAddressNetwork()
 
     const { config } = usePrepareContractWrite({
-        addressOrName: addressNetwork.usdcContract,
-        contractInterface: ABI_ERC20,
+        address: addressNetwork.usdcContract,
+        abi: ABI_ERC20,
         functionName: 'mint',
         args: [ethers.utils.parseUnits('1000', 6)]
     })

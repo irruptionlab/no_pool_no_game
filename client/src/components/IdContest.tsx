@@ -11,8 +11,8 @@ function IdContest() {
     const addressNetwork = useAddressNetwork()
 
     useContractRead({
-        addressOrName: addressNetwork.npngContract,
-        contractInterface: ABI_Npng,
+        address: addressNetwork.npngContract,
+        abi: ABI_Npng,
         functionName: 'getIdContest',
         onSuccess(data) {
             setIdContest(ethers.utils.formatUnits(data?._hex, 0))

@@ -2,7 +2,7 @@ import { useAccount, usePrepareContractWrite, useContractWrite, useContractRead,
 import { useAddressNetwork } from '../utils/useAddressNetwork'
 import ABI_ERC20 from '../utils/ABI_ERC20.json'
 import ABI_Npng from '../utils/ABI_Npng.json'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { ethers } from 'ethers'
 
 
@@ -10,19 +10,22 @@ function Approve({ amount, amountApproved }: { amount: number, amountApproved: n
     const addressNetwork = useAddressNetwork()
 
     const { config } = usePrepareContractWrite({
-        addressOrName: addressNetwork.usdcContract,
-        contractInterface: ABI_ERC20,
+        address: addressNetwork.usdcContract,
+        abi: ABI_ERC20,
         functionName: 'approve',
         args: [addressNetwork.npngContract, amount * 10 ** 6]
     })
-    const { write } = useContractWrite(config)
+    const { write, isLoading } = useContractWrite(config)
 
     return (
-        <a href="/" className={(!write || amount <= amountApproved) ? "button-4 inactiveLink" : "button-4"} onClick={(e) => {
-            e.preventDefault()
-            write?.()
-        }
-        }>Approve USDC Amount</a>
+        <Fragment>
+            {isLoading && <a href="/" className="button-4 inactiveLink">On progress...</a>}
+            {!isLoading && <a href="/" className={(!write || amount <= amountApproved) ? "button-4 inactiveLink" : "button-4"} onClick={(e) => {
+                e.preventDefault()
+                write?.()
+            }
+            }>Approve USDC Amount</a>}
+        </Fragment>
     )
 }
 
@@ -31,15 +34,15 @@ function Deposit({ setModalDeposit, amount }: { setModalDeposit: React.Dispatch<
     const addressNetwork = useAddressNetwork()
 
     const { config } = usePrepareContractWrite({
-        addressOrName: addressNetwork.npngContract,
-        contractInterface: ABI_Npng,
+        address: addressNetwork.npngContract,
+        abi: ABI_Npng,
         functionName: 'depositOnAave',
         args: [amount * 10 ** 6],
     })
 
     const { write } = useContractWrite({
         ...config,
-        onSettled(data, error) {
+        onSuccess(data) {
             setModalDeposit(false)
         },
     })
@@ -58,9 +61,9 @@ function ModalDeposit({ setModalDeposit, amount }: { setModalDeposit: React.Disp
     const [amountApproved, setAmountApproved] = useState(0)
     const { address } = useAccount();
     const { chain } = useNetwork();
-    const { data } = useContractRead({
-        addressOrName: addressNetwork.usdcContract,
-        contractInterface: ABI_ERC20,
+    useContractRead({
+        address: addressNetwork.usdcContract,
+        abi: ABI_ERC20,
         functionName: 'allowance',
         watch: true,
         args: [address, addressNetwork.npngContract],

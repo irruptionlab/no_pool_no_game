@@ -27,14 +27,14 @@ function Account() {
     useContractReads({
         contracts: [
             {
-                addressOrName: addressNetwork.npngContract,
-                contractInterface: ABI_Npng,
+                address: addressNetwork.npngContract,
+                abi: ABI_Npng,
                 functionName: 'getTotalClaimedRewards',
                 args: [address]
             },
             {
-                addressOrName: addressNetwork.npngContract,
-                contractInterface: ABI_Npng,
+                address: addressNetwork.npngContract,
+                abi: ABI_Npng,
                 functionName: 'getPendingRewards',
                 args: [address]
             },
@@ -140,7 +140,7 @@ function Account() {
             {modalWithdraw && networkName === 'Optimism' && <ModalWithdraw network={optimism} setModalWithdraw={setModalWithdraw} />}
             {modalResult && <ModalResult contest={contest} setModalResult={setModalResult} />}
             {modalClaim && <ModalClaim setModalClaim={setModalClaim} pendingRewards={pendingRewards} />}
-            {modalTotalClaimed && <ModalTotalClaimed setModalTotalClaimed={setModalTotalClaimed} />}
+            {modalTotalClaimed && <ModalTotalClaimed setModalTotalClaimed={setModalTotalClaimed} totalClaimed={totalClaimed} />}
         </div>
     )
 }

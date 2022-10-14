@@ -20,8 +20,8 @@ function UserBalance({ setAmount }: { setAmount: React.Dispatch<React.SetStateAc
     }
 
     useContractRead({
-        addressOrName: addressNetwork.usdcContract,
-        contractInterface: ABI_ERC20,
+        address: addressNetwork.usdcContract,
+        abi: ABI_ERC20,
         functionName: 'balanceOf',
         watch: true,
         chainId: 5,

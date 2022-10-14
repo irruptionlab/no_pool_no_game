@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/perrin/Project/NoPoolNoGame/core/contracts/NpngGame.sol": {
-      "lastModificationDate": 1665505049274,
-      "contentHash": "8b1cbb702558668d9b4b4cd5669659ca",
+      "lastModificationDate": 1665749799513,
+      "contentHash": "1bb643dc8418c210a61888809c87e68c",
       "sourceName": "contracts/NpngGame.sol",
       "solcConfig": {
         "version": "0.8.17",
@@ -149,8 +149,8 @@
       ]
     },
     "/home/perrin/Project/NoPoolNoGame/core/contracts/NpngPool.sol": {
-      "lastModificationDate": 1665666394652,
-      "contentHash": "a7cb65c7fd16e267fc7f818968585454",
+      "lastModificationDate": 1665749869353,
+      "contentHash": "f2b7054f2b9100d152d314bc0c2973a5",
       "sourceName": "contracts/NpngPool.sol",
       "solcConfig": {
         "version": "0.8.17",
@@ -555,6 +555,44 @@
       ],
       "artifacts": [
         "IERC165"
+      ]
+    },
+    "/home/perrin/Project/NoPoolNoGame/core/contracts/test.sol": {
+      "lastModificationDate": 1665749799517,
+      "contentHash": "1bb643dc8418c210a61888809c87e68c",
+      "sourceName": "contracts/test.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/security/Pausable.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.17"
+      ],
+      "artifacts": [
+        "NpngGame"
       ]
     }
   }

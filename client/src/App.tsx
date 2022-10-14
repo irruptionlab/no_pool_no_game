@@ -26,7 +26,7 @@ function App() {
   useEffect(() => {
     if (chain && (chain.id === 5 || chain.id === 10 || chain.id === 80001)) console.log(`connected to ${chain.name}`)
     else switchNetwork?.(10)
-  }, [chain]);
+  }, [chain, switchNetwork]);
 
   return (
     <div className="body">

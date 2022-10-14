@@ -7,8 +7,8 @@ import { useAddressNetwork } from '../utils/useAddressNetwork'
 function Results() {
     const addressNetwork = useAddressNetwork()
     const { data } = useContractRead({
-        addressOrName: addressNetwork.npngContract,
-        contractInterface: ABI_Npng,
+        address: addressNetwork.npngContract,
+        abi: ABI_Npng,
         functionName: 'getListScores',
         onSuccess(data) {
             console.log(ethers.utils.formatUnits(data[0][0]._hex, 0))

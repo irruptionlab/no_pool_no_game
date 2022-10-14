@@ -1,0 +1,107 @@
+strict digraph {
+subgraph cluster_613_Pausable {
+label = "Pausable"
+"613__requirePaused" [label="_requirePaused"]
+"613_constructor" [label="constructor"]
+"613__unpause" [label="_unpause"]
+"613__requireNotPaused" [label="_requireNotPaused"]
+"613_paused" [label="paused"]
+"613__pause" [label="_pause"]
+"613__requireNotPaused" -> "613_paused"
+"613__pause" -> "613__msgSender"
+"613__pause" -> "613_whenNotPaused"
+"613__unpause" -> "613_whenPaused"
+"613__requirePaused" -> "613_paused"
+"613__unpause" -> "613__msgSender"
+}subgraph cluster_2003_NpngGame {
+label = "NpngGame"
+"2003_pause" [label="pause"]
+"2003_getContestRank" [label="getContestRank"]
+"2003_getWinnersDeposit" [label="getWinnersDeposit"]
+"2003_changeRecorder" [label="changeRecorder"]
+"2003_unpause" [label="unpause"]
+"2003_constructor" [label="constructor"]
+"2003_getIdContest" [label="getIdContest"]
+"2003_requestPlaying" [label="requestPlaying"]
+"2003_getEndOfContest" [label="getEndOfContest"]
+"2003_getPlayerStatus" [label="getPlayerStatus"]
+"2003_changeGameFrequence" [label="changeGameFrequence"]
+"2003_changeRecorder" -> "2003_onlyOwner"
+"2003_getWinnersDeposit" -> "2003_getContestRank"
+"2003_unpause" -> "2003_onlyOwner"
+"2003_pause" -> "2003__pause"
+"2003_pause" -> "2003_onlyOwner"
+"2003_changeGameFrequence" -> "2003_onlyOwner"
+"2003_unpause" -> "2003__unpause"
+}subgraph cluster_3252_NpngPool {
+label = "NpngPool"
+"3252_getContestRewards" [label="getContestRewards"]
+"3252_saveScore" [label="saveScore"]
+"3252_depositOnAave" [label="depositOnAave"]
+"3252_getUserBalance" [label="getUserBalance"]
+"3252_getGlobalPrizePool" [label="getGlobalPrizePool"]
+"3252_withdraw" [label="withdraw"]
+"3252_getContestPlayerStatus" [label="getContestPlayerStatus"]
+"3252_getAccountTable" [label="getAccountTable"]
+"3252_claim" [label="claim"]
+"3252_getContestTable" [label="getContestTable"]
+"3252_getPoolStatus" [label="getPoolStatus"]
+"3252_getTotalClaimedRewards" [label="getTotalClaimedRewards"]
+"3252_getRewardsPerPlayer" [label="getRewardsPerPlayer"]
+"3252_changeNpngTokenAddress" [label="changeNpngTokenAddress"]
+"3252_getPendingRewards" [label="getPendingRewards"]
+"3252_getPlay" [label="getPlay"]
+"3252_updateContest" [label="updateContest"]
+"3252_getRemainedUnclaimedRewards" [label="getRemainedUnclaimedRewards"]
+"3252_constructor" [label="constructor"]
+"3252_getContestTable" -> "3252_getRewardsPerPlayer"
+"3252_getContestTable" -> "3252_getContestRank"
+"3252_updateContest" -> "3252_getContestRewards"
+"3252_updateContest" -> "3252_getRemainedUnclaimedRewards"
+"3252_updateContest" -> "3252_getWinnersDeposit"
+"3252_claim" -> "3252_getRewardsPerPlayer"
+"3252_getAccountTable" -> "3252_getRewardsPerPlayer"
+"3252_getRewardsPerPlayer" -> "3252_getContestRank"
+"3252_getPlay" -> "3252_requestPlaying"
+"3252_getPendingRewards" -> "3252_getRewardsPerPlayer"
+"3252_changeNpngTokenAddress" -> "3252_onlyOwner"
+"3252_getContestRewards" -> "3252_getContestTable"
+"3252_getAccountTable" -> "3252_getContestRank"
+}subgraph cluster_1368_Context {
+label = "Context"
+"1368__msgSender" [label="_msgSender"]
+"1368__msgData" [label="_msgData"]
+}subgraph cluster_505_Ownable {
+label = "Ownable"
+"505_owner" [label="owner"]
+"505_renounceOwnership" [label="renounceOwnership"]
+"505_transferOwnership" [label="transferOwnership"]
+"505_constructor" [label="constructor"]
+"505__transferOwnership" [label="_transferOwnership"]
+"505__checkOwner" [label="_checkOwner"]
+"505_transferOwnership" -> "505__transferOwnership"
+"505__checkOwner" -> "505__msgSender"
+"505_constructor" -> "505__transferOwnership"
+"505_renounceOwnership" -> "505__transferOwnership"
+"505_constructor" -> "505__msgSender"
+"505__checkOwner" -> "505_owner"
+"505_transferOwnership" -> "505_onlyOwner"
+"505_renounceOwnership" -> "505_onlyOwner"
+}subgraph cluster_solidity {
+label = "[Solidity]"
+"require(bool,string)" 
+"3252_getRemainedUnclaimedRewards" -> "require(bool,string)"
+"3252_saveScore" -> "require(bool,string)"
+"3252_depositOnAave" -> "require(bool,string)"
+"3252_getRewardsPerPlayer" -> "require(bool,string)"
+"613__requirePaused" -> "require(bool,string)"
+"505_transferOwnership" -> "require(bool,string)"
+"3252_getContestPlayerStatus" -> "require(bool,string)"
+"3252_updateContest" -> "require(bool,string)"
+"505__checkOwner" -> "require(bool,string)"
+"3252_getPlay" -> "require(bool,string)"
+"613__requireNotPaused" -> "require(bool,string)"
+"2003_requestPlaying" -> "require(bool,string)"
+"3252_withdraw" -> "require(bool,string)"
+}
+}

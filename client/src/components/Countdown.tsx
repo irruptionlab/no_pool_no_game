@@ -1,8 +1,8 @@
 import { useContractRead } from 'wagmi'
 import ABI_Npng from './utils/ABI_Npng.json'
-import { goerli } from './utils/contractAddress'
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
+import { useAddressNetwork } from './utils/useAddressNetwork';
 
 const Countdown = () => {
     const [countDown, setCountDown] = useState(0);
@@ -10,11 +10,12 @@ const Countdown = () => {
     const [hours, setHours] = useState(0)
     const [minutes, setMinutes] = useState(0)
     const [seconds, setSeconds] = useState(0)
-    const { data } = useContractRead({
-        addressOrName: goerli.npngContract,
-        contractInterface: ABI_Npng,
+    const addressNetwork = useAddressNetwork();
+
+    useContractRead({
+        address: addressNetwork.npngContract,
+        abi: ABI_Npng,
         functionName: 'getEndOfContest',
-        chainId: 5,
         onSuccess(data) {
             setCountDownDate(parseInt(ethers.utils.formatUnits(data?._hex, 0)) * 1000)
         }

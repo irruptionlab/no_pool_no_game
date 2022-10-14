@@ -64,9 +64,9 @@ contract NpngPool is NpngGame {
     struct PoolStatus {
         uint idContest;
         uint endContestPoolValue;
-        uint globalPrizePool;
+        // uint globalPrizePool;
         uint contestRewards;
-        uint winnersDeposit;
+        // uint winnersDeposit;
     }
 
     struct ContestTable {
@@ -108,9 +108,9 @@ contract NpngPool is NpngGame {
             PoolStatus({
                 idContest: 0,
                 endContestPoolValue: 0,
-                globalPrizePool: 0,
-                contestRewards: 0,
-                winnersDeposit: 0
+                // globalPrizePool: 0,
+                contestRewards: 0
+                // winnersDeposit: 0
             })
         );
     }
@@ -164,24 +164,22 @@ contract NpngPool is NpngGame {
             "No contest update!"
         );
         lastContestTimestamp = block.timestamp;
-        uint currentAavePoolValue = aUsdcToken.balanceOf(address(this));
+        // uint currentAavePoolValue = aUsdcToken.balanceOf(address(this));
+
+        uint currentContestPoolValue = poolStatus[currentIdContest - 1]
+            .endContestPoolValue +
+            currentContestDeposits -
+            currentContestWithdraws +
+            poolStatus[currentIdContest - 1].contestRewards;
 
         /// @notice TD : Add fees in the table for the contest
         poolStatus.push(
             PoolStatus({
                 idContest: currentIdContest,
-                endContestPoolValue: poolStatus[currentIdContest - 1]
-                    .endContestPoolValue +
-                    currentContestDeposits -
-                    currentContestWithdraws +
-                    poolStatus[currentIdContest - 1].contestRewards,
-                globalPrizePool: currentAavePoolValue -
-                    (poolStatus[currentIdContest - 1].endContestPoolValue +
-                        currentContestDeposits -
-                        currentContestWithdraws +
-                        poolStatus[currentIdContest - 1].contestRewards),
-                contestRewards: getContestRewards(currentIdContest),
-                winnersDeposit: getWinnersDeposit()
+                endContestPoolValue: currentContestPoolValue,
+                // globalPrizePool: currentAavePoolValue - currentContestPoolValue,
+                contestRewards: getContestRewards(currentIdContest)
+                // winnersDeposit: getWinnersDeposit()
             })
         );
         currentContestDeposits = 0;
@@ -228,13 +226,7 @@ contract NpngPool is NpngGame {
     function claim() public {
         uint onClaiming = 0;
         uint reward;
-        uint limitContest;
-        if (currentIdContest - 60 > 0) {
-            limitContest = currentIdContest - 60;
-        } else {
-            limitContest = 0;
-        }
-        for (uint i = currentIdContest - 1; i > limitContest; i--) {
+        for (uint i = currentIdContest - 1; i > 0; i--) {
             if (contestPlayerStatus[msg.sender][i].claimed == true) {
                 break;
             } else {
@@ -253,7 +245,7 @@ contract NpngPool is NpngGame {
 
     function getRemainedUnclaimedRewards() internal {
         require(msg.sender == recorderAddress, "You are not allowed to claim!");
-        if (currentIdContest - 60 > 0) {
+        if (currentIdContest > 60) {
             uint unclaimed = remainedUnclaimedRewardsPerContest[
                 currentIdContest - 60
             ];
@@ -280,11 +272,12 @@ contract NpngPool is NpngGame {
     /// @notice Calculate the interest by substracting the Pool balance to the current balance on Aave
     function getGlobalPrizePool() public view returns (uint) {
         uint currentAavePoolValue = aUsdcToken.balanceOf(address(this));
-        return (currentAavePoolValue -
-            (poolStatus[currentIdContest - 1].endContestPoolValue +
-                currentContestDeposits -
-                currentContestWithdraws +
-                poolStatus[currentIdContest - 1].contestRewards));
+        uint currentContestPoolValue = poolStatus[currentIdContest - 1]
+            .endContestPoolValue +
+            currentContestDeposits -
+            currentContestWithdraws +
+            poolStatus[currentIdContest - 1].contestRewards;
+        return (currentAavePoolValue - currentContestPoolValue);
     }
 
     /// @notice Calculate the reward per player and contest based on his score
@@ -293,10 +286,10 @@ contract NpngPool is NpngGame {
         view
         returns (uint)
     {
-        require(
-            currentIdContest > _idContest,
-            "Not possible on unclosed contest"
-        );
+        // require(
+        //     currentIdContest > _idContest,
+        //     "Not possible on unclosed contest"
+        // );
         uint reward;
         uint rank = getContestRank(_idContest, _player);
         uint balancePlayer;
@@ -310,9 +303,8 @@ contract NpngPool is NpngGame {
             }
         }
         if (rank <= 10) {
-            reward = ((poolStatus[_idContest].globalPrizePool *
-                ((balancePlayer * 10**6) /
-                    poolStatus[_idContest].winnersDeposit) *
+            reward = ((getGlobalPrizePool() *
+                ((balancePlayer * 10**6) / getWinnersDeposit(_idContest)) *
                 (101 - rank)**5) / 10**16);
         } else {
             reward = 0;
@@ -327,13 +319,7 @@ contract NpngPool is NpngGame {
     /// @notice Get the pending rewards of a player. These rewards can be claimed
     function getPendingRewards(address _account) public view returns (uint) {
         uint onClaiming = 0;
-        uint limitContest;
-        if (currentIdContest - 60 > 0) {
-            limitContest = currentIdContest - 60;
-        } else {
-            limitContest = 0;
-        }
-        for (uint i = currentIdContest - 1; i > limitContest; i--) {
+        for (uint i = currentIdContest - 1; i > 0; i--) {
             if (contestPlayerStatus[_account][i].claimed == true) {
                 break;
             } else {
@@ -410,5 +396,16 @@ contract NpngPool is NpngGame {
             contestRewards += contestTable[i].prize;
         }
         return (contestRewards);
+    }
+
+    function getContestPlayerStatus(address _player)
+        public
+        view
+        returns (RequestPlaying memory)
+    {
+        require(balanceOfUser[_player] > 0, "No deposit");
+        RequestPlaying memory requestPlaying;
+        requestPlaying = contestPlayerStatus[_player][currentIdContest];
+        return (requestPlaying);
     }
 }
