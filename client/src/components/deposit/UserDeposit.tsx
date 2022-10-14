@@ -16,8 +16,8 @@ function UserDeposit() {
     const addressNetwork = useAddressNetwork()
 
     useContractRead({
-        address: addressNetwork.npngContract,
-        abi: ABI_Npng,
+        addressOrName: addressNetwork.npngContract,
+        contractInterface: ABI_Npng,
         functionName: 'getUserBalance',
         chainId: 5,
         watch: true,

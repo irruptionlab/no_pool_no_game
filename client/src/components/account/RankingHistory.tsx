@@ -14,8 +14,8 @@ function RankingHistory({ setModalResult, setContest }:
     const addressNetwork = useAddressNetwork()
 
     const { data } = useContractRead({
-        address: addressNetwork.npngContract,
-        abi: ABI_Npng,
+        addressOrName: addressNetwork.npngContract,
+        contractInterface: ABI_Npng,
         functionName: 'getAccountTable',
         args: [address]
     })

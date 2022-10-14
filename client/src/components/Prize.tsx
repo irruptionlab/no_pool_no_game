@@ -8,8 +8,8 @@ function Prize() {
     const [dailyPrize, setDailyPrize] = useState(0)
     const addressNetwork = useAddressNetwork()
     useContractRead({
-        address: addressNetwork.npngContract,
-        abi: ABI_NPNG,
+        addressOrName: addressNetwork.npngContract,
+        contractInterface: ABI_NPNG,
         functionName: 'getGlobalPrizePool',
         onSuccess(data) {
             setDailyPrize(parseFloat(ethers.utils.formatUnits(data?._hex, 6)))

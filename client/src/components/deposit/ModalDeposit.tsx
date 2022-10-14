@@ -10,8 +10,8 @@ function Approve({ amount, amountApproved }: { amount: number, amountApproved: n
     const addressNetwork = useAddressNetwork()
 
     const { config } = usePrepareContractWrite({
-        address: addressNetwork.usdcContract,
-        abi: ABI_ERC20,
+        addressOrName: addressNetwork.usdcContract,
+        contractInterface: ABI_ERC20,
         functionName: 'approve',
         args: [addressNetwork.npngContract, amount * 10 ** 6]
     })
@@ -34,8 +34,8 @@ function Deposit({ setModalDeposit, amount }: { setModalDeposit: React.Dispatch<
     const addressNetwork = useAddressNetwork()
 
     const { config } = usePrepareContractWrite({
-        address: addressNetwork.npngContract,
-        abi: ABI_Npng,
+        addressOrName: addressNetwork.npngContract,
+        contractInterface: ABI_Npng,
         functionName: 'depositOnAave',
         args: [amount * 10 ** 6],
     })
@@ -62,8 +62,8 @@ function ModalDeposit({ setModalDeposit, amount }: { setModalDeposit: React.Disp
     const { address } = useAccount();
     const { chain } = useNetwork();
     useContractRead({
-        address: addressNetwork.usdcContract,
-        abi: ABI_ERC20,
+        addressOrName: addressNetwork.usdcContract,
+        contractInterface: ABI_ERC20,
         functionName: 'allowance',
         watch: true,
         args: [address, addressNetwork.npngContract],

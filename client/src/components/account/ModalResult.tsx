@@ -11,8 +11,8 @@ function ModalResult({ contest, setModalResult }:
     }) {
 
     const { data } = useContractRead({
-        address: goerli.npngContract,
-        abi: ABI_Npng,
+        addressOrName: goerli.npngContract,
+        contractInterface: ABI_Npng,
         functionName: 'getContestTable',
         args: [contest],
     })

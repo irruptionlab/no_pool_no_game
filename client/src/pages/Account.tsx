@@ -27,14 +27,14 @@ function Account() {
     useContractReads({
         contracts: [
             {
-                address: addressNetwork.npngContract,
-                abi: ABI_Npng,
+                addressOrName: addressNetwork.npngContract,
+                contractInterface: ABI_Npng,
                 functionName: 'getTotalClaimedRewards',
                 args: [address]
             },
             {
-                address: addressNetwork.npngContract,
-                abi: ABI_Npng,
+                addressOrName: addressNetwork.npngContract,
+                contractInterface: ABI_Npng,
                 functionName: 'getPendingRewards',
                 args: [address]
             },

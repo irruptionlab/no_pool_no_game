@@ -13,8 +13,8 @@ const Countdown = () => {
     const addressNetwork = useAddressNetwork();
 
     useContractRead({
-        address: addressNetwork.npngContract,
-        abi: ABI_Npng,
+        addressOrName: addressNetwork.npngContract,
+        contractInterface: ABI_Npng,
         functionName: 'getEndOfContest',
         onSuccess(data) {
             setCountDownDate(parseInt(ethers.utils.formatUnits(data?._hex, 0)) * 1000)

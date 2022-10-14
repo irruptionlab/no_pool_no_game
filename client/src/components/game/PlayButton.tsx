@@ -8,8 +8,8 @@ function PlayButton({ setModalPlay, setRealPlay }: { setModalPlay: React.Dispatc
     const addressNetwork = useAddressNetwork()
 
     const { config, isSuccess } = usePrepareContractWrite({
-        address: addressNetwork.npngContract,
-        abi: ABI_Npng,
+        addressOrName: addressNetwork.npngContract,
+        contractInterface: ABI_Npng,
         functionName: 'getPlay',
     })
     const { write } = useContractWrite({

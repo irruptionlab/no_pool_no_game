@@ -7,8 +7,8 @@ function ModalClaim({ setModalClaim, pendingRewards }: { setModalClaim: React.Di
     const { chain } = useNetwork();
 
     const { config } = usePrepareContractWrite({
-        address: addressNetwork.npngContract,
-        abi: ABI_Npng,
+        addressOrName: addressNetwork.npngContract,
+        contractInterface: ABI_Npng,
         functionName: 'claim',
     })
     const { write } = useContractWrite(config)

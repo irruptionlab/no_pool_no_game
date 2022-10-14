@@ -18,8 +18,8 @@ function Play() {
     const addressNetwork = useAddressNetwork()
 
     const { data } = useContractRead({
-        address: addressNetwork.npngContract,
-        abi: ABI_Npng,
+        addressOrName: addressNetwork.npngContract,
+        contractInterface: ABI_Npng,
         functionName: 'getContestPlayerStatus',
         watch: true,
         args: [address],
