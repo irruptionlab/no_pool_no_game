@@ -1,12 +1,12 @@
-export const BACKEND_ADDR = "https://nopoolnogame.herokuapp.com"
-// export const BACKEND_ADDR = "http://localhost:5000"
+// export const BACKEND_ADDR = "https://nopoolnogame.herokuapp.com"
+export const BACKEND_ADDR = "http://localhost:5000"
 
 export const goerli = {
     name: 'Goerli',
     usdcContract: '0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43',
     aavePoolContract: '0x368EedF3f56ad10b9bC57eed4Dac65B26Bb667f6',
     aUsdcContract: '0x1Ee669290939f8a8864497Af3BC83728715265FF',
-    npngContract: '0xB168C0782f963213240eDb13c414dF63102Fd583',
+    npngContract: '0x8695d9EF20e642cd1a511254779E69754E74aEcC',
     npngToken: '0x8ad6d963600F5c45DaBd5fF6faA04d51A6D549f0'
 }
 

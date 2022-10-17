@@ -152,42 +152,6 @@
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "_player",
-                "type": "address"
-            }
-        ],
-        "name": "getContestPlayerStatus",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "bool",
-                        "name": "requested",
-                        "type": "bool"
-                    },
-                    {
-                        "internalType": "bool",
-                        "name": "played",
-                        "type": "bool"
-                    },
-                    {
-                        "internalType": "bool",
-                        "name": "claimed",
-                        "type": "bool"
-                    }
-                ],
-                "internalType": "struct NpngGame.RequestPlaying",
-                "name": "",
-                "type": "tuple"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
                 "internalType": "uint256",
                 "name": "_idContest",
                 "type": "uint256"
@@ -199,25 +163,6 @@
             }
         ],
         "name": "getContestRank",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_idContest",
-                "type": "uint256"
-            }
-        ],
-        "name": "getContestRewards",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -261,7 +206,7 @@
                         "type": "uint256"
                     }
                 ],
-                "internalType": "struct NpngPool.ContestTable[10]",
+                "internalType": "struct NpngGame.ContestTable[10]",
                 "name": "",
                 "type": "tuple[10]"
             }
@@ -272,19 +217,6 @@
     {
         "inputs": [],
         "name": "getEndOfContest",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getGlobalPrizePool",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -309,25 +241,6 @@
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_account",
-                "type": "address"
-            }
-        ],
-        "name": "getPendingRewards",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
         "inputs": [],
         "name": "getPlay",
         "outputs": [],
@@ -338,7 +251,7 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "_account",
+                "name": "_player",
                 "type": "address"
             },
             {
@@ -347,59 +260,12 @@
                 "type": "uint256"
             }
         ],
-        "name": "getPlayerStatus",
+        "name": "getRewardPerPlayerPerContest",
         "outputs": [
             {
-                "components": [
-                    {
-                        "internalType": "bool",
-                        "name": "requested",
-                        "type": "bool"
-                    },
-                    {
-                        "internalType": "bool",
-                        "name": "played",
-                        "type": "bool"
-                    },
-                    {
-                        "internalType": "bool",
-                        "name": "claimed",
-                        "type": "bool"
-                    }
-                ],
-                "internalType": "struct NpngGame.RequestPlaying",
+                "internalType": "uint256",
                 "name": "",
-                "type": "tuple"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getPoolStatus",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "uint256",
-                        "name": "idContest",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "endContestPoolValue",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "contestRewards",
-                        "type": "uint256"
-                    }
-                ],
-                "internalType": "struct NpngPool.PoolStatus[]",
-                "name": "",
-                "type": "tuple[]"
+                "type": "uint256"
             }
         ],
         "stateMutability": "view",
@@ -413,12 +279,12 @@
                 "type": "uint256"
             },
             {
-                "internalType": "address",
-                "name": "_player",
-                "type": "address"
+                "internalType": "uint256",
+                "name": "_globalPrizePool",
+                "type": "uint256"
             }
         ],
-        "name": "getRewardsPerPlayer",
+        "name": "getRewardsPerContest",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -475,31 +341,29 @@
                 "type": "uint256"
             }
         ],
-        "name": "getWinnersDeposit",
+        "name": "getWinnersInfo",
         "outputs": [
             {
-                "internalType": "uint256",
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "player",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "score",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "balancePlayer",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct NpngGame.ContestsResult[11]",
                 "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "numberOfPlayersPerContest",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
+                "type": "tuple[11]"
             }
         ],
         "stateMutability": "view",

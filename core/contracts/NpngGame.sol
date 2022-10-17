@@ -13,7 +13,6 @@ contract NpngGame is Pausable, Ownable {
     /// @notice struct for saving results of Player on each contest
     /// @notice we record the balance of the Player for the Contest to avoid big deposit after winning
     struct ContestsResult {
-        uint idContest;
         address player;
         uint score;
         uint balancePlayer;
@@ -27,6 +26,13 @@ contract NpngGame is Pausable, Ownable {
         bool claimed;
     }
 
+    struct ContestTable {
+        uint rank;
+        uint score;
+        address player;
+        uint prize;
+    }
+
     struct AccountTable {
         uint idContest;
         uint rank;
@@ -35,9 +41,9 @@ contract NpngGame is Pausable, Ownable {
     }
 
     /// @notice Array of scores per player and per contest
-    ContestsResult[] internal contestsResult;
+    mapping(uint => ContestsResult[]) internal contestsResult;
 
-    mapping(uint => uint) public numberOfPlayersPerContest;
+    mapping(uint => uint) internal numberOfPlayersPerContest;
 
     /// @notice mapping for status of the player for each contest
     mapping(address => mapping(uint => RequestPlaying))
@@ -45,9 +51,6 @@ contract NpngGame is Pausable, Ownable {
 
     /// @notice Frequence of contests
     uint internal gameFrequence;
-
-    /// @notice balance of total claimed rewards per player
-    mapping(address => uint) internal balanceOfClaimedRewards;
 
     uint internal currentIdContest;
     uint internal lastContestTimestamp;
@@ -60,7 +63,7 @@ contract NpngGame is Pausable, Ownable {
         lastContestTimestamp = block.timestamp;
         currentIdContest = 1;
         //1 week = 604800s ; 1 day = 86400s ; 5 minutes = 300s
-        gameFrequence = 3600;
+        gameFrequence = 86400;
         recorderAddress = 0x000000000000000000000000000000000000dEaD;
     }
 
@@ -119,51 +122,23 @@ contract NpngGame is Pausable, Ownable {
         uint rank = 1;
         /// @notice Find the index of the player in the contest
         /// @notice if no index found, rank=0
-        for (uint i = 0; i < contestsResult.length; i++) {
-            if (
-                _idContest == contestsResult[i].idContest &&
-                _player == contestsResult[i].player
-            ) {
+        for (uint i = 0; i < contestsResult[_idContest].length; i++) {
+            if (_player == contestsResult[_idContest][i].player) {
                 playerIndex = i;
-                playerScore = contestsResult[i].score;
+                playerScore = contestsResult[_idContest][i].score;
                 break;
             }
-            if (i + 1 == contestsResult.length) {
+            if (i + 1 == contestsResult[_idContest].length) {
                 return (0);
             }
         }
         /// @notice rank the player from his score,
         /// @notice start with rank 1, increment if a better score is found
-        for (uint i = 0; i < contestsResult.length; i++) {
-            if (
-                _idContest == contestsResult[i].idContest &&
-                playerScore > contestsResult[i].score
-            ) {
+        for (uint i = 0; i < contestsResult[_idContest].length; i++) {
+            if (playerScore > contestsResult[_idContest][i].score) {
                 rank++;
             }
         }
         return (rank);
-    }
-
-    /// @notice Get the sum of deposit of 10 winners for calculation of rewards distribution
-    function getWinnersDeposit(uint _idContest) public view returns (uint) {
-        uint winnersDeposit = 0;
-        for (uint i = 0; i < contestsResult.length; i++) {
-            if (
-                _idContest == contestsResult[i].idContest &&
-                getContestRank(_idContest, contestsResult[i].player) <= 10
-            ) {
-                winnersDeposit += contestsResult[i].balancePlayer;
-            }
-        }
-        return (winnersDeposit);
-    }
-
-    function getPlayerStatus(address _account, uint _idContest)
-        public
-        view
-        returns (RequestPlaying memory)
-    {
-        return (contestPlayerStatus[_account][_idContest]);
     }
 }

@@ -1,9 +1,0 @@
-strict digraph {
-subgraph cluster_2099_PoolAave {
-label = "PoolAave"
-"2099_supply" [label="supply"]
-"2099_withdraw" [label="withdraw"]
-}subgraph cluster_solidity {
-label = "[Solidity]"
-}
-}
