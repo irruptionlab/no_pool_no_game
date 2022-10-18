@@ -1,5 +1,5 @@
-// export const BACKEND_ADDR = "https://nopoolnogame.herokuapp.com"
-export const BACKEND_ADDR = "http://localhost:5000"
+export const BACKEND_ADDR = "https://nopoolnogame.herokuapp.com"
+// export const BACKEND_ADDR = "http://localhost:5000"
 
 export const goerli = {
     name: 'Goerli',
