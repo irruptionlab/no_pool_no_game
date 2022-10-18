@@ -204,6 +204,7 @@ contract NpngPool is NpngGame {
         numberOfPlayersPerContest[currentIdContest]++;
     }
 
+    /// @notice claim the pending rewards
     function claim() public {
         uint onClaiming = 0;
         uint reward;
@@ -238,6 +239,7 @@ contract NpngPool is NpngGame {
         return (balanceOfClaimedRewards[_account]);
     }
 
+    /// @notice get addresses, scores and deposits of top 10 players for a contest
     function getWinnersInfo(uint _idContest)
         public
         view
@@ -251,7 +253,7 @@ contract NpngPool is NpngGame {
             playerScore = contestsResult[_idContest][i].score;
             uint rank = 1;
             for (uint j = 0; j < contestsResult[_idContest].length; j++) {
-                if (playerScore < contestsResult[_idContest][j].score) {
+                if (playerScore > contestsResult[_idContest][j].score) {
                     rank++;
                 }
             }
@@ -267,6 +269,7 @@ contract NpngPool is NpngGame {
         return (winnersRank);
     }
 
+    /// @notice for each contest, get the cumimlated rewards of the top 10 players
     function getRewardsPerContest(uint _idContest, uint _globalPrizePool)
         public
         view
@@ -284,6 +287,7 @@ contract NpngPool is NpngGame {
         return (totalRewards);
     }
 
+    /// @notice for each player, get his rewards for a specific contest
     function getRewardPerPlayerPerContest(address _player, uint _idContest)
         public
         view
@@ -364,9 +368,32 @@ contract NpngPool is NpngGame {
             contestTable[i].prize =
                 (((endContest[_idContest].prizePool *
                     winnersRank[j].balancePlayer *
-                    10**6) / winnersDeposit) * (101 - i)**5) /
+                    10**6) / winnersDeposit) * (101 - j)**5) /
                 10**16;
         }
         return (contestTable);
+    }
+
+    /// @notice get the Prize Pool of the cinnrent contest
+    function getGlobalPrizePool() public view returns (uint) {
+        uint contestPoolValue = endContest[currentIdContest - 1].poolValue +
+            currentContestDeposits -
+            currentContestWithdraws +
+            endContest[currentIdContest - 1].rewards;
+        uint aavePoolValue = aUsdcToken.balanceOf(address(this));
+        return (aavePoolValue - contestPoolValue);
+    }
+
+    /// @notice Get the pending rewards of a player. These rewards can be claimed
+    function getPendingRewards(address _account) public view returns (uint) {
+        uint onClaiming = 0;
+        for (uint i = currentIdContest - 1; i > 0; i--) {
+            if (contestPlayerStatus[_account][i].claimed == true) {
+                break;
+            } else {
+                onClaiming += getRewardPerPlayerPerContest(_account, i);
+            }
+        }
+        return (onClaiming);
     }
 }

@@ -17,7 +17,7 @@ function Play() {
     const { address } = useAccount();
     const addressNetwork = useAddressNetwork()
 
-    const { data } = useContractRead({
+    useContractRead({
         addressOrName: addressNetwork.npngContract,
         contractInterface: ABI_Npng,
         functionName: 'getContestPlayerStatus',
@@ -28,8 +28,6 @@ function Play() {
             setPlayed(data[1])
         }
     })
-
-    console.log(data)
 
     return (
         <div>
