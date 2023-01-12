@@ -33,7 +33,7 @@ function Footer() {
                 </div>
                 <div className="footer-divider-two"></div>
                 <div className="footer-bottom">
-                    <div className="footer-copyright">© 2022 Powered by <a href="https://irruption-lab.webflow.io/" target="_blank" rel="noreferrer" className="link-60">Irruption Lab</a></div>
+                    <div className="footer-copyright">© 2022 Powered by <a href="https://irruptionlab.com" target="_blank" rel="noreferrer" className="link-60">Irruption Lab</a></div>
                 </div>
             </div>
         </section >
